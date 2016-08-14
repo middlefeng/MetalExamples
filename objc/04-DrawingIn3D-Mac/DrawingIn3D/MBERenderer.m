@@ -150,6 +150,8 @@ typedef struct
 - (void)drawInView:(MBEMetalView *)view
 {
     dispatch_semaphore_wait(self.displaySemaphore, DISPATCH_TIME_FOREVER);
+    
+    NSLog(@"Schedule.");
 
     view.clearColor = MTLClearColorMake(0.95, 0.95, 0.95, 1);
 
@@ -165,7 +167,7 @@ typedef struct
     [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
     [renderPass setCullMode:MTLCullModeBack];
 
-    const NSUInteger uniformBufferOffset = sizeof(MBEUniforms) * self.bufferIndex;
+    const NSUInteger uniformBufferOffset = 0;// sizeof(MBEUniforms) * self.bufferIndex;
 
     [renderPass setVertexBuffer:self.vertexBuffer offset:0 atIndex:0];
     [renderPass setVertexBuffer:self.uniformBuffer offset:uniformBufferOffset atIndex:1];
@@ -183,6 +185,7 @@ typedef struct
     [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer) {
         self.bufferIndex = (self.bufferIndex + 1) % MBEInFlightBufferCount;
         dispatch_semaphore_signal(self.displaySemaphore);
+        NSLog(@"Present");
     }];
     
     [commandBuffer commit];

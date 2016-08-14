@@ -1,30 +1,69 @@
+
 #import "MBEMetalView.h"
+#import "MBERenderer.h"
 
 @interface MBEMetalView ()
 @property (strong) id<CAMetalDrawable> currentDrawable;
 @property (assign) NSTimeInterval frameDuration;
 @property (strong) id<MTLTexture> depthTexture;
-@property (strong) CADisplayLink *displayLink;
+
+@property (nonatomic, strong) MBERenderer *renderer;
+// @property (strong) CADisplayLink *displayLink;
 @end
 
 @implementation MBEMetalView
 
-+ (Class)layerClass
+- (CALayer*)makeBackingLayer
 {
-    return [CAMetalLayer class];
+    return [CAMetalLayer new];
 }
 
 - (CAMetalLayer *)metalLayer
 {
-    return (CAMetalLayer *)self.layer;
+    CAMetalLayer* layer = (CAMetalLayer *)self.layer;
+    return layer;
+}
+
+- (void)awakeFromNib
+{
+    [self setWantsLayer:YES];
+    [self commonInit];
+    self.metalLayer.device = MTLCreateSystemDefaultDevice();
+    
+    // During the first layout pass, we will not be in a view hierarchy, so we guess our scale
+    CGFloat scale = [[NSScreen mainScreen] backingScaleFactor];
+    
+    /*
+     // If we've moved to a window by the time our frame is being set, we can take its scale as our own
+     if (self.window)
+     {
+     scale = self.window.screen.scale;
+     }
+     */
+    
+    CGSize drawableSize = self.bounds.size;
+    
+    // Since drawable size is in pixels, we need to multiply by the scale to move from points to pixels
+    drawableSize.width *= scale;
+    drawableSize.height *= scale;
+    
+    self.metalLayer.drawableSize = drawableSize;
+    
+    [self makeDepthTexture];
+    
+    NSTimer* timer = [NSTimer timerWithTimeInterval:1.0/60.0f
+                                             target:self
+                                           selector:@selector(render)
+                                           userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if ((self = [super initWithCoder:aDecoder]))
     {
-        [self commonInit];
-        self.metalLayer.device = MTLCreateSystemDefaultDevice();
+        //[self commonInit];
+        //self.metalLayer.device = MTLCreateSystemDefaultDevice();
     }
 
     return self;
@@ -45,22 +84,29 @@
 {
     _preferredFramesPerSecond = 60;
     _clearColor = MTLClearColorMake(1, 1, 1, 1);
+    
+    self.renderer = [MBERenderer new];
+    self.delegate = self.renderer;
 
+    [self setWantsLayer:YES];
     self.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
 }
+
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
     
     // During the first layout pass, we will not be in a view hierarchy, so we guess our scale
-    CGFloat scale = [UIScreen mainScreen].scale;
+    CGFloat scale = [[NSScreen mainScreen] backingScaleFactor];
     
-    // If we've moved to a window by the time our frame is being set, we can take its scale as our own
+    /*
+     // If we've moved to a window by the time our frame is being set, we can take its scale as our own
     if (self.window)
     {
         scale = self.window.screen.scale;
     }
+     */
     
     CGSize drawableSize = self.bounds.size;
     
@@ -83,6 +129,7 @@
     return self.metalLayer.pixelFormat;
 }
 
+/*
 - (void)didMoveToWindow
 {
     const NSTimeInterval idealFrameDuration = (1.0 / 60);
@@ -102,11 +149,26 @@
         self.displayLink = nil;
     }
 }
+*/
 
-- (void)displayLinkDidFire:(CADisplayLink *)displayLink
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    NSLog(@"Test.");
+    [self render];
+}
+
+
+- (void)drawRect:(NSRect)dirtyRect
+{
+    [self render];
+}
+
+
+- (void)render
 {
     self.currentDrawable = [self.metalLayer nextDrawable];
-    self.frameDuration = displayLink.duration;
+    self.frameDuration = 0.01; // displayLink.duration;
 
     if ([self.delegate respondsToSelector:@selector(drawInView:)])
     {
@@ -125,10 +187,13 @@
                                                                                         width:drawableSize.width
                                                                                        height:drawableSize.height
                                                                                     mipmapped:NO];
+        desc.resourceOptions = MTLResourceStorageModePrivate;
+        desc.usage = MTLTextureUsageRenderTarget;
 
         self.depthTexture = [self.metalLayer.device newTextureWithDescriptor:desc];
     }
 }
+
 
 - (MTLRenderPassDescriptor *)currentRenderPassDescriptor
 {
