@@ -13,7 +13,7 @@
 		2CE1AD3D1D603E5F00081E9D /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CE1AD3B1D603E5F00081E9D /* MainMenu.xib */; };
 		2CE1AD481D603EBE00081E9D /* MBEMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1AD451D603EBE00081E9D /* MBEMetalView.m */; };
 		2CE1AD491D603EBE00081E9D /* MBERenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1AD471D603EBE00081E9D /* MBERenderer.m */; };
-		2CE1AD4C1D60452300081E9D /* MBEMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1AD4B1D60452300081E9D /* MBEMathUtilities.m */; };
+		2CE1AD4C1D60452300081E9D /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1AD4B1D60452300081E9D /* MBEMathUtilities.cpp */; };
 		2CE1AD4E1D60461F00081E9D /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2CE1AD4D1D60461F00081E9D /* Shaders.metal */; };
 /* End PBXBuildFile section */
 
@@ -30,7 +30,7 @@
 		2CE1AD461D603EBE00081E9D /* MBERenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBERenderer.h; sourceTree = "<group>"; };
 		2CE1AD471D603EBE00081E9D /* MBERenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBERenderer.m; sourceTree = "<group>"; };
 		2CE1AD4A1D60452300081E9D /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
-		2CE1AD4B1D60452300081E9D /* MBEMathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMathUtilities.m; sourceTree = "<group>"; };
+		2CE1AD4B1D60452300081E9D /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
 		2CE1AD4D1D60461F00081E9D /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,7 +73,7 @@
 				2CE1AD461D603EBE00081E9D /* MBERenderer.h */,
 				2CE1AD471D603EBE00081E9D /* MBERenderer.m */,
 				2CE1AD4A1D60452300081E9D /* MBEMathUtilities.h */,
-				2CE1AD4B1D60452300081E9D /* MBEMathUtilities.m */,
+				2CE1AD4B1D60452300081E9D /* MBEMathUtilities.cpp */,
 				2CE1AD4D1D60461F00081E9D /* Shaders.metal */,
 				2CE1AD3E1D603E5F00081E9D /* Info.plist */,
 				2CE1AD361D603E5F00081E9D /* Supporting Files */,
@@ -161,7 +161,7 @@
 				2CE1AD4E1D60461F00081E9D /* Shaders.metal in Sources */,
 				2CE1AD381D603E5F00081E9D /* main.m in Sources */,
 				2CE1AD481D603EBE00081E9D /* MBEMetalView.m in Sources */,
-				2CE1AD4C1D60452300081E9D /* MBEMathUtilities.m in Sources */,
+				2CE1AD4C1D60452300081E9D /* MBEMathUtilities.cpp in Sources */,
 				2CE1AD351D603E5F00081E9D /* AppDelegate.m in Sources */,
 				2CE1AD491D603EBE00081E9D /* MBERenderer.m in Sources */,
 			);
@@ -267,6 +267,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = glm;
 				INFOPLIST_FILE = DrawingIn3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.DrawingIn3D;
@@ -279,6 +280,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = glm;
 				INFOPLIST_FILE = DrawingIn3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.DrawingIn3D;
