@@ -151,8 +151,6 @@ typedef struct
 {
     dispatch_semaphore_wait(self.displaySemaphore, DISPATCH_TIME_FOREVER);
     
-    NSLog(@"Schedule.");
-
     view.clearColor = MTLClearColorMake(0.95, 0.95, 0.95, 1);
 
     [self updateUniformsForView:view duration:view.frameDuration];
@@ -185,7 +183,6 @@ typedef struct
     [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer) {
         self.bufferIndex = (self.bufferIndex + 1) % MBEInFlightBufferCount;
         dispatch_semaphore_signal(self.displaySemaphore);
-        NSLog(@"Present");
     }];
     
     [commandBuffer commit];
