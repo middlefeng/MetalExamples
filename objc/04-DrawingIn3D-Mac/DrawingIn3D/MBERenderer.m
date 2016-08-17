@@ -25,7 +25,7 @@ typedef struct
 @property (strong) id<MTLDevice> device;
 @property (strong) id<MTLBuffer> vertexBuffer;
 @property (strong) id<MTLBuffer> indexBuffer;
-@property (strong) id<MTLBuffer> uniformBuffer;
+@property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
 @property (strong) id<MTLCommandQueue> commandQueue;
 @property (strong) id<MTLRenderPipelineState> renderPipelineState;
 @property (strong) id<MTLDepthStencilState> depthStencilState;
@@ -112,9 +112,19 @@ typedef struct
                                            options:MTLResourceOptionCPUCacheModeDefault];
     [_indexBuffer setLabel:@"Indices"];
 
-    _uniformBuffer = [self.device newBufferWithLength:sizeof(MBEUniforms) * MBEInFlightBufferCount
-                                              options:MTLResourceOptionCPUCacheModeDefault];
-    [_uniformBuffer setLabel:@"Uniforms"];
+    id<MTLBuffer> buffers[MBEInFlightBufferCount];
+    for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
+    {
+        id<MTLBuffer> uniformBuffer = [self.device newBufferWithLength:sizeof(MBEUniforms)
+                                                               options:MTLResourceOptionCPUCacheModeDefault];
+        buffers[i] = uniformBuffer;
+        
+        NSString* label = [NSString stringWithFormat:@"Uniforms %lu", i];
+        [uniformBuffer setLabel:label];
+    }
+    _uniformBuffers = [[NSArray alloc] initWithObjects:buffers[0],
+                                                       buffers[1],
+                                                       buffers[2], nil];
 }
 
 - (void)updateUniformsForView:(MBEMetalView *)view duration:(NSTimeInterval)duration
@@ -143,8 +153,7 @@ typedef struct
     MBEUniforms uniforms;
     uniforms.modelViewProjectionMatrix = matrix_multiply(projectionMatrix, matrix_multiply(viewMatrix, modelMatrix));
 
-    const NSUInteger uniformBufferOffset = sizeof(MBEUniforms) * self.bufferIndex;
-    memcpy([self.uniformBuffer contents] + uniformBufferOffset, &uniforms, sizeof(uniforms));
+    memcpy([self.uniformBuffers[self.bufferIndex] contents], &uniforms, sizeof(uniforms));
 }
 
 - (void)drawInView:(MBEMetalView *)view
@@ -165,10 +174,8 @@ typedef struct
     [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
     [renderPass setCullMode:MTLCullModeBack];
 
-    const NSUInteger uniformBufferOffset = 0;// sizeof(MBEUniforms) * self.bufferIndex;
-
     [renderPass setVertexBuffer:self.vertexBuffer offset:0 atIndex:0];
-    [renderPass setVertexBuffer:self.uniformBuffer offset:uniformBufferOffset atIndex:1];
+    [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
 
     [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
                            indexCount:[self.indexBuffer length] / sizeof(MBEIndex)
