@@ -72,7 +72,7 @@
 
 - (void)commonInit
 {
-    _preferredFramesPerSecond = 150;
+    _preferredFramesPerSecond = 60;
     _clearColor = MTLClearColorMake(1, 1, 1, 1);
     
     self.renderer = [MBERenderer new];
@@ -127,7 +127,8 @@
     self.currentDrawable = [self.metalLayer nextDrawable];
     self.frameDuration = 1.0 / self.preferredFramesPerSecond;
 
-    if ([self.delegate respondsToSelector:@selector(drawInView:)])
+    if (self.currentDrawable &&     // null drawable happens if the window is covered
+        [self.delegate respondsToSelector:@selector(drawInView:)])
     {
         [self.delegate drawInView:self];
     }
