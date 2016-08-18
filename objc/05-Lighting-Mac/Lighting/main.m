@@ -2,15 +2,12 @@
 //  main.m
 //  Lighting
 //
-//  Created by Warren Moore on 10/29/15.
-//  Copyright © 2015 Metal by Example. All rights reserved.
+//  Created by middleware on 8/17/16.
+//  Copyright © 2016 middleware. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "AppDelegate.h"
+#import <Cocoa/Cocoa.h>
 
-int main(int argc, char * argv[]) {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
-    }
+int main(int argc, const char * argv[]) {
+    return NSApplicationMain(argc, argv);
 }

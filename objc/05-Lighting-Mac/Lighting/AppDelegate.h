@@ -1,7 +1,15 @@
-@import UIKit;
+//
+//  AppDelegate.h
+//  DrawingIn3D
+//
+//  Created by middleware on 8/13/16.
+//  Copyright © 2016 middleware. All rights reserved.
+//
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import <Cocoa/Cocoa.h>
 
-@property (strong, nonatomic) UIWindow *window;
+@interface AppDelegate : NSObject <NSApplicationDelegate>
+
 
 @end
+

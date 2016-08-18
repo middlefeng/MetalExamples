@@ -1,10 +1,10 @@
-@import UIKit;
+@import Cocoa;
 @import Metal;
 @import QuartzCore.CAMetalLayer;
 
 @protocol MBEMetalViewDelegate;
 
-@interface MBEMetalView : UIView
+@interface MBEMetalView : NSView
 
 /// The delegate of this view, responsible for drawing
 @property (nonatomic, weak) id<MBEMetalViewDelegate> delegate;

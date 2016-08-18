@@ -1,4 +1,11 @@
-@import simd;
+
+
+#include <simd/simd.h>
+
+
+#if __cplusplus
+extern "C" {
+#endif
 
 /// Builds a translation matrix that translates by the supplied vector
 matrix_float4x4 matrix_float4x4_translation(vector_float3 t);
@@ -14,4 +21,9 @@ matrix_float4x4 matrix_float4x4_rotation(vector_float3 axis, float angle);
 /// vertical field of view (in radians), and near and far distances
 matrix_float4x4 matrix_float4x4_perspective(float aspect, float fovy, float near, float far);
 
-matrix_float3x3 matrix_float4x4_extract_linear(matrix_float4x4);
+matrix_float3x3 matrix_float4x4_extract_linear(matrix_float4x4);    
+    
+    
+#if __cplusplus
+} // extern "C"
+#endif
