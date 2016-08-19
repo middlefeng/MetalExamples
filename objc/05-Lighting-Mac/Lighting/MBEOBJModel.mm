@@ -241,7 +241,7 @@ static bool operator <(const FaceVertex &v0, const FaceVertex &v1)
     size_t vertexCount = groupVertices.size();
     for (i = 0; i < vertexCount; ++i)
     {
-        groupVertices[i].normal = ZERO;
+        //groupVertices[i].normal = ZERO;
     }
 
     size_t indexCount = groupIndices.size();
@@ -262,9 +262,9 @@ static bool operator <(const FaceVertex &v0, const FaceVertex &v1)
         vector_float3 cross = vector_cross((p1 - p0), (p2 - p0));
         vector_float4 cross4 = { cross.x, cross.y, cross.z, 0 };
 
-        v0->normal += cross4;
-        v1->normal += cross4;
-        v2->normal += cross4;
+        //v0->normal += cross4;
+        //v1->normal += cross4;
+        //v2->normal += cross4;
     }
 
     for (i = 0; i < vertexCount; ++i)
@@ -300,8 +300,8 @@ static bool operator <(const FaceVertex &v0, const FaceVertex &v1)
     else
     {
         MBEVertex vertex;
-        vertex.position = vertices[fv.vi];
-        vertex.normal = (fv.ni != INVALID_INDEX) ? normals[fv.ni] : UP;
+        //vertex.position = vertices[fv.vi];
+        //vertex.normal = (fv.ni != INVALID_INDEX) ? normals[fv.ni] : UP;
 //        vertex.diffuseColor = RGBA_WHITE;
 //        vertex.texCoords = (fv.ti != INVALID_INDEX) ? texCoords[fv.ti] : ZERO2;
 

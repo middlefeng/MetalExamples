@@ -4,6 +4,12 @@ using namespace metal;
 
 struct Vertex
 {
+    float4 position [[ attribute(0) ]];
+    float4 color [[ attribute(1) ]];
+};
+
+struct VertexOut
+{
     float4 position [[position]];
     float4 color;
 };
@@ -14,18 +20,18 @@ struct Uniforms
 };
 
 
-vertex Vertex vertex_project(device Vertex *vertices [[buffer(0)]],
+vertex VertexOut vertex_project(device Vertex *vertices [[buffer(0)]],
                              constant Uniforms *uniforms [[buffer(1)]],
                              uint vid [[vertex_id]])
 {
-    Vertex vertexOut;
+    VertexOut vertexOut;
     vertexOut.position = uniforms->modelViewProjectionMatrix * vertices[vid].position;
     vertexOut.color = vertices[vid].color;
 
     return vertexOut;
 }
 
-fragment half4 fragment_flatcolor(Vertex vertexIn [[stage_in]])
+fragment half4 fragment_flatcolor(VertexOut vertexIn [[stage_in]])
 {
     return half4(vertexIn.color);
 }

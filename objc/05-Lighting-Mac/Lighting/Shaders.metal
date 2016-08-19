@@ -42,8 +42,9 @@ struct Uniforms
 
 struct Vertex
 {
-    float4 position;
-    float4 normal;
+    float3 position [[attribute(0)]];
+    float3 normal  [[attribute(1)]];
+    //float2 texCoord;
 };
 
 struct ProjectedVertex
@@ -58,8 +59,8 @@ vertex ProjectedVertex vertex_project(device Vertex *vertices [[buffer(0)]],
                                       uint vid [[vertex_id]])
 {
     ProjectedVertex outVert;
-    outVert.position = uniforms.modelViewProjectionMatrix * vertices[vid].position;
-    outVert.eye =  -(uniforms.modelViewMatrix * vertices[vid].position).xyz;
+    outVert.position = uniforms.modelViewProjectionMatrix * float4(vertices[vid].position, 1.0);
+    outVert.eye =  -(uniforms.modelViewMatrix * float4(vertices[vid].position, 1.0)).xyz;
     outVert.normal = uniforms.normalMatrix * vertices[vid].normal.xyz;
 
     return outVert;

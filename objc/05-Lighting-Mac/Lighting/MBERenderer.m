@@ -4,6 +4,8 @@
 #import "MBEOBJMesh.h"
 #import "MBETypes.h"
 
+#import <MetalKit/MetalKit.h>
+
 @import Metal;
 @import QuartzCore.CAMetalLayer;
 @import simd;
@@ -70,8 +72,8 @@ static const NSInteger MBEInFlightBufferCount = 3;
 {
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"teapot" withExtension:@"obj"];
     MBEOBJModel *model = [[MBEOBJModel alloc] initWithContentsOfURL:modelURL generateNormals:YES];
-    MBEOBJGroup *group = [model groupForName:@"teapot"];
-    _mesh = [[MBEOBJMesh alloc] initWithGroup:group device:_device];
+    MBEOBJGroup *group = [model groupForName:@"Rectangle047"];
+    // _mesh = [[MBEOBJMesh alloc] initWithGroup:group device:_device];
 
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
@@ -84,8 +86,55 @@ static const NSInteger MBEInFlightBufferCount = 3;
         [uniformBuffer setLabel:label];
     }
     _uniformBuffers = [[NSArray alloc] initWithObjects:buffers[0],
-                       buffers[1],
-                       buffers[2], nil];
+                                                       buffers[1],
+                                                       buffers[2], nil];
+    
+    
+    
+    MTLVertexDescriptor *mtlVertexDescriptor = [[MTLVertexDescriptor alloc] init];
+    
+    // Positions.
+    mtlVertexDescriptor.attributes[0].format = MTLVertexFormatFloat3;
+    mtlVertexDescriptor.attributes[0].offset = 0;
+    mtlVertexDescriptor.attributes[0].bufferIndex = 0;
+    
+    // Normals.
+    mtlVertexDescriptor.attributes[1].format = MTLVertexFormatFloat3;
+    mtlVertexDescriptor.attributes[1].offset = 16;
+    mtlVertexDescriptor.attributes[1].bufferIndex = 0;
+    
+    MDLVertexDescriptor *mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor);
+    mdlVertexDescriptor.attributes[0].name = MDLVertexAttributePosition;
+    mdlVertexDescriptor.attributes[1].name = MDLVertexAttributeNormal;
+    
+    MTKMeshBufferAllocator *bufferAllocator = [[MTKMeshBufferAllocator alloc] initWithDevice:_device];
+    
+    MDLAsset* asset = [[MDLAsset alloc] initWithURL:modelURL vertexDescriptor:nil bufferAllocator:bufferAllocator];
+    NSLog(@"Object Count: %lu.", asset.count);
+    
+    /*
+    MDLVertexDescriptor* desc = asset.vertexDescriptor;
+    NSMutableArray<MDLVertexAttribute*> *attributes = desc.attributes;
+    for (size_t i = 0; i < attributes.count; ++i)
+    {
+        NSLog(@"Attrbute: %@.", attributes[0].name);
+    }
+     */
+        
+    MDLMesh* mesh = (MDLMesh*)[asset objectAtIndex:0];
+    NSLog(@"Vertex Count: %lu.", mesh.vertexCount);
+    NSLog(@"Buffer Count: %lu.", mesh.vertexBuffers.count);
+    
+    MDLVertexDescriptor* desc = mesh.vertexDescriptor;
+    MDLVertexAttributeData* attrDataPos = [mesh vertexAttributeDataForAttributeNamed:MDLVertexAttributePosition];
+    MDLVertexAttributeData* attrDataNor = [mesh vertexAttributeDataForAttributeNamed:MDLVertexAttributeNormal];
+    
+    NSLog(@"Sub-meshes: %lu.", mesh.submeshes.count);
+    
+    MDLSubmesh* submesh = mesh.submeshes[0];
+    NSLog(@"Index Count: %lu.", submesh.indexCount);
+    
+    _mesh = [[MBEOBJMesh alloc] initWithMesh:mesh withGroup:group device:_device];
 }
 
 - (void)updateUniformsForView:(MBEMetalView *)view duration:(NSTimeInterval)duration
@@ -108,7 +157,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 5;
     const float near = 0.1;
-    const float far = 100;
+    const float far = 800;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
     MBEUniforms uniforms;

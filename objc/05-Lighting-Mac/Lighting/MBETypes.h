@@ -1,13 +1,14 @@
 #import <simd/simd.h>
 #import <Metal/Metal.h>
 
-typedef uint16_t MBEIndex;
-const MTLIndexType MBEIndexType = MTLIndexTypeUInt16;
+typedef uint32_t MBEIndex;
+const MTLIndexType MBEIndexType = MTLIndexTypeUInt32;
 
 typedef struct __attribute((packed))
 {
-    vector_float4 position;
-    vector_float4 normal;
+    vector_float3 position;
+    vector_float3 normal;
+    vector_float3 texCoord;
 } MBEVertex;
 
 typedef struct __attribute((packed))
