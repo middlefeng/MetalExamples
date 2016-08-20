@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0E86AD1D67DD36005B7781 /* realship.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C0E86AC1D67DD36005B7781 /* realship.obj */; };
 		2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */; };
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.m */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0E86AC1D67DD36005B7781 /* realship.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = realship.obj; sourceTree = "<group>"; };
 		2C5DDAC21D658F6000A9DC9A /* MBEMetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMetalView.h; sourceTree = "<group>"; };
 		2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMetalView.m; sourceTree = "<group>"; };
 		2C5DDAC71D6590DB00A9DC9A /* MBEMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMesh.h; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
+				2C0E86AC1D67DD36005B7781 /* realship.obj */,
 				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
 				2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */,
 				2C5DDAD91D65949E00A9DC9A /* MBERenderer.m */,
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
+				2C0E86AD1D67DD36005B7781 /* realship.obj in Resources */,
 				2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */,
 				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
 			);

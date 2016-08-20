@@ -162,10 +162,10 @@
     passDescriptor.colorAttachments[0].storeAction = MTLStoreActionStore;
     passDescriptor.colorAttachments[0].loadAction = MTLLoadActionClear;
 
-    passDescriptor.depthAttachment.texture = self.depthTexture;
-    passDescriptor.depthAttachment.clearDepth = 1.0;
+    passDescriptor.depthAttachment.texture = nil;// self.depthTexture;
+    /*passDescriptor.depthAttachment.clearDepth = 1.0;
     passDescriptor.depthAttachment.loadAction = MTLLoadActionClear;
-    passDescriptor.depthAttachment.storeAction = MTLStoreActionDontCare;
+    passDescriptor.depthAttachment.storeAction = MTLStoreActionDontCare;*/
 
     return passDescriptor;
 }

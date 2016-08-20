@@ -47,13 +47,14 @@ static const NSInteger MBEInFlightBufferCount = 3;
     pipelineDescriptor.vertexFunction = [library newFunctionWithName:@"vertex_project"];
     pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light"];
     pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
-    pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
+    pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatInvalid;
 
     MTLDepthStencilDescriptor *depthStencilDescriptor = [MTLDepthStencilDescriptor new];
-    depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;
-    depthStencilDescriptor.depthWriteEnabled = YES;
+    depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionAlways;
+    depthStencilDescriptor.depthWriteEnabled = NO;
+    
     self.depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
-
+    
     NSError *error = nil;
     self.renderPipelineState = [self.device newRenderPipelineStateWithDescriptor:pipelineDescriptor
                                                                            error:&error];
@@ -68,9 +69,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"teapot" withExtension:@"obj"];
-    MBEOBJModel *model = [[MBEOBJModel alloc] initWithContentsOfURL:modelURL generateNormals:YES];
-    MBEOBJGroup *group = [model groupForName:@"teapot"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"realship" withExtension:@"obj"];
+    MBEOBJModel *model = [[MBEOBJModel alloc] initWithContentsOfURL:modelURL generateNormals:NO];
+    MBEOBJGroup *group = [model groupForName:@"realship"];
     _mesh = [[MBEOBJMesh alloc] initWithGroup:group device:_device];
 
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
@@ -134,8 +135,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
     id<MTLRenderCommandEncoder> renderPass = [commandBuffer renderCommandEncoderWithDescriptor:passDescriptor];
     [renderPass setRenderPipelineState:self.renderPipelineState];
     [renderPass setDepthStencilState:self.depthStencilState];
+    [renderPass setTriangleFillMode:MTLTriangleFillModeLines];
     [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
-    [renderPass setCullMode:MTLCullModeBack];
+    [renderPass setCullMode:MTLCullModeNone];
 
     [renderPass setVertexBuffer:self.mesh.vertexBuffer offset:0 atIndex:0];
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
