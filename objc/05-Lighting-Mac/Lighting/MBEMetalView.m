@@ -42,12 +42,6 @@
     self.metalLayer.device = MTLCreateSystemDefaultDevice();
     
     [self updateDrawableSize];
-    
-    NSTimer* timer = [NSTimer timerWithTimeInterval:1.0 / self.preferredFramesPerSecond
-                                             target:self
-                                           selector:@selector(render)
-                                           userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
@@ -90,6 +84,22 @@
 }
 
 
+
+- (void)mouseDragged:(NSEvent *)theEvent
+{
+    _rotationX -= 0.01 * M_PI * theEvent.deltaY;
+    _rotationY -= 0.01 * M_PI * theEvent.deltaX;
+    [self render];
+}
+
+
+- (void)magnifyWithEvent:(NSEvent *)event
+{
+    _zoom += 0.01 * event.deltaZ;
+    [self render];
+}
+
+
 - (void)updateDrawableSize
 {
     // During the first layout pass, we will not be in a view hierarchy, so we guess our scale
@@ -103,6 +113,7 @@
     self.metalLayer.drawableSize = drawableSize;
 
     [self makeDepthTexture];
+    [self render];
 }
 
 - (void)viewDidEndLiveResize
@@ -131,6 +142,13 @@
         [self.delegate respondsToSelector:@selector(drawInView:)])
     {
         [self.delegate drawInView:self];
+    }
+    else
+    {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^
+        {
+            [self render];
+        });
     }
 }
 
