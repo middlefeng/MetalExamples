@@ -91,8 +91,8 @@ static const NSInteger MBEInFlightBufferCount = 3;
 - (void)updateUniformsForView:(MBEMetalView *)view duration:(NSTimeInterval)duration
 {
     self.time += duration;
-    self.rotationX += duration * (M_PI / 2);
-    self.rotationY += duration * (M_PI / 3);
+    self.rotationX = view.rotationX;
+    self.rotationY = view.rotationY;
     float scaleFactor = 1;
     const vector_float3 xAxis = { 1, 0, 0 };
     const vector_float3 yAxis = { 0, 1, 0 };
@@ -101,7 +101,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 modelMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
-    const vector_float3 cameraTranslation = { 0, 0, -1.5 };
+    const vector_float3 cameraTranslation = { 0, 0, -1.5 + view.zoom };
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
 
     const CGSize drawableSize = view.metalLayer.drawableSize;
