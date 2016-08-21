@@ -10,8 +10,6 @@
 		2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */; };
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
-		2C5DDAD21D65913900A9DC9A /* MBEOBJGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */; };
-		2C5DDAD31D65913900A9DC9A /* MBEOBJModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
 		2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */; };
 		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
@@ -33,10 +31,6 @@
 		2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMesh.m; sourceTree = "<group>"; };
 		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
 		2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJMesh.mm; sourceTree = "<group>"; };
-		2C5DDACE1D65913900A9DC9A /* MBEOBJGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJGroup.h; sourceTree = "<group>"; };
-		2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJGroup.mm; sourceTree = "<group>"; };
-		2C5DDAD01D65913900A9DC9A /* MBEOBJModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJModel.h; sourceTree = "<group>"; };
-		2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJModel.mm; sourceTree = "<group>"; };
 		2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
 		2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
 		2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBERenderer.h; sourceTree = "<group>"; };
@@ -97,10 +91,6 @@
 			children = (
 				2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */,
 				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
-				2C5DDACE1D65913900A9DC9A /* MBEOBJGroup.h */,
-				2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */,
-				2C5DDAD01D65913900A9DC9A /* MBEOBJModel.h */,
-				2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */,
 			);
 			name = "Model Loader";
 			sourceTree = "<group>";
@@ -235,10 +225,8 @@
 			files = (
 				2C9D9AAD1D658F0800283E46 /* main.m in Sources */,
 				2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */,
-				2C5DDAD21D65913900A9DC9A /* MBEOBJGroup.mm in Sources */,
 				2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */,
 				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
-				2C5DDAD31D65913900A9DC9A /* MBEOBJModel.mm in Sources */,
 				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
 				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
 				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,
