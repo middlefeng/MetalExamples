@@ -5,8 +5,10 @@
 
 @implementation MBEOBJMesh
 
-@synthesize indexBuffer=_indexBuffer;
-@synthesize vertexBuffer=_vertexBuffer;
+@synthesize indexBuffer = _indexBuffer;
+@synthesize vertexBuffer = _vertexBuffer;
+
+@synthesize boundingBox = _boundingBox;
 
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device
 {
@@ -23,6 +25,10 @@
         std::vector<uint32> indices;
         uint32 indexCurrent = 0;
         
+        float xMin = 0.0f, xMax = 0.0f;
+        float yMin = 0.0f, yMax = 0.0f;
+        float zMin = 0.0f, zMax = 0.0f;
+        
         for (const auto& shape : shapes)
         {
             for (size_t i = 0; i < shape.mesh.indices.size(); ++i)
@@ -36,6 +42,13 @@
                 vertex.position.z = attrib.vertices[index.vertex_index * 3 + 2];
                 vertex.position.w = 1.0;
                 
+                xMin = std::min(xMin, vertex.position.x);
+                xMax = std::max(xMax, vertex.position.x);
+                yMin = std::min(yMin, vertex.position.y);
+                yMax = std::max(yMax, vertex.position.y);
+                zMin = std::min(zMin, vertex.position.z);
+                zMax = std::max(zMax, vertex.position.z);
+                
                 vertex.normal.x = attrib.normals[index.normal_index * 3];
                 vertex.normal.y = attrib.normals[index.normal_index * 3 + 1];
                 vertex.normal.z = attrib.normals[index.normal_index * 3 + 2];
@@ -45,6 +58,14 @@
                 indices.push_back(indexCurrent++);
             }
         }
+        
+        _boundingBox = [[BoundingBox alloc] init];
+        _boundingBox.centerX = (xMax + xMin) / 2.0;
+        _boundingBox.centerY = (yMax + yMin) / 2.0;
+        _boundingBox.centerZ = (zMax + zMin) / 2.0;
+        _boundingBox.spanX = (xMax - xMin);
+        _boundingBox.spanY = (yMax - yMin);
+        _boundingBox.spanZ = (zMax - zMin);
         
         _vertexBuffer = [device newBufferWithBytes:vertecis.data()
                                             length:vertecis.size() * sizeof(MBEVertex)

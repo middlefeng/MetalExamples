@@ -67,7 +67,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"dragon" withExtension:@"obj"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"basemeshobj" withExtension:@"obj"];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
@@ -98,14 +98,22 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 modelMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
-    const vector_float3 cameraTranslation = { 0, 0, -1.5f + view.zoom };
+    float modelSpanZ = _mesh.boundingBox.spanZ;
+    float modelNearest = _mesh.boundingBox.centerZ - modelSpanZ / 2.0;
+    
+    const vector_float3 cameraTranslation =
+    {
+        -_mesh.boundingBox.centerX,
+        -_mesh.boundingBox.centerY,
+        (modelNearest - modelSpanZ) + view.zoom * modelSpanZ / 20.0f
+    };
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
 
     const CGSize drawableSize = view.metalLayer.drawableSize;
     const float aspect = drawableSize.width / drawableSize.height;
-    const float fov = (2 * M_PI) / 5;
+    const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
-    const float far = 500;
+    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
     MBEUniforms uniforms;
