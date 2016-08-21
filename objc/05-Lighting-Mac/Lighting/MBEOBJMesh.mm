@@ -1,5 +1,4 @@
 #import "MBEOBJMesh.h"
-#import "MBEOBJGroup.h"
 
 #include "MBETypes.h"
 #include "tiny_obj_loader.h"
@@ -8,40 +7,6 @@
 
 @synthesize indexBuffer=_indexBuffer;
 @synthesize vertexBuffer=_vertexBuffer;
-
-- (instancetype)initWithGroup:(MBEOBJGroup *)group device:(id<MTLDevice>)device
-{
-    if ((self = [super init]))
-    {
-        _vertexBuffer = [device newBufferWithBytes:[group.vertexData bytes]
-                                            length:[group.vertexData length]
-                                           options:MTLResourceOptionCPUCacheModeDefault];
-        [_vertexBuffer setLabel:[NSString stringWithFormat:@"Vertices (%@)", group.name]];
-        
-        MBEVertex* vertexArray = (MBEVertex*)[group.vertexData bytes];
-        size_t count = [group.vertexData length] / sizeof(MBEVertex);
-        for (size_t i = 0; i < 10; i++)
-        {
-            MBEVertex current = vertexArray[i];
-            NSLog(@"Position: %f, %f, %f.", current.position.x, current.position.y, current.position.z);
-        }
-        
-        _indexBuffer = [device newBufferWithBytes:[group.indexData bytes]
-                                           length:[group.indexData length]
-                                          options:MTLResourceOptionCPUCacheModeDefault];
-        [_indexBuffer setLabel:[NSString stringWithFormat:@"Indices (%@)", group.name]];
-        
-        uint16* indexArray = (uint16*)[group.indexData bytes];
-        size_t indexCount = [group.indexData length] / sizeof(uint16);
-        for (size_t i = 0; i < 10; i++)
-        {
-            uint16 index = indexArray[i];
-            NSLog(@"Index: %u.", index);
-        }
-
-    }
-    return self;
-}
 
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device
 {
@@ -85,37 +50,9 @@
                                             length:vertecis.size() * sizeof(MBEVertex)
                                            options:MTLResourceOptionCPUCacheModeDefault];
         
-        /*MBEVertex* vertexArray = (MBEVertex*)vertex.data();
-        for (size_t i = 0; i < 10; i++)
-        {
-            MBEVertex current = vertexArray[i];
-            NSLog(@"Position: %f, %f, %f.", current.position.x, current.position.y, current.position.z);
-        }
-        
-        std::vector<uint16> index(shapes[0].mesh.indices.size());
-        
-        NSLog(@"Index Count: %lu.", shapes[0].mesh.indices.size());
-        
-        for (size_t i = 0; i < shapes[0].mesh.indices.size(); ++i)
-        {
-            if (i > 25003)
-            {
-                uint16 vertex = shapes[0].mesh.indices[i].vertex_index;
-                uint16 normal = shapes[0].mesh.indices[i].normal_index;
-            }
-            index[i] = shapes[0].mesh.indices[i].vertex_index;
-        }*/
-        
         _indexBuffer = [device newBufferWithBytes:indices.data()
                                            length:indices.size() * sizeof(uint32)
                                           options:MTLResourceOptionCPUCacheModeDefault];
-        
-        /*uint16* indexArray = (uint16*)index.data();
-        for (size_t i = 0; i < 10; i++)
-        {
-            uint16 index = indexArray[i];
-            NSLog(@"Index: %u.", index);
-        }*/
     }
     return self;
 }

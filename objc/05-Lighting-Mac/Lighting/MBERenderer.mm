@@ -1,6 +1,5 @@
 #import "MBERenderer.h"
 #import "MBEMathUtilities.h"
-#import "MBEOBJModel.h"
 #import "MBEOBJMesh.h"
 #import "MBETypes.h"
 
@@ -69,9 +68,6 @@ static const NSInteger MBEInFlightBufferCount = 3;
 - (void)makeResources
 {
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"dragon" withExtension:@"obj"];
-    MBEOBJModel *model = [[MBEOBJModel alloc] initWithContentsOfURL:modelURL generateNormals:YES];
-    MBEOBJGroup *group = [model groupForName:@"teapot"];
-    // _mesh = [[MBEOBJMesh alloc] initWithGroup:group device:_device];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
