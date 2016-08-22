@@ -67,7 +67,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"dragon" withExtension:@"obj"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
@@ -96,15 +96,24 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 xRot = matrix_float4x4_rotation(xAxis, self.rotationX);
     const matrix_float4x4 yRot = matrix_float4x4_rotation(yAxis, self.rotationY);
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
-    const matrix_float4x4 modelMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
+    const matrix_float4x4 rotationMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
-    float modelSpanZ = _mesh.boundingBox.spanZ;
-    float modelNearest = _mesh.boundingBox.centerZ - modelSpanZ / 2.0;
     
-    const vector_float3 cameraTranslation =
+    const vector_float3 translationToCenter =
     {
         -_mesh.boundingBox.centerX,
         -_mesh.boundingBox.centerY,
+        -_mesh.boundingBox.centerZ
+    };
+    const matrix_float4x4 modelCenteringMatrix = matrix_float4x4_translation(translationToCenter);
+    const matrix_float4x4 modelMatrix = matrix_multiply(rotationMatrix, modelCenteringMatrix);
+    
+    float modelSpanZ = _mesh.boundingBox.spanZ;
+    float modelNearest = - modelSpanZ / 2.0;
+    
+    const vector_float3 cameraTranslation =
+    {
+        0, 0,
         (modelNearest - modelSpanZ) + view.zoom * modelSpanZ / 20.0f
     };
 
@@ -114,7 +123,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
-    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f;
+    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f - view.zoom * modelSpanZ / 20.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
     MBEUniforms uniforms;

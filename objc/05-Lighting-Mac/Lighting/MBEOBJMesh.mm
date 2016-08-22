@@ -36,9 +36,9 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         std::vector<uint32> indices;
         uint32 indexCurrent = 0;
         
-        float xMin = 0.0f, xMax = 0.0f;
-        float yMin = 0.0f, yMax = 0.0f;
-        float zMin = 0.0f, zMax = 0.0f;
+        float xMin = 1e9f, xMax = -1e9f;
+        float yMin = 1e9f, yMax = -1e9f;
+        float zMin = 1e9f, zMax = -1e9f;
         
         for (const auto& shape : shapes)
         {
@@ -74,13 +74,21 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                 
                 
                 size_t checkBackward = 100;
-                auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
-                /*if (search != std::end(vertecis))
+                if (attrib.normals.size())
                 {
-                    uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
-                    indices.push_back(indexExist);
+                    auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
+                    if (search != std::end(vertecis))
+                    {
+                        uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
+                        indices.push_back(indexExist);
+                    }
+                    else
+                    {
+                        vertecis.push_back(vertex);
+                        indices.push_back(indexCurrent++);
+                    }
                 }
-                else*/
+                else
                 {
                     vertecis.push_back(vertex);
                     indices.push_back(indexCurrent++);
