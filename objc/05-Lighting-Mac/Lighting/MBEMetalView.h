@@ -1,6 +1,6 @@
-@import Cocoa;
-@import Metal;
-@import QuartzCore.CAMetalLayer;
+#import <Cocoa/Cocoa.h>
+#import <Metal/Metal.h>
+#import <Quartz/Quartz.h>
 
 @protocol MBEMetalViewDelegate;
 
