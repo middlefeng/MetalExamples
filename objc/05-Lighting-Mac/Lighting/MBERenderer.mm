@@ -98,7 +98,6 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 modelMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
-    const vector_float3 cameraTranslation = { 0, 0, -31.0 };
     float modelSpanZ = _mesh.boundingBox.spanZ;
     float modelNearest = _mesh.boundingBox.centerZ - modelSpanZ / 2.0;
     
@@ -115,7 +114,6 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
-    const float far = 500;
     const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
