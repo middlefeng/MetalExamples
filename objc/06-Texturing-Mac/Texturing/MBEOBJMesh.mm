@@ -53,6 +53,12 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                 vertex.position.z = attrib.vertices[index.vertex_index * 3 + 2];
                 vertex.position.w = 1.0;
                 
+                if (attrib.texcoords.size())
+                {
+                    vertex.texCoords.x = attrib.texcoords[index.texcoord_index * 2];
+                    vertex.texCoords.y = attrib.texcoords[index.texcoord_index * 2 + 1];
+                }
+                
                 if (attrib.normals.size())
                 {
                     vertex.normal.x = attrib.normals[index.normal_index * 3];

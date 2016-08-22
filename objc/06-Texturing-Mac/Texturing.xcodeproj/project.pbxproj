@@ -25,6 +25,9 @@
 		2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8C1D69886E0074E402 /* dragon.obj */; };
 		2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8E1D6990360074E402 /* macbook.obj */; };
 		98A0B8431D6BA22500BD8453 /* Satellite.obj in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B8421D6BA22500BD8453 /* Satellite.obj */; };
+		98A0B84D1D6BB41400BD8453 /* MBETextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */; };
+		98A0B85F1D6BBA2700BD8453 /* spot_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B85D1D6BBA2700BD8453 /* spot_texture.png */; };
+		98A0B8601D6BBA2700BD8453 /* spot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B85E1D6BBA2700BD8453 /* spot.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +59,10 @@
 		2CAF2E8C1D69886E0074E402 /* dragon.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dragon.obj; sourceTree = "<group>"; };
 		2CAF2E8E1D6990360074E402 /* macbook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = macbook.obj; sourceTree = "<group>"; };
 		98A0B8421D6BA22500BD8453 /* Satellite.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Satellite.obj; sourceTree = "<group>"; };
+		98A0B84B1D6BB41400BD8453 /* MBETextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBETextureLoader.h; sourceTree = "<group>"; };
+		98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBETextureLoader.m; sourceTree = "<group>"; };
+		98A0B85D1D6BBA2700BD8453 /* spot_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spot_texture.png; path = spot/spot_texture.png; sourceTree = "<group>"; };
+		98A0B85E1D6BBA2700BD8453 /* spot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = spot.obj; path = spot/spot.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +111,8 @@
 		2C5DDAD71D6591B800A9DC9A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				98A0B84B1D6BB41400BD8453 /* MBETextureLoader.h */,
+				98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */,
 				2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */,
 				2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */,
 				2C5DDADC1D6594FD00A9DC9A /* MBETypes.h */,
@@ -130,6 +139,7 @@
 		2C9D9AA71D658F0800283E46 /* Texturing */ = {
 			isa = PBXGroup;
 			children = (
+				98A0B85C1D6BBA1D00BD8453 /* spot */,
 				98A0B8421D6BA22500BD8453 /* Satellite.obj */,
 				2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */,
 				2CAF2E8E1D6990360074E402 /* macbook.obj */,
@@ -157,6 +167,15 @@
 				2C9D9AAC1D658F0800283E46 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98A0B85C1D6BBA1D00BD8453 /* spot */ = {
+			isa = PBXGroup;
+			children = (
+				98A0B85D1D6BBA2700BD8453 /* spot_texture.png */,
+				98A0B85E1D6BBA2700BD8453 /* spot.obj */,
+			);
+			name = spot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,9 +240,11 @@
 				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
 				2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */,
 				2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */,
+				98A0B85F1D6BBA2700BD8453 /* spot_texture.png in Resources */,
 				2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */,
 				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
 				2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */,
+				98A0B8601D6BBA2700BD8453 /* spot.obj in Resources */,
 				98A0B8431D6BA22500BD8453 /* Satellite.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +261,7 @@
 				2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */,
 				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
 				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
+				98A0B84D1D6BB41400BD8453 /* MBETextureLoader.m in Sources */,
 				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
 				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,
 				2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */,

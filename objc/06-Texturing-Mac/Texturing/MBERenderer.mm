@@ -2,6 +2,7 @@
 #import "MBEMathUtilities.h"
 #import "MBEOBJMesh.h"
 #import "MBETypes.h"
+#import "MBETextureLoader.h"
 
 #import <Metal/Metal.h>
 #import <QuartzCore/QuartzCore.h>
@@ -11,14 +12,15 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 @interface MBERenderer ()
 @property (strong) id<MTLDevice> device;
+@property (strong) id<MTLTexture> diffuseTexture;
 @property (strong) MBEMesh *mesh;
 @property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
 @property (strong) id<MTLCommandQueue> commandQueue;
 @property (strong) id<MTLRenderPipelineState> renderPipelineState;
 @property (strong) id<MTLDepthStencilState> depthStencilState;
+@property (strong) id<MTLSamplerState> samplerState;
 @property (strong) dispatch_semaphore_t displaySemaphore;
 @property (assign) NSInteger bufferIndex;
-@property (assign) float rotationX, rotationY, time;
 @end
 
 @implementation MBERenderer
@@ -44,7 +46,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
     MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
     pipelineDescriptor.vertexFunction = [library newFunctionWithName:@"vertex_project"];
-    pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light"];
+    pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_texture"];
     pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
     pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
 
@@ -67,7 +69,12 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Satellite" withExtension:@"obj"];
+    // load texture
+    MBETextureLoader *textureLoader = [MBETextureLoader new];
+    _diffuseTexture = [textureLoader texture2DWithImageNamed:@"spot_texture" mipmapped:YES commandQueue:_commandQueue];
+
+    // load model
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"spot" withExtension:@"obj"];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
@@ -83,18 +90,24 @@ static const NSInteger MBEInFlightBufferCount = 3;
     _uniformBuffers = [[NSArray alloc] initWithObjects:buffers[0],
                        buffers[1],
                        buffers[2], nil];
+    
+    // create sampler state
+    MTLSamplerDescriptor *samplerDesc = [MTLSamplerDescriptor new];
+    samplerDesc.sAddressMode = MTLSamplerAddressModeClampToEdge;
+    samplerDesc.tAddressMode = MTLSamplerAddressModeClampToEdge;
+    samplerDesc.minFilter = MTLSamplerMinMagFilterNearest;
+    samplerDesc.magFilter = MTLSamplerMinMagFilterLinear;
+    samplerDesc.mipFilter = MTLSamplerMipFilterLinear;
+    _samplerState = [_device newSamplerStateWithDescriptor:samplerDesc];
 }
 
 - (void)updateUniformsForView:(MBEMetalView *)view duration:(NSTimeInterval)duration
 {
-    self.time += duration;
-    self.rotationX = view.rotationX;
-    self.rotationY = view.rotationY;
     float scaleFactor = 1;
     const vector_float3 xAxis = { 1, 0, 0 };
     const vector_float3 yAxis = { 0, 1, 0 };
-    const matrix_float4x4 xRot = matrix_float4x4_rotation(xAxis, self.rotationX);
-    const matrix_float4x4 yRot = matrix_float4x4_rotation(yAxis, self.rotationY);
+    const matrix_float4x4 xRot = matrix_float4x4_rotation(xAxis, view.rotationX);
+    const matrix_float4x4 yRot = matrix_float4x4_rotation(yAxis, view.rotationY);
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 rotationMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
@@ -154,6 +167,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
     [renderPass setVertexBuffer:self.mesh.vertexBuffer offset:0 atIndex:0];
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
+
+    [renderPass setFragmentTexture:self.diffuseTexture atIndex:0];
+    [renderPass setFragmentSamplerState:self.samplerState atIndex:0];
 
     [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
                            indexCount:[self.mesh.indexBuffer length] / sizeof(MBEIndex)
