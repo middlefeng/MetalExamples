@@ -36,6 +36,10 @@
 /// size as its depth attachment's texture
 @property (nonatomic, readonly) MTLRenderPassDescriptor *currentRenderPassDescriptor;
 
+@property (nonatomic, assign) float rotationX;
+@property (nonatomic, assign) float rotationY;
+@property (nonatomic, assign) float zoom;
+
 @end
 
 @protocol MBEMetalViewDelegate <NSObject>

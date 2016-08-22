@@ -2,3 +2,7 @@
 
 @implementation MBEMesh
 @end
+
+
+@implementation BoundingBox
+@end

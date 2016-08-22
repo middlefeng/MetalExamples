@@ -6,8 +6,8 @@
 
 @implementation MBEOBJMesh
 
-@synthesize indexBuffer=_indexBuffer;
-@synthesize vertexBuffer=_vertexBuffer;
+@synthesize indexBuffer = _indexBuffer;
+@synthesize vertexBuffer = _vertexBuffer;
 
 bool operator==(const MBEVertex& a, const MBEVertex& b)
 {
@@ -18,6 +18,8 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
             a.normal.y == b.normal.y &&
             a.normal.z == b.normal.z;
 }
+
+@synthesize boundingBox = _boundingBox;
 
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device
 {
@@ -33,6 +35,10 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         std::vector<MBEVertex> vertecis;
         std::vector<uint32> indices;
         uint32 indexCurrent = 0;
+        
+        float xMin = 0.0f, xMax = 0.0f;
+        float yMin = 0.0f, yMax = 0.0f;
+        float zMin = 0.0f, zMax = 0.0f;
         
         for (const auto& shape : shapes)
         {
@@ -52,17 +58,29 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                     vertex.normal.x = attrib.normals[index.normal_index * 3];
                     vertex.normal.y = attrib.normals[index.normal_index * 3 + 1];
                     vertex.normal.z = attrib.normals[index.normal_index * 3 + 2];
-                    vertex.normal.w = 1.0;
+                    vertex.normal.w = 0.0;
                 }
+                else
+                {
+                    vertex.normal.xyzw = 0;
+                }
+
+                xMin = std::min(xMin, vertex.position.x);
+                xMax = std::max(xMax, vertex.position.x);
+                yMin = std::min(yMin, vertex.position.y);
+                yMax = std::max(yMax, vertex.position.y);
+                zMin = std::min(zMin, vertex.position.z);
+                zMax = std::max(zMax, vertex.position.z);
+                
                 
                 size_t checkBackward = 100;
                 auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
-                if (search != std::end(vertecis))
+                /*if (search != std::end(vertecis))
                 {
                     uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
                     indices.push_back(indexExist);
                 }
-                else
+                else*/
                 {
                     vertecis.push_back(vertex);
                     indices.push_back(indexCurrent++);
@@ -72,8 +90,6 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         
         if (!attrib.normals.size())
         {
-           static const vector_float4 ZERO = { 0, 0, 0, 0 };
-                
             size_t indexCount = indices.size();
             for (size_t i = 0; i < indexCount; i += 3)
             {
@@ -102,6 +118,14 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                 vertecis[i].normal = vector_normalize(vertecis[i].normal);
             }
         }
+
+        _boundingBox = [[BoundingBox alloc] init];
+        _boundingBox.centerX = (xMax + xMin) / 2.0;
+        _boundingBox.centerY = (yMax + yMin) / 2.0;
+        _boundingBox.centerZ = (zMax + zMin) / 2.0;
+        _boundingBox.spanX = (xMax - xMin);
+        _boundingBox.spanY = (yMax - yMin);
+        _boundingBox.spanZ = (zMax - zMin);
         
         _vertexBuffer = [device newBufferWithBytes:vertecis.data()
                                             length:vertecis.size() * sizeof(MBEVertex)
@@ -110,7 +134,6 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         _indexBuffer = [device newBufferWithBytes:indices.data()
                                            length:indices.size() * sizeof(uint32)
                                           options:MTLResourceOptionCPUCacheModeDefault];
-        
     }
     
     return self;
