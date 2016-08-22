@@ -43,7 +43,7 @@
 		2C5DDADE1D65951500A9DC9A /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
 		2C7059C01D6A292200AC151D /* obj format.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "obj format.obj"; sourceTree = "<group>"; };
 		2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Zenith_OBJ.obj; sourceTree = "<group>"; };
-		2C9D9AA51D658F0800283E46 /* Lighting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lighting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C9D9AA51D658F0800283E46 /* Texturing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Texturing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9D9AA81D658F0800283E46 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C9D9AA91D658F0800283E46 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C9D9AAC1D658F0800283E46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		2C9D9A9C1D658F0800283E46 = {
 			isa = PBXGroup;
 			children = (
-				2C9D9AA71D658F0800283E46 /* Lighting */,
+				2C9D9AA71D658F0800283E46 /* Texturing */,
 				2C9D9AA61D658F0800283E46 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,12 +122,12 @@
 		2C9D9AA61D658F0800283E46 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C9D9AA51D658F0800283E46 /* Lighting.app */,
+				2C9D9AA51D658F0800283E46 /* Texturing.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C9D9AA71D658F0800283E46 /* Lighting */ = {
+		2C9D9AA71D658F0800283E46 /* Texturing */ = {
 			isa = PBXGroup;
 			children = (
 				98A0B8421D6BA22500BD8453 /* Satellite.obj */,
@@ -148,7 +148,7 @@
 				2C9D9AB31D658F0800283E46 /* Info.plist */,
 				2C9D9AAB1D658F0800283E46 /* Supporting Files */,
 			);
-			path = Lighting;
+			path = Texturing;
 			sourceTree = "<group>";
 		};
 		2C9D9AAB1D658F0800283E46 /* Supporting Files */ = {
@@ -162,9 +162,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C9D9AA41D658F0800283E46 /* Lighting */ = {
+		2C9D9AA41D658F0800283E46 /* Texturing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Lighting" */;
+			buildConfigurationList = 2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Texturing" */;
 			buildPhases = (
 				2C9D9AA11D658F0800283E46 /* Sources */,
 				2C9D9AA21D658F0800283E46 /* Frameworks */,
@@ -174,9 +174,9 @@
 			);
 			dependencies = (
 			);
-			name = Lighting;
+			name = Texturing;
 			productName = Lighting;
-			productReference = 2C9D9AA51D658F0800283E46 /* Lighting.app */;
+			productReference = 2C9D9AA51D658F0800283E46 /* Texturing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -193,7 +193,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Lighting" */;
+			buildConfigurationList = 2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Texturing" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -206,7 +206,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C9D9AA41D658F0800283E46 /* Lighting */,
+				2C9D9AA41D658F0800283E46 /* Texturing */,
 			);
 		};
 /* End PBXProject section */
@@ -348,9 +348,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = glm;
-				INFOPLIST_FILE = Lighting/Info.plist;
+				INFOPLIST_FILE = Texturing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Texturing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -361,9 +361,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = glm;
-				INFOPLIST_FILE = Lighting/Info.plist;
+				INFOPLIST_FILE = Texturing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Texturing;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -371,7 +371,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Lighting" */ = {
+		2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Texturing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C9D9AB41D658F0800283E46 /* Debug */,
@@ -380,7 +380,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Lighting" */ = {
+		2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Texturing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C9D9AB71D658F0800283E46 /* Debug */,
