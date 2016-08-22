@@ -1,6 +1,5 @@
 #import "MBERenderer.h"
 #import "MBEMathUtilities.h"
-#import "MBEOBJModel.h"
 #import "MBEOBJMesh.h"
 #import "MBETypes.h"
 
@@ -68,10 +67,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"macbook" withExtension:@"obj"];
-    MBEOBJModel *model = [[MBEOBJModel alloc] initWithContentsOfURL:modelURL generateNormals:YES];
-    MBEOBJGroup *group = [model groupForName:@"teapot"];
-    // _mesh = [[MBEOBJMesh alloc] initWithGroup:group device:_device];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"obj format" withExtension:@"obj"];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
@@ -102,7 +98,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 modelMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
-    const vector_float3 cameraTranslation = { 0, 0, -250.0 };
+    const vector_float3 cameraTranslation = { 0, 0, -31.0 };
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
 
     const CGSize drawableSize = view.metalLayer.drawableSize;

@@ -10,12 +10,12 @@
 		2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */; };
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
-		2C5DDAD21D65913900A9DC9A /* MBEOBJGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */; };
-		2C5DDAD31D65913900A9DC9A /* MBEOBJModel.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
 		2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */; };
 		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
 		2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DDADE1D65951500A9DC9A /* teapot.obj */; };
+		2C7059C11D6A292200AC151D /* obj format.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C01D6A292200AC151D /* obj format.obj */; };
+		2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */; };
 		2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AA91D658F0800283E46 /* AppDelegate.m */; };
 		2C9D9AAD1D658F0800283E46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAC1D658F0800283E46 /* main.m */; };
 		2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAE1D658F0800283E46 /* Assets.xcassets */; };
@@ -33,10 +33,6 @@
 		2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMesh.m; sourceTree = "<group>"; };
 		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
 		2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJMesh.mm; sourceTree = "<group>"; };
-		2C5DDACE1D65913900A9DC9A /* MBEOBJGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJGroup.h; sourceTree = "<group>"; };
-		2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJGroup.mm; sourceTree = "<group>"; };
-		2C5DDAD01D65913900A9DC9A /* MBEOBJModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJModel.h; sourceTree = "<group>"; };
-		2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJModel.mm; sourceTree = "<group>"; };
 		2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
 		2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
 		2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBERenderer.h; sourceTree = "<group>"; };
@@ -44,6 +40,8 @@
 		2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		2C5DDADC1D6594FD00A9DC9A /* MBETypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBETypes.h; sourceTree = "<group>"; };
 		2C5DDADE1D65951500A9DC9A /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		2C7059C01D6A292200AC151D /* obj format.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "obj format.obj"; sourceTree = "<group>"; };
+		2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Zenith_OBJ.obj; sourceTree = "<group>"; };
 		2C9D9AA51D658F0800283E46 /* Lighting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lighting.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9D9AA81D658F0800283E46 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C9D9AA91D658F0800283E46 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -97,10 +95,6 @@
 			children = (
 				2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */,
 				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
-				2C5DDACE1D65913900A9DC9A /* MBEOBJGroup.h */,
-				2C5DDACF1D65913900A9DC9A /* MBEOBJGroup.mm */,
-				2C5DDAD01D65913900A9DC9A /* MBEOBJModel.h */,
-				2C5DDAD11D65913900A9DC9A /* MBEOBJModel.mm */,
 			);
 			name = "Model Loader";
 			sourceTree = "<group>";
@@ -134,10 +128,12 @@
 		2C9D9AA71D658F0800283E46 /* Lighting */ = {
 			isa = PBXGroup;
 			children = (
+				2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */,
 				2CAF2E8E1D6990360074E402 /* macbook.obj */,
 				2CAF2E8C1D69886E0074E402 /* dragon.obj */,
 				2CAF2E861D691D3E0074E402 /* basemeshobj.obj */,
 				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
+				2C7059C01D6A292200AC151D /* obj format.obj */,
 				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
 				2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */,
 				2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */,
@@ -217,8 +213,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C7059C11D6A292200AC151D /* obj format.obj in Resources */,
 				2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */,
 				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
+				2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */,
 				2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */,
 				2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */,
 				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
@@ -235,10 +233,8 @@
 			files = (
 				2C9D9AAD1D658F0800283E46 /* main.m in Sources */,
 				2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */,
-				2C5DDAD21D65913900A9DC9A /* MBEOBJGroup.mm in Sources */,
 				2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */,
 				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
-				2C5DDAD31D65913900A9DC9A /* MBEOBJModel.mm in Sources */,
 				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
 				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
 				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,

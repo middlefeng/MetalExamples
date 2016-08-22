@@ -1,5 +1,5 @@
+
 #import "MBEOBJMesh.h"
-#import "MBEOBJGroup.h"
 
 #include "MBETypes.h"
 #include "tiny_obj_loader.h"
@@ -9,38 +9,14 @@
 @synthesize indexBuffer=_indexBuffer;
 @synthesize vertexBuffer=_vertexBuffer;
 
-- (instancetype)initWithGroup:(MBEOBJGroup *)group device:(id<MTLDevice>)device
+bool operator==(const MBEVertex& a, const MBEVertex& b)
 {
-    if ((self = [super init]))
-    {
-        _vertexBuffer = [device newBufferWithBytes:[group.vertexData bytes]
-                                            length:[group.vertexData length]
-                                           options:MTLResourceOptionCPUCacheModeDefault];
-        [_vertexBuffer setLabel:[NSString stringWithFormat:@"Vertices (%@)", group.name]];
-        
-        MBEVertex* vertexArray = (MBEVertex*)[group.vertexData bytes];
-        size_t count = [group.vertexData length] / sizeof(MBEVertex);
-        for (size_t i = 0; i < 10; i++)
-        {
-            MBEVertex current = vertexArray[i];
-            NSLog(@"Position: %f, %f, %f.", current.position.x, current.position.y, current.position.z);
-        }
-        
-        _indexBuffer = [device newBufferWithBytes:[group.indexData bytes]
-                                           length:[group.indexData length]
-                                          options:MTLResourceOptionCPUCacheModeDefault];
-        [_indexBuffer setLabel:[NSString stringWithFormat:@"Indices (%@)", group.name]];
-        
-        uint16* indexArray = (uint16*)[group.indexData bytes];
-        size_t indexCount = [group.indexData length] / sizeof(uint16);
-        for (size_t i = 0; i < 10; i++)
-        {
-            uint16 index = indexArray[i];
-            NSLog(@"Index: %u.", index);
-        }
-
-    }
-    return self;
+    return a.position.x == b.position.x &&
+            a.position.y == b.position.y &&
+            a.position.z == b.position.z &&
+            a.normal.x == b.normal.x &&
+            a.normal.y == b.normal.y &&
+            a.normal.z == b.normal.z;
 }
 
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device
@@ -71,13 +47,59 @@
                 vertex.position.z = attrib.vertices[index.vertex_index * 3 + 2];
                 vertex.position.w = 1.0;
                 
-                vertex.normal.x = attrib.normals[index.normal_index * 3];
-                vertex.normal.y = attrib.normals[index.normal_index * 3 + 1];
-                vertex.normal.z = attrib.normals[index.normal_index * 3 + 2];
-                vertex.normal.w = 1.0;
+                if (attrib.normals.size())
+                {
+                    vertex.normal.x = attrib.normals[index.normal_index * 3];
+                    vertex.normal.y = attrib.normals[index.normal_index * 3 + 1];
+                    vertex.normal.z = attrib.normals[index.normal_index * 3 + 2];
+                    vertex.normal.w = 1.0;
+                }
                 
-                vertecis.push_back(vertex);
-                indices.push_back(indexCurrent++);
+                size_t checkBackward = 100;
+                auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
+                if (search != std::end(vertecis))
+                {
+                    uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
+                    indices.push_back(indexExist);
+                }
+                else
+                {
+                    vertecis.push_back(vertex);
+                    indices.push_back(indexCurrent++);
+                }
+            }
+        }
+        
+        if (!attrib.normals.size())
+        {
+           static const vector_float4 ZERO = { 0, 0, 0, 0 };
+                
+            size_t indexCount = indices.size();
+            for (size_t i = 0; i < indexCount; i += 3)
+            {
+                uint32_t i0 = indices[i];
+                uint32_t i1 = indices[i + 1];
+                uint32_t i2 = indices[i + 2];
+                
+                MBEVertex *v0 = &vertecis[i0];
+                MBEVertex *v1 = &vertecis[i1];
+                MBEVertex *v2 = &vertecis[i2];
+                
+                vector_float3 p0 = v0->position.xyz;
+                vector_float3 p1 = v1->position.xyz;
+                vector_float3 p2 = v2->position.xyz;
+                
+                vector_float3 cross = vector_cross((p1 - p0), (p2 - p0));
+                vector_float4 cross4 = { cross.x, cross.y, cross.z, 0 };
+                
+                v0->normal += cross4;
+                v1->normal += cross4;
+                v2->normal += cross4;
+            }
+            
+            for (size_t i = 0; i < vertecis.size(); ++i)
+            {
+                vertecis[i].normal = vector_normalize(vertecis[i].normal);
             }
         }
         
@@ -85,38 +107,12 @@
                                             length:vertecis.size() * sizeof(MBEVertex)
                                            options:MTLResourceOptionCPUCacheModeDefault];
         
-        /*MBEVertex* vertexArray = (MBEVertex*)vertex.data();
-        for (size_t i = 0; i < 10; i++)
-        {
-            MBEVertex current = vertexArray[i];
-            NSLog(@"Position: %f, %f, %f.", current.position.x, current.position.y, current.position.z);
-        }
-        
-        std::vector<uint16> index(shapes[0].mesh.indices.size());
-        
-        NSLog(@"Index Count: %lu.", shapes[0].mesh.indices.size());
-        
-        for (size_t i = 0; i < shapes[0].mesh.indices.size(); ++i)
-        {
-            if (i > 25003)
-            {
-                uint16 vertex = shapes[0].mesh.indices[i].vertex_index;
-                uint16 normal = shapes[0].mesh.indices[i].normal_index;
-            }
-            index[i] = shapes[0].mesh.indices[i].vertex_index;
-        }*/
-        
         _indexBuffer = [device newBufferWithBytes:indices.data()
                                            length:indices.size() * sizeof(uint32)
                                           options:MTLResourceOptionCPUCacheModeDefault];
         
-        /*uint16* indexArray = (uint16*)index.data();
-        for (size_t i = 0; i < 10; i++)
-        {
-            uint16 index = indexArray[i];
-            NSLog(@"Index: %u.", index);
-        }*/
     }
+    
     return self;
 }
 

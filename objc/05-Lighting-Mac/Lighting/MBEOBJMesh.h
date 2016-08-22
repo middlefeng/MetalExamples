@@ -5,7 +5,6 @@
 
 @interface MBEOBJMesh : MBEMesh
 
-- (instancetype)initWithGroup:(MBEOBJGroup *)group device:(id<MTLDevice>)device;
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device;
 
 @end
