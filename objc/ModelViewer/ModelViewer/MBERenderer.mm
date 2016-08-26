@@ -85,7 +85,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
                        buffers[2], nil];
 }
 
-- (void)updateUniformsForView:(MBEMetalView *)view duration:(NSTimeInterval)duration
+- (void)updateUniformsForView:(NuoMetalView *)view duration:(NSTimeInterval)duration
 {
     self.time += duration;
     self.rotationX = view.rotationX;
@@ -134,7 +134,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     memcpy([self.uniformBuffers[self.bufferIndex] contents], &uniforms, sizeof(uniforms));
 }
 
-- (void)drawInView:(MBEMetalView *)view
+- (void)drawInView:(NuoMetalView *)view
 {
     dispatch_semaphore_wait(self.displaySemaphore, DISPATCH_TIME_FOREVER);
 

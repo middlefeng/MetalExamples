@@ -1,5 +1,5 @@
 #import "NuoMetalView.h"
 
-@interface MBERenderer : NSObject <MBEMetalViewDelegate>
+@interface MBERenderer : NSObject <NuoMetalViewDelegate>
 
 @end

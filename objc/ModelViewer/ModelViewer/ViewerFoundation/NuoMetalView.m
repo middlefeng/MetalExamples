@@ -5,7 +5,7 @@
 
 
 
-@interface MBEMetalView ()
+@interface NuoMetalView ()
 
 @property (strong) id<CAMetalDrawable> currentDrawable;
 @property (assign) NSTimeInterval frameDuration;
@@ -22,7 +22,7 @@
 
 
 
-@implementation MBEMetalView
+@implementation NuoMetalView
 
 - (CALayer*)makeBackingLayer
 {
