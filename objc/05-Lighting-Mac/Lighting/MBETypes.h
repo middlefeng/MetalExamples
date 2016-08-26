@@ -8,6 +8,12 @@ typedef struct __attribute((packed))
 {
     vector_float4 position;
     vector_float4 normal;
+    
+    vector_float4 ambientColor;
+    vector_float4 diffuseColor;
+    vector_float4 specularColor;
+    
+    vector_float4 specularPower;
 }
 MBEVertex;
 

@@ -67,7 +67,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"macbook" withExtension:@"obj"];
     _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];

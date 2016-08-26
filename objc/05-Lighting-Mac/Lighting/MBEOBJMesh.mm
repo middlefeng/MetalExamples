@@ -29,8 +29,11 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         std::vector<tinyobj::shape_t> shapes;
         std::vector<tinyobj::material_t> materials;
         std::string err;
+        
+        NSString* basePath = [path stringByDeletingLastPathComponent];
+        basePath = [basePath stringByAppendingString:@"/"];
 
-        tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.UTF8String);
+        tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.UTF8String, basePath.UTF8String);
         
         std::vector<MBEVertex> vertecis;
         std::vector<uint32> indices;
@@ -64,6 +67,26 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                 {
                     vertex.normal.xyzw = 0;
                 }
+                
+                if (shape.mesh.material_ids.size())
+                {
+                    int materialID = shape.mesh.material_ids[i / 3];
+                    tinyobj::material_t material = materials[materialID];
+                    
+                    vertex.ambientColor.x = material.ambient[0];
+                    vertex.ambientColor.y = material.ambient[1];
+                    vertex.ambientColor.z = material.ambient[2];
+                    
+                    vertex.diffuseColor.x = material.diffuse[0];
+                    vertex.diffuseColor.y = material.diffuse[1];
+                    vertex.diffuseColor.z = material.diffuse[2];
+                    
+                    vertex.specularColor.x = material.specular[0];
+                    vertex.specularColor.y = material.specular[1];
+                    vertex.specularColor.z = material.specular[2];
+                    
+                    vertex.specularPower.x = material.shininess;
+                }
 
                 xMin = std::min(xMin, vertex.position.x);
                 xMax = std::max(xMax, vertex.position.x);
@@ -76,7 +99,8 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                 size_t checkBackward = 100;
                 if (attrib.normals.size())
                 {
-                    auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
+                    auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward),
+                                            vertecis.end(), vertex);
                     if (search != std::end(vertecis))
                     {
                         uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
