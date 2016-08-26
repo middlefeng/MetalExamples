@@ -42,7 +42,7 @@
 		2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Zenith_OBJ.obj; sourceTree = "<group>"; };
 		2C840D0C1D7001C2000D2956 /* NuoMetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuoMetalView.h; sourceTree = "<group>"; };
 		2C840D0D1D7001C2000D2956 /* NuoMetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuoMetalView.m; sourceTree = "<group>"; };
-		2C9D9AA51D658F0800283E46 /* Lighting.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lighting.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C9D9AA51D658F0800283E46 /* ModelViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModelViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9D9AA81D658F0800283E46 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2C9D9AA91D658F0800283E46 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C9D9AAC1D658F0800283E46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		2C9D9AA61D658F0800283E46 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2C9D9AA51D658F0800283E46 /* Lighting.app */,
+				2C9D9AA51D658F0800283E46 /* ModelViewer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,7 +153,8 @@
 				2C9D9AB31D658F0800283E46 /* Info.plist */,
 				2C9D9AAB1D658F0800283E46 /* Supporting Files */,
 			);
-			path = Lighting;
+			name = Lighting;
+			path = ModelViewer;
 			sourceTree = "<group>";
 		};
 		2C9D9AAB1D658F0800283E46 /* Supporting Files */ = {
@@ -167,9 +168,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2C9D9AA41D658F0800283E46 /* Lighting */ = {
+		2C9D9AA41D658F0800283E46 /* ModelViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Lighting" */;
+			buildConfigurationList = 2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "ModelViewer" */;
 			buildPhases = (
 				2C9D9AA11D658F0800283E46 /* Sources */,
 				2C9D9AA21D658F0800283E46 /* Frameworks */,
@@ -179,9 +180,9 @@
 			);
 			dependencies = (
 			);
-			name = Lighting;
-			productName = Lighting;
-			productReference = 2C9D9AA51D658F0800283E46 /* Lighting.app */;
+			name = ModelViewer;
+			productName = ModelViewer;
+			productReference = 2C9D9AA51D658F0800283E46 /* ModelViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -198,7 +199,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Lighting" */;
+			buildConfigurationList = 2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "ModelViewer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -211,7 +212,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2C9D9AA41D658F0800283E46 /* Lighting */,
+				2C9D9AA41D658F0800283E46 /* ModelViewer */,
 			);
 		};
 /* End PBXProject section */
@@ -352,9 +353,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = glm;
-				INFOPLIST_FILE = Lighting/Info.plist;
+				INFOPLIST_FILE = ModelViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = fengdong.model.viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -365,9 +366,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				HEADER_SEARCH_PATHS = glm;
-				INFOPLIST_FILE = Lighting/Info.plist;
+				INFOPLIST_FILE = ModelViewer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Lighting;
+				PRODUCT_BUNDLE_IDENTIFIER = fengdong.model.viewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -375,7 +376,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Lighting" */ = {
+		2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "ModelViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C9D9AB41D658F0800283E46 /* Debug */,
@@ -384,7 +385,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Lighting" */ = {
+		2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "ModelViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2C9D9AB71D658F0800283E46 /* Debug */,
