@@ -1,0 +1,417 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */; };
+		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
+		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
+		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
+		2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */; };
+		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
+		2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DDADE1D65951500A9DC9A /* teapot.obj */; };
+		2C7059C11D6A292200AC151D /* obj format.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C01D6A292200AC151D /* obj format.obj */; };
+		2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */; };
+		2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AA91D658F0800283E46 /* AppDelegate.m */; };
+		2C9D9AAD1D658F0800283E46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAC1D658F0800283E46 /* main.m */; };
+		2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAE1D658F0800283E46 /* Assets.xcassets */; };
+		2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AB01D658F0800283E46 /* MainMenu.xib */; };
+		2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */; };
+		2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E861D691D3E0074E402 /* basemeshobj.obj */; };
+		2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8C1D69886E0074E402 /* dragon.obj */; };
+		2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8E1D6990360074E402 /* macbook.obj */; };
+		98A0B8431D6BA22500BD8453 /* Satellite.obj in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B8421D6BA22500BD8453 /* Satellite.obj */; };
+		98A0B84D1D6BB41400BD8453 /* MBETextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */; };
+		98A0B85F1D6BBA2700BD8453 /* spot_texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B85D1D6BBA2700BD8453 /* spot_texture.png */; };
+		98A0B8601D6BBA2700BD8453 /* spot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 98A0B85E1D6BBA2700BD8453 /* spot.obj */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2C5DDAC21D658F6000A9DC9A /* MBEMetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMetalView.h; sourceTree = "<group>"; };
+		2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMetalView.m; sourceTree = "<group>"; };
+		2C5DDAC71D6590DB00A9DC9A /* MBEMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMesh.h; sourceTree = "<group>"; };
+		2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMesh.m; sourceTree = "<group>"; };
+		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
+		2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJMesh.mm; sourceTree = "<group>"; };
+		2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
+		2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
+		2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBERenderer.h; sourceTree = "<group>"; };
+		2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBERenderer.mm; sourceTree = "<group>"; };
+		2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		2C5DDADC1D6594FD00A9DC9A /* MBETypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBETypes.h; sourceTree = "<group>"; };
+		2C5DDADE1D65951500A9DC9A /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		2C7059C01D6A292200AC151D /* obj format.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "obj format.obj"; sourceTree = "<group>"; };
+		2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Zenith_OBJ.obj; sourceTree = "<group>"; };
+		2C9D9AA51D658F0800283E46 /* Texturing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Texturing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C9D9AA81D658F0800283E46 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2C9D9AA91D658F0800283E46 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2C9D9AAC1D658F0800283E46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2C9D9AAE1D658F0800283E46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2C9D9AB11D658F0800283E46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2C9D9AB31D658F0800283E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
+		2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
+		2CAF2E861D691D3E0074E402 /* basemeshobj.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basemeshobj.obj; sourceTree = "<group>"; };
+		2CAF2E8C1D69886E0074E402 /* dragon.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dragon.obj; sourceTree = "<group>"; };
+		2CAF2E8E1D6990360074E402 /* macbook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = macbook.obj; sourceTree = "<group>"; };
+		98A0B8421D6BA22500BD8453 /* Satellite.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Satellite.obj; sourceTree = "<group>"; };
+		98A0B84B1D6BB41400BD8453 /* MBETextureLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBETextureLoader.h; sourceTree = "<group>"; };
+		98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBETextureLoader.m; sourceTree = "<group>"; };
+		98A0B85D1D6BBA2700BD8453 /* spot_texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spot_texture.png; path = spot/spot_texture.png; sourceTree = "<group>"; };
+		98A0B85E1D6BBA2700BD8453 /* spot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = spot.obj; path = spot/spot.obj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2C9D9AA21D658F0800283E46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2C5DDAC51D65901400A9DC9A /* User Interface */ = {
+			isa = PBXGroup;
+			children = (
+				2C9D9AA81D658F0800283E46 /* AppDelegate.h */,
+				2C9D9AA91D658F0800283E46 /* AppDelegate.m */,
+				2C9D9AB01D658F0800283E46 /* MainMenu.xib */,
+				2C5DDAC21D658F6000A9DC9A /* MBEMetalView.h */,
+				2C5DDAC31D658F6000A9DC9A /* MBEMetalView.m */,
+			);
+			name = "User Interface";
+			sourceTree = "<group>";
+		};
+		2C5DDAC61D6590C200A9DC9A /* Meshes */ = {
+			isa = PBXGroup;
+			children = (
+				2C5DDAC71D6590DB00A9DC9A /* MBEMesh.h */,
+				2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */,
+				2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */,
+				2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */,
+			);
+			name = Meshes;
+			sourceTree = "<group>";
+		};
+		2C5DDACD1D65912900A9DC9A /* Model Loader */ = {
+			isa = PBXGroup;
+			children = (
+				2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */,
+				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
+			);
+			name = "Model Loader";
+			sourceTree = "<group>";
+		};
+		2C5DDAD71D6591B800A9DC9A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				98A0B84B1D6BB41400BD8453 /* MBETextureLoader.h */,
+				98A0B84C1D6BB41400BD8453 /* MBETextureLoader.m */,
+				2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */,
+				2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */,
+				2C5DDADC1D6594FD00A9DC9A /* MBETypes.h */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		2C9D9A9C1D658F0800283E46 = {
+			isa = PBXGroup;
+			children = (
+				2C9D9AA71D658F0800283E46 /* Texturing */,
+				2C9D9AA61D658F0800283E46 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2C9D9AA61D658F0800283E46 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2C9D9AA51D658F0800283E46 /* Texturing.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2C9D9AA71D658F0800283E46 /* Texturing */ = {
+			isa = PBXGroup;
+			children = (
+				98A0B85C1D6BBA1D00BD8453 /* spot */,
+				98A0B8421D6BA22500BD8453 /* Satellite.obj */,
+				2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */,
+				2CAF2E8E1D6990360074E402 /* macbook.obj */,
+				2CAF2E8C1D69886E0074E402 /* dragon.obj */,
+				2CAF2E861D691D3E0074E402 /* basemeshobj.obj */,
+				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
+				2C7059C01D6A292200AC151D /* obj format.obj */,
+				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
+				2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */,
+				2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */,
+				2C5DDAD71D6591B800A9DC9A /* Utilities */,
+				2C5DDACD1D65912900A9DC9A /* Model Loader */,
+				2C5DDAC61D6590C200A9DC9A /* Meshes */,
+				2C5DDAC51D65901400A9DC9A /* User Interface */,
+				2C9D9AAE1D658F0800283E46 /* Assets.xcassets */,
+				2C9D9AB31D658F0800283E46 /* Info.plist */,
+				2C9D9AAB1D658F0800283E46 /* Supporting Files */,
+			);
+			path = Texturing;
+			sourceTree = "<group>";
+		};
+		2C9D9AAB1D658F0800283E46 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2C9D9AAC1D658F0800283E46 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		98A0B85C1D6BBA1D00BD8453 /* spot */ = {
+			isa = PBXGroup;
+			children = (
+				98A0B85D1D6BBA2700BD8453 /* spot_texture.png */,
+				98A0B85E1D6BBA2700BD8453 /* spot.obj */,
+			);
+			name = spot;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C9D9AA41D658F0800283E46 /* Texturing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Texturing" */;
+			buildPhases = (
+				2C9D9AA11D658F0800283E46 /* Sources */,
+				2C9D9AA21D658F0800283E46 /* Frameworks */,
+				2C9D9AA31D658F0800283E46 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Texturing;
+			productName = Lighting;
+			productReference = 2C9D9AA51D658F0800283E46 /* Texturing.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2C9D9A9D1D658F0800283E46 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = middleware;
+				TargetAttributes = {
+					2C9D9AA41D658F0800283E46 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Texturing" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2C9D9A9C1D658F0800283E46;
+			productRefGroup = 2C9D9AA61D658F0800283E46 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C9D9AA41D658F0800283E46 /* Texturing */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2C9D9AA31D658F0800283E46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C7059C11D6A292200AC151D /* obj format.obj in Resources */,
+				2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */,
+				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
+				2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */,
+				2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */,
+				98A0B85F1D6BBA2700BD8453 /* spot_texture.png in Resources */,
+				2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */,
+				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
+				2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */,
+				98A0B8601D6BBA2700BD8453 /* spot.obj in Resources */,
+				98A0B8431D6BA22500BD8453 /* Satellite.obj in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2C9D9AA11D658F0800283E46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C9D9AAD1D658F0800283E46 /* main.m in Sources */,
+				2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */,
+				2C5DDAC41D658F6000A9DC9A /* MBEMetalView.m in Sources */,
+				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
+				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
+				98A0B84D1D6BB41400BD8453 /* MBETextureLoader.m in Sources */,
+				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
+				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,
+				2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */,
+				2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		2C9D9AB01D658F0800283E46 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2C9D9AB11D658F0800283E46 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2C9D9AB41D658F0800283E46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		2C9D9AB51D658F0800283E46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		2C9D9AB71D658F0800283E46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = glm;
+				INFOPLIST_FILE = Texturing/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Texturing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2C9D9AB81D658F0800283E46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				HEADER_SEARCH_PATHS = glm;
+				INFOPLIST_FILE = Texturing/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.Texturing;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2C9D9AA01D658F0800283E46 /* Build configuration list for PBXProject "Texturing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C9D9AB41D658F0800283E46 /* Debug */,
+				2C9D9AB51D658F0800283E46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2C9D9AB61D658F0800283E46 /* Build configuration list for PBXNativeTarget "Texturing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2C9D9AB71D658F0800283E46 /* Debug */,
+				2C9D9AB81D658F0800283E46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2C9D9A9D1D658F0800283E46 /* Project object */;
+}
