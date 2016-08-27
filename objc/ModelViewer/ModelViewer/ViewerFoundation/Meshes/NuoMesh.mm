@@ -12,7 +12,7 @@
 
 
 
-@implementation MBEOBJMesh
+@implementation NuoMesh
 
 @synthesize indexBuffer = _indexBuffer;
 @synthesize vertexBuffer = _vertexBuffer;

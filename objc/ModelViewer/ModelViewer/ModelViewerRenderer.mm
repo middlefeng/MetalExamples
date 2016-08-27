@@ -11,7 +11,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 @interface MBERenderer ()
 @property (strong) id<MTLDevice> device;
-@property (strong) MBEOBJMesh *mesh;
+@property (strong) NuoMesh *mesh;
 @property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
 @property (strong) id<MTLCommandQueue> commandQueue;
 @property (strong) id<MTLRenderPipelineState> renderPipelineState;
@@ -68,7 +68,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 - (void)makeResources
 {
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
-    _mesh = [[MBEOBJMesh alloc] initWithPath:modelURL.path device:_device];
+    _mesh = [[NuoMesh alloc] initWithPath:modelURL.path device:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
