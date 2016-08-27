@@ -4,6 +4,14 @@
 #include "MBETypes.h"
 #include "tiny_obj_loader.h"
 
+
+
+@implementation BoundingBox
+
+@end
+
+
+
 @implementation MBEOBJMesh
 
 @synthesize indexBuffer = _indexBuffer;

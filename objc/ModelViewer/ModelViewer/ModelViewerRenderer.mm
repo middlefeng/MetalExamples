@@ -11,7 +11,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 @interface MBERenderer ()
 @property (strong) id<MTLDevice> device;
-@property (strong) MBEMesh *mesh;
+@property (strong) MBEOBJMesh *mesh;
 @property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
 @property (strong) id<MTLCommandQueue> commandQueue;
 @property (strong) id<MTLRenderPipelineState> renderPipelineState;
