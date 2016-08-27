@@ -7,8 +7,22 @@
 //
 
 #import "ModelView.h"
+#import "ModelViewerRenderer.h"
+
+
 
 @implementation ModelView
+{
+    MBERenderer* _render;
+}
+
+
+- (void)commonInit
+{
+    [super commonInit];
+    _render = [MBERenderer new];
+    self.delegate = _render;
+}
 
 
 - (void)mouseDragged:(NSEvent *)theEvent

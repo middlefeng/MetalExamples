@@ -12,7 +12,7 @@
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
-		2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */; };
+		2C5DDADA1D65949E00A9DC9A /* ModelViewerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */; };
 		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
 		2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DDADE1D65951500A9DC9A /* teapot.obj */; };
 		2C7059C11D6A292200AC151D /* obj format.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C01D6A292200AC151D /* obj format.obj */; };
@@ -37,8 +37,8 @@
 		2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJMesh.mm; sourceTree = "<group>"; };
 		2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
 		2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
-		2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBERenderer.h; sourceTree = "<group>"; };
-		2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBERenderer.mm; sourceTree = "<group>"; };
+		2C5DDAD81D65949E00A9DC9A /* ModelViewerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelViewerRenderer.h; sourceTree = "<group>"; };
+		2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModelViewerRenderer.mm; sourceTree = "<group>"; };
 		2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		2C5DDADC1D6594FD00A9DC9A /* MBETypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBETypes.h; sourceTree = "<group>"; };
 		2C5DDADE1D65951500A9DC9A /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
 				2C7059C01D6A292200AC151D /* obj format.obj */,
 				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
-				2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */,
-				2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */,
+				2C5DDAD81D65949E00A9DC9A /* ModelViewerRenderer.h */,
+				2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */,
 				2C5B92B21D7157A600722936 /* MainMenu.xib */,
 				2C5DDAD71D6591B800A9DC9A /* Utilities */,
 				2C5DDACD1D65912900A9DC9A /* Model Loader */,
@@ -254,7 +254,7 @@
 				2C840D0E1D7001C2000D2956 /* NuoMetalView.m in Sources */,
 				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
 				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,
-				2C5DDADA1D65949E00A9DC9A /* MBERenderer.mm in Sources */,
+				2C5DDADA1D65949E00A9DC9A /* ModelViewerRenderer.mm in Sources */,
 				2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

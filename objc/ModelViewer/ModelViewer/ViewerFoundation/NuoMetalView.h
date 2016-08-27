@@ -25,6 +25,9 @@
 @property (nonatomic, readonly) CGSize drawableSize;
 
 
+- (void)commonInit;
+
+
 /**
  *  Notify the view to render the model/scene (i.e. in turn notifying the delegate)
  */

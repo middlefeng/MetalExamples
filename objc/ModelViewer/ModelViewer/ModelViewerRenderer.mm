@@ -1,4 +1,4 @@
-#import "MBERenderer.h"
+#import "ModelViewerRenderer.h"
 #import "MBEMathUtilities.h"
 #import "MBEOBJMesh.h"
 #import "MBETypes.h"

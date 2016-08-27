@@ -1,8 +1,5 @@
 
 #import "NuoMetalView.h"
-#import "MBERenderer.h"
-
-
 
 
 @interface NuoMetalView ()
@@ -13,7 +10,7 @@
 @property (nonatomic, readonly) CAMetalLayer *metalLayer;
 
 
-@property (nonatomic, strong) MBERenderer *renderer;
+@property (nonatomic, strong) id<NuoMetalViewDelegate> renderer;
 
 @end
 
@@ -76,9 +73,6 @@
     _preferredFramesPerSecond = 60;
     _clearColor = MTLClearColorMake(1, 1, 1, 1);
     
-    self.renderer = [MBERenderer new];
-    self.delegate = self.renderer;
-
     [self setWantsLayer:YES];
     self.metalLayer.pixelFormat = MTLPixelFormatBGRA8Unorm;
 }
