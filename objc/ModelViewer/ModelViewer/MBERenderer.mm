@@ -18,7 +18,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 @property (strong) id<MTLDepthStencilState> depthStencilState;
 @property (strong) dispatch_semaphore_t displaySemaphore;
 @property (assign) NSInteger bufferIndex;
-@property (assign) float rotationX, rotationY, time;
+@property (assign) float rotationX, rotationY;
 @end
 
 @implementation MBERenderer
@@ -85,9 +85,8 @@ static const NSInteger MBEInFlightBufferCount = 3;
                        buffers[2], nil];
 }
 
-- (void)updateUniformsForView:(NuoMetalView *)view duration:(NSTimeInterval)duration
+- (void)updateUniformsForView:(NuoMetalView *)view
 {
-    self.time += duration;
     self.rotationX = view.rotationX;
     self.rotationY = view.rotationY;
     float scaleFactor = 1;
@@ -119,7 +118,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
 
-    const CGSize drawableSize = view.metalLayer.drawableSize;
+    const CGSize drawableSize = view.drawableSize;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
@@ -140,7 +139,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
     view.clearColor = MTLClearColorMake(0.95, 0.95, 0.95, 1);
 
-    [self updateUniformsForView:view duration:view.frameDuration];
+    [self updateUniformsForView:view];
 
     id<MTLCommandBuffer> commandBuffer = [self.commandQueue commandBuffer];
 

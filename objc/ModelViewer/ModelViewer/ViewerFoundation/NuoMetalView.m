@@ -8,8 +8,11 @@
 @interface NuoMetalView ()
 
 @property (strong) id<CAMetalDrawable> currentDrawable;
-@property (assign) NSTimeInterval frameDuration;
+@property (nonatomic, assign) NSTimeInterval frameDuration;
 @property (strong) id<MTLTexture> depthTexture;
+
+@property (nonatomic, readonly) CAMetalLayer *metalLayer;
+
 
 @property (nonatomic, strong) MBERenderer *renderer;
 
@@ -42,6 +45,11 @@
     self.metalLayer.device = MTLCreateSystemDefaultDevice();
     
     [self updateDrawableSize];
+}
+
+- (CGSize)drawableSize
+{
+    return [self metalLayer].drawableSize;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder

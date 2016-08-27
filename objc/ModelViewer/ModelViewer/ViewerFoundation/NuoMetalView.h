@@ -14,18 +14,10 @@
  */
 @property (nonatomic, weak) id<NuoMetalViewDelegate> delegate;
 
-/**
- *  TODO: move to .m
- */
-@property (nonatomic, readonly) CAMetalLayer *metalLayer;
-
 @property (nonatomic) NSInteger preferredFramesPerSecond;
 
 @property (nonatomic) MTLPixelFormat colorPixelFormat;
 @property (nonatomic, assign) MTLClearColor clearColor;
-
-//  TODO: move to .m
-@property (nonatomic, readonly) NSTimeInterval frameDuration;
 
 @property (nonatomic, readonly) id<CAMetalDrawable> currentDrawable;
 @property (nonatomic, readonly) MTLRenderPassDescriptor *currentRenderPassDescriptor;
@@ -34,6 +26,8 @@
 @property (nonatomic, assign) float rotationX;
 @property (nonatomic, assign) float rotationY;
 @property (nonatomic, assign) float zoom;
+
+@property (nonatomic, readonly) CGSize drawableSize;
 
 @end
 
