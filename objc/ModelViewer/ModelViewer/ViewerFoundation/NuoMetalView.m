@@ -8,7 +8,6 @@
 @interface NuoMetalView ()
 
 @property (strong) id<CAMetalDrawable> currentDrawable;
-@property (nonatomic, assign) NSTimeInterval frameDuration;
 @property (strong) id<MTLTexture> depthTexture;
 
 @property (nonatomic, readonly) CAMetalLayer *metalLayer;
@@ -93,21 +92,6 @@
 
 
 
-- (void)mouseDragged:(NSEvent *)theEvent
-{
-    _rotationX -= 0.01 * M_PI * theEvent.deltaY;
-    _rotationY -= 0.01 * M_PI * theEvent.deltaX;
-    [self render];
-}
-
-
-- (void)magnifyWithEvent:(NSEvent *)event
-{
-    _zoom += 0.01 * event.deltaZ;
-    [self render];
-}
-
-
 - (void)updateDrawableSize
 {
     // During the first layout pass, we will not be in a view hierarchy, so we guess our scale
@@ -144,8 +128,7 @@
 - (void)render
 {
     self.currentDrawable = [self.metalLayer nextDrawable];
-    self.frameDuration = 1.0 / self.preferredFramesPerSecond;
-
+    
     if (self.currentDrawable &&     // null drawable happens if the window is covered
         [self.delegate respondsToSelector:@selector(drawInView:)])
     {

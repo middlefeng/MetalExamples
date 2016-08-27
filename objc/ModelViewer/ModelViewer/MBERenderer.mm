@@ -85,8 +85,10 @@ static const NSInteger MBEInFlightBufferCount = 3;
                        buffers[2], nil];
 }
 
-- (void)updateUniformsForView:(NuoMetalView *)view
+- (void)updateUniformsForView:(NuoMetalView *)viewBase
 {
+    ModelView* view = (ModelView*)viewBase;
+    
     self.rotationX = view.rotationX;
     self.rotationY = view.rotationY;
     float scaleFactor = 1;

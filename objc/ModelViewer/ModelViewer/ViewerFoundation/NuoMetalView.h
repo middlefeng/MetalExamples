@@ -22,12 +22,13 @@
 @property (nonatomic, readonly) id<CAMetalDrawable> currentDrawable;
 @property (nonatomic, readonly) MTLRenderPassDescriptor *currentRenderPassDescriptor;
 
-//  TODO: move to delegate
-@property (nonatomic, assign) float rotationX;
-@property (nonatomic, assign) float rotationY;
-@property (nonatomic, assign) float zoom;
-
 @property (nonatomic, readonly) CGSize drawableSize;
+
+
+/**
+ *  Notify the view to render the model/scene (i.e. in turn notifying the delegate)
+ */
+- (void)render;
 
 @end
 

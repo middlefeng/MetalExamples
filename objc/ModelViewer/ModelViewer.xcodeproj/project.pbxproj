@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C5B92B41D7157A600722936 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5B92B21D7157A600722936 /* MainMenu.xib */; };
+		2C5B92B71D7157EA00722936 /* ModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B92B61D7157EA00722936 /* ModelView.m */; };
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
@@ -28,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		2C5B92B31D7157A600722936 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2C5B92B51D7157EA00722936 /* ModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelView.h; sourceTree = "<group>"; };
+		2C5B92B61D7157EA00722936 /* ModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelView.m; sourceTree = "<group>"; };
 		2C5DDAC71D6590DB00A9DC9A /* MBEMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMesh.h; sourceTree = "<group>"; };
 		2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMesh.m; sourceTree = "<group>"; };
 		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
@@ -72,6 +75,8 @@
 			children = (
 				2C9D9AA81D658F0800283E46 /* AppDelegate.h */,
 				2C9D9AA91D658F0800283E46 /* AppDelegate.m */,
+				2C5B92B51D7157EA00722936 /* ModelView.h */,
+				2C5B92B61D7157EA00722936 /* ModelView.m */,
 			);
 			name = "User Interface";
 			path = UserInterface;
@@ -243,6 +248,7 @@
 			files = (
 				2C9D9AAD1D658F0800283E46 /* main.m in Sources */,
 				2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */,
+				2C5B92B71D7157EA00722936 /* ModelView.m in Sources */,
 				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
 				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
 				2C840D0E1D7001C2000D2956 /* NuoMetalView.m in Sources */,
