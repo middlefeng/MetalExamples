@@ -90,7 +90,7 @@
 				2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */,
 				2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */,
 			);
-			name = Meshes;
+			path = Meshes;
 			sourceTree = "<group>";
 		};
 		2C5DDACD1D65912900A9DC9A /* Model Loader */ = {
@@ -100,6 +100,7 @@
 				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
 			);
 			name = "Model Loader";
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2C5DDAD71D6591B800A9DC9A /* Utilities */ = {
@@ -117,6 +118,8 @@
 			children = (
 				2C840D0C1D7001C2000D2956 /* NuoMetalView.h */,
 				2C840D0D1D7001C2000D2956 /* NuoMetalView.m */,
+				2C5DDAC61D6590C200A9DC9A /* Meshes */,
+				2C5DDACD1D65912900A9DC9A /* Model Loader */,
 			);
 			path = ViewerFoundation;
 			sourceTree = "<group>";
@@ -152,8 +155,6 @@
 				2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */,
 				2C5B92B21D7157A600722936 /* MainMenu.xib */,
 				2C5DDAD71D6591B800A9DC9A /* Utilities */,
-				2C5DDACD1D65912900A9DC9A /* Model Loader */,
-				2C5DDAC61D6590C200A9DC9A /* Meshes */,
 				2C5DDAC51D65901400A9DC9A /* User Interface */,
 				2C9D9AAE1D658F0800283E46 /* Assets.xcassets */,
 				2C9D9AB31D658F0800283E46 /* Info.plist */,
