@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C5B92B41D7157A600722936 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5B92B21D7157A600722936 /* MainMenu.xib */; };
 		2C5DDACB1D6590DB00A9DC9A /* MBEMesh.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */; };
 		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
@@ -19,7 +20,6 @@
 		2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AA91D658F0800283E46 /* AppDelegate.m */; };
 		2C9D9AAD1D658F0800283E46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAC1D658F0800283E46 /* main.m */; };
 		2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAE1D658F0800283E46 /* Assets.xcassets */; };
-		2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AB01D658F0800283E46 /* MainMenu.xib */; };
 		2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */; };
 		2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E861D691D3E0074E402 /* basemeshobj.obj */; };
 		2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8C1D69886E0074E402 /* dragon.obj */; };
@@ -27,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C5B92B31D7157A600722936 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2C5DDAC71D6590DB00A9DC9A /* MBEMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMesh.h; sourceTree = "<group>"; };
 		2C5DDAC81D6590DB00A9DC9A /* MBEMesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBEMesh.m; sourceTree = "<group>"; };
 		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		2C9D9AA91D658F0800283E46 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2C9D9AAC1D658F0800283E46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C9D9AAE1D658F0800283E46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2C9D9AB11D658F0800283E46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2C9D9AB31D658F0800283E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
 		2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
@@ -72,9 +72,9 @@
 			children = (
 				2C9D9AA81D658F0800283E46 /* AppDelegate.h */,
 				2C9D9AA91D658F0800283E46 /* AppDelegate.m */,
-				2C9D9AB01D658F0800283E46 /* MainMenu.xib */,
 			);
 			name = "User Interface";
+			path = UserInterface;
 			sourceTree = "<group>";
 		};
 		2C5DDAC61D6590C200A9DC9A /* Meshes */ = {
@@ -145,6 +145,7 @@
 				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
 				2C5DDAD81D65949E00A9DC9A /* MBERenderer.h */,
 				2C5DDAD91D65949E00A9DC9A /* MBERenderer.mm */,
+				2C5B92B21D7157A600722936 /* MainMenu.xib */,
 				2C5DDAD71D6591B800A9DC9A /* Utilities */,
 				2C5DDACD1D65912900A9DC9A /* Model Loader */,
 				2C5DDAC61D6590C200A9DC9A /* Meshes */,
@@ -227,9 +228,9 @@
 				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
 				2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */,
 				2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */,
-				2C9D9AB21D658F0800283E46 /* MainMenu.xib in Resources */,
 				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
 				2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */,
+				2C5B92B41D7157A600722936 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,10 +256,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2C9D9AB01D658F0800283E46 /* MainMenu.xib */ = {
+		2C5B92B21D7157A600722936 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				2C9D9AB11D658F0800283E46 /* Base */,
+				2C5B92B31D7157A600722936 /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
