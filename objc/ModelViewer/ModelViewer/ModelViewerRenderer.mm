@@ -1,6 +1,6 @@
 #import "ModelViewerRenderer.h"
 #import "MBEMathUtilities.h"
-#import "MBEOBJMesh.h"
+#import "NuoMesh.h"
 #import "MBETypes.h"
 
 #import <Metal/Metal.h>

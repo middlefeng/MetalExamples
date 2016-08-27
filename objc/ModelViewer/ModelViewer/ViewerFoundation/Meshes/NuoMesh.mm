@@ -1,5 +1,5 @@
 
-#import "MBEOBJMesh.h"
+#import "NuoMesh.h"
 
 #include "MBETypes.h"
 #include "tiny_obj_loader.h"

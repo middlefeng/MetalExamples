@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		2C5B92B41D7157A600722936 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5B92B21D7157A600722936 /* MainMenu.xib */; };
 		2C5B92B71D7157EA00722936 /* ModelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B92B61D7157EA00722936 /* ModelView.m */; };
-		2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */; };
+		2C5B92BD1D7160EC00722936 /* NuoModelLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5B92BC1D7160EC00722936 /* NuoModelLoader.m */; };
+		2C5DDACC1D6590DB00A9DC9A /* NuoMesh.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDACA1D6590DB00A9DC9A /* NuoMesh.mm */; };
 		2C5DDAD61D6591B000A9DC9A /* MBEMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */; };
 		2C5DDADA1D65949E00A9DC9A /* ModelViewerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */; };
 		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
@@ -30,8 +31,10 @@
 		2C5B92B31D7157A600722936 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2C5B92B51D7157EA00722936 /* ModelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelView.h; sourceTree = "<group>"; };
 		2C5B92B61D7157EA00722936 /* ModelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelView.m; sourceTree = "<group>"; };
-		2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEOBJMesh.h; sourceTree = "<group>"; };
-		2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MBEOBJMesh.mm; sourceTree = "<group>"; };
+		2C5B92BB1D7160EC00722936 /* NuoModelLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuoModelLoader.h; sourceTree = "<group>"; };
+		2C5B92BC1D7160EC00722936 /* NuoModelLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuoModelLoader.m; sourceTree = "<group>"; };
+		2C5DDAC91D6590DB00A9DC9A /* NuoMesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuoMesh.h; sourceTree = "<group>"; };
+		2C5DDACA1D6590DB00A9DC9A /* NuoMesh.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = NuoMesh.mm; sourceTree = "<group>"; };
 		2C5DDAD41D6591B000A9DC9A /* MBEMathUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MBEMathUtilities.cpp; sourceTree = "<group>"; };
 		2C5DDAD51D6591B000A9DC9A /* MBEMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBEMathUtilities.h; sourceTree = "<group>"; };
 		2C5DDAD81D65949E00A9DC9A /* ModelViewerRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelViewerRenderer.h; sourceTree = "<group>"; };
@@ -82,8 +85,8 @@
 		2C5DDAC61D6590C200A9DC9A /* Meshes */ = {
 			isa = PBXGroup;
 			children = (
-				2C5DDAC91D6590DB00A9DC9A /* MBEOBJMesh.h */,
-				2C5DDACA1D6590DB00A9DC9A /* MBEOBJMesh.mm */,
+				2C5DDAC91D6590DB00A9DC9A /* NuoMesh.h */,
+				2C5DDACA1D6590DB00A9DC9A /* NuoMesh.mm */,
 			);
 			path = Meshes;
 			sourceTree = "<group>";
@@ -93,6 +96,8 @@
 			children = (
 				2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */,
 				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
+				2C5B92BB1D7160EC00722936 /* NuoModelLoader.h */,
+				2C5B92BC1D7160EC00722936 /* NuoModelLoader.m */,
 			);
 			path = Loader;
 			sourceTree = "<group>";
@@ -244,7 +249,8 @@
 				2C9D9AAD1D658F0800283E46 /* main.m in Sources */,
 				2C5B92B71D7157EA00722936 /* ModelView.m in Sources */,
 				2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */,
-				2C5DDACC1D6590DB00A9DC9A /* MBEOBJMesh.mm in Sources */,
+				2C5B92BD1D7160EC00722936 /* NuoModelLoader.m in Sources */,
+				2C5DDACC1D6590DB00A9DC9A /* NuoMesh.mm in Sources */,
 				2C840D0E1D7001C2000D2956 /* NuoMetalView.m in Sources */,
 				2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */,
 				2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */,
