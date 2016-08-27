@@ -88,14 +88,13 @@
 			path = Meshes;
 			sourceTree = "<group>";
 		};
-		2C5DDACD1D65912900A9DC9A /* Model Loader */ = {
+		2C5DDACD1D65912900A9DC9A /* Loader */ = {
 			isa = PBXGroup;
 			children = (
 				2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */,
 				2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */,
 			);
-			name = "Model Loader";
-			path = ..;
+			path = Loader;
 			sourceTree = "<group>";
 		};
 		2C5DDAD71D6591B800A9DC9A /* Utilities */ = {
@@ -114,7 +113,7 @@
 				2C840D0C1D7001C2000D2956 /* NuoMetalView.h */,
 				2C840D0D1D7001C2000D2956 /* NuoMetalView.m */,
 				2C5DDAC61D6590C200A9DC9A /* Meshes */,
-				2C5DDACD1D65912900A9DC9A /* Model Loader */,
+				2C5DDACD1D65912900A9DC9A /* Loader */,
 			);
 			path = ViewerFoundation;
 			sourceTree = "<group>";
