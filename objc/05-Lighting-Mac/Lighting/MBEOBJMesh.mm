@@ -85,7 +85,7 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
                     vertex.specularColor.y = material.specular[1];
                     vertex.specularColor.z = material.specular[2];
                     
-                    vertex.specularPower.x = material.shininess;
+                    vertex.specularPower = material.shininess;
                 }
 
                 xMin = std::min(xMin, vertex.position.x);

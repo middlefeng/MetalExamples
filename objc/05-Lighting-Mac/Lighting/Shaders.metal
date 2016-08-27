@@ -44,13 +44,13 @@ struct Uniforms
 
 struct Vertex
 {
-    float4 position;
-    float4 normal;
+    float4 position [[attribute(0)]];
+    float4 normal   [[attribute(1)]];
     
-    float4 ambientColor;
-    float4 diffuseColor;
-    float4 specularColor;
-    float4 specularPower;
+    float4 ambientColor     [[attribute(2)]];
+    float4 diffuseColor     [[attribute(3)]];
+    float4 specularColor    [[attribute(4)]];
+    float specularPower     [[attribute(5)]];
 };
 
 struct ProjectedVertex
@@ -77,7 +77,7 @@ vertex ProjectedVertex vertex_project(device Vertex *vertices [[buffer(0)]],
     outVert.ambientColor = vertices[vid].ambientColor.xyz;
     outVert.diffuseColor = vertices[vid].diffuseColor.xyz;
     outVert.specularColor = vertices[vid].specularColor.xyz;
-    outVert.specularPower = vertices[vid].specularPower[0];
+    outVert.specularPower = vertices[vid].specularPower;
 
     return outVert;
 }

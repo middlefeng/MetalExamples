@@ -47,6 +47,33 @@ static const NSInteger MBEInFlightBufferCount = 3;
     pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light"];
     pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
     pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
+    
+    MTLVertexDescriptor* vertexDescriptor = [[MTLVertexDescriptor alloc] init];
+    vertexDescriptor.attributes[0].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[0].offset = 0;
+    vertexDescriptor.attributes[0].bufferIndex = 0;
+    vertexDescriptor.attributes[1].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[1].offset = 16;
+    vertexDescriptor.attributes[1].bufferIndex = 0;
+    vertexDescriptor.attributes[2].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[2].offset = 32;
+    vertexDescriptor.attributes[2].bufferIndex = 0;
+    vertexDescriptor.attributes[3].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[3].offset = 48;
+    vertexDescriptor.attributes[3].bufferIndex = 0;
+    vertexDescriptor.attributes[4].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[4].offset = 64;
+    vertexDescriptor.attributes[4].bufferIndex = 0;
+    vertexDescriptor.attributes[5].format = MTLVertexFormatFloat;
+    vertexDescriptor.attributes[5].offset = 80;
+    vertexDescriptor.attributes[5].bufferIndex = 0;
+    vertexDescriptor.layouts[0].stride = 96;
+    vertexDescriptor.layouts[0].stepRate = 1;
+    vertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
+    
+    printf("Vertex Size. %lu.\n", sizeof(MBEVertex));
+    
+    pipelineDescriptor.vertexDescriptor = vertexDescriptor;
 
     MTLDepthStencilDescriptor *depthStencilDescriptor = [MTLDepthStencilDescriptor new];
     depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;

@@ -4,16 +4,16 @@
 typedef uint32_t MBEIndex;
 const MTLIndexType MBEIndexType = MTLIndexTypeUInt32;
 
-typedef struct __attribute((packed))
+typedef struct
 {
     vector_float4 position;
     vector_float4 normal;
     
-    vector_float4 ambientColor;
-    vector_float4 diffuseColor;
-    vector_float4 specularColor;
+    vector_float3 ambientColor;
+    vector_float3 diffuseColor;
+    vector_float3 specularColor;
     
-    vector_float4 specularPower;
+    float specularPower;
 }
 MBEVertex;
 
