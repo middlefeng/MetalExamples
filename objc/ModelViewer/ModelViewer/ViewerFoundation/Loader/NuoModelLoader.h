@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+@class NuoMesh;
+
+
 @interface NuoModelLoader : NSObject
+
+-(NSArray<NuoMesh*>*) loadModelObjects:(NSString*)objPath withType:(NSString*)type;
 
 @end
