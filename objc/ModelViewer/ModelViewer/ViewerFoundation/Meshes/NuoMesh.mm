@@ -37,8 +37,11 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         std::vector<tinyobj::shape_t> shapes;
         std::vector<tinyobj::material_t> materials;
         std::string err;
+        
+        NSString* base = [path stringByDeletingLastPathComponent];
+        base = [base stringByAppendingString:@"/"];
 
-        tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.UTF8String);
+        tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.UTF8String, base.UTF8String);
         
         std::vector<MBEVertex> vertecis;
         std::vector<uint32> indices;
