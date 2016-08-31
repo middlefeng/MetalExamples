@@ -23,6 +23,19 @@ const extern std::string kNuoModelType_Simple;
 class NuoModelBase;
 
 
+class NuoBox
+{
+public:
+    float _centerX;
+    float _centerY;
+    float _centerZ;
+    
+    float _spanX;
+    float _spanY;
+    float _spanZ;
+};
+
+
 
 std::shared_ptr<NuoModelBase> CreateModel(std::string type);
 
@@ -30,25 +43,33 @@ std::shared_ptr<NuoModelBase> CreateModel(std::string type);
 
 class NuoModelBase : public std::enable_shared_from_this<NuoModelBase>
 {
-public:
-    virtual void AssignPosition(size_t targetOffset, size_t sourceIndex,
-                                const std::vector<float>& positionsBuffer) = 0;
+protected:
+    std::vector<uint32_t> _indices;
     
-    virtual void AssignNormal(size_t targetOffset, size_t sourceIndex,
-                              const std::vector<float>& normalBuffer) = 0;
+public:
+    virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) = 0;
+    virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) = 0;
+    virtual void GenerateIndices() = 0;
+    
+    virtual size_t GetVerticesNumber() = 0;
+    virtual vector_float4 GetPosition(size_t index) = 0;
+    virtual NuoBox GetBoundingBox();
     
     virtual void* Ptr() = 0;
+    virtual void* IndicesPtr();
 };
 
 
 
 class NuoModelSimple : public NuoModelBase
 {
-private:
+protected:
     struct Item
     {
         vector_float4 _position;
         vector_float4 _normal;
+        
+        bool operator == (const Item& i2);
     };
     
     std::vector<Item> _buffer;
@@ -56,11 +77,12 @@ private:
 public:
     NuoModelSimple();
     
-    virtual void AssignPosition(size_t targetOffset, size_t sourceIndex,
-                                const std::vector<float>& positionsBuffer) override;
+    virtual void GenerateIndices() override;
+    virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) override;
+    virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) override;
     
-    virtual void AssignNormal(size_t targetOffset, size_t sourceIndex,
-                              const std::vector<float>& normalBuffer) override;
+    virtual size_t GetVerticesNumber() override;
+    virtual vector_float4 GetPosition(size_t index) override;
     
     virtual void* Ptr() override;
 };
