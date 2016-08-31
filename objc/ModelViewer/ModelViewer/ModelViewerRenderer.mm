@@ -7,6 +7,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import <simd/simd.h>
 
+#include "NuoMesh.h"
+#include "NuoModelBase.h"
+#include "NuoModelLoader.h"
+
 static const NSInteger MBEInFlightBufferCount = 3;
 
 @interface MBERenderer ()
@@ -67,8 +71,15 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
-    _mesh = [[NuoMesh alloc] initWithPath:modelURL.path device:_device];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"macbook" withExtension:@"obj"];
+    //_mesh = [[NuoMesh alloc] initWithPath:modelURL.path device:_device];
+    
+    NuoModelLoader* loader = [NuoModelLoader new];
+    NSArray* array = [loader loadModelObjects:modelURL.path
+                                     withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
+                                   withDevice:_device];
+    
+    _mesh = array[0];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)

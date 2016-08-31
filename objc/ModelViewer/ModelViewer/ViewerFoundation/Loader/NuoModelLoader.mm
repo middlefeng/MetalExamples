@@ -10,6 +10,7 @@
 
 #include "NuoModelBase.h"
 #include "NuoMaterial.h"
+#include "NuoMesh.h"
 
 #include "tiny_obj_loader.h"
 
@@ -144,10 +145,12 @@ static void DoMergeShapesInVector(const PShapeVector result, std::vector<tinyobj
 
 
 
-static PShapeVector GetShapeVector(const tinyobj::shape_t shape, std::vector<tinyobj::material_t> &materials)
+static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::material_t> &materials)
 {
     PShapeVector result = std::make_shared<ShapeVector>();
-    DoSplitShapes(result, shape);
+    for (const auto& shape : shapes)
+        DoSplitShapes(result, shape);
+    
     DoMergeShapesInVector(result, materials);
     
     return result;
@@ -160,8 +163,12 @@ static PShapeVector GetShapeVector(const tinyobj::shape_t shape, std::vector<tin
 
 
 
--(NSArray<NuoMesh*>*)loadModelObjects:(NSString*)objPath withType:(NSString*)type
+-(NSArray<NuoMesh*>*)loadModelObjects:(NSString*)objPath
+                             withType:(NSString*)type
+                           withDevice:(id<MTLDevice>)device
 {
+    typedef std::shared_ptr<NuoModelBase> PNuoModelBase;
+    
     tinyobj::attrib_t attrib;
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
@@ -169,131 +176,71 @@ static PShapeVector GetShapeVector(const tinyobj::shape_t shape, std::vector<tin
     
     tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String);
     
-    typedef std::map<NuoMaterial, std::vector<tinyobj::shape_t>> ShapeMap;
-    ShapeMap shapesMap;
+    PShapeVector shapeVector = GetShapeVector(shapes, materials);
     
-    for (const tinyobj::shape_t& shape : shapes)
-    {
-        shape.mesh.material_ids
-        ShapeMap[]
-    }
-    
-    
-    
-    
-    
-    
-    std::shared_ptr<NuoModelBase> modelBase = CreateModel(type.UTF8String);
-    
+    std::vector<PNuoModelBase> models;
     std::vector<uint32> indices;
-    uint32 indexCurrent = 0;
+    
+    for (const auto& shape : (*shapeVector))
+    {
+        PNuoModelBase modelBase = CreateModel(type.UTF8String);
+        
+        for (size_t i = 0; i < shape.mesh.indices.size(); ++i)
+        {
+            tinyobj::index_t index = shape.mesh.indices[i];
+            
+            modelBase->AddPosition(index.vertex_index, attrib.vertices);
+            if (attrib.normals.size())
+                modelBase->AddNormal(index.normal_index, attrib.normals);
+        }
+        
+        modelBase->GenerateIndices();
+        if (!attrib.normals.size())
+            modelBase->GenerateNormals();
+        
+        models.push_back(modelBase);
+    }
     
     float xMin = 1e9f, xMax = -1e9f;
     float yMin = 1e9f, yMax = -1e9f;
     float zMin = 1e9f, zMax = -1e9f;
     
-    for (const auto& shape : shapes)
-    {
-        for (size_t i = 0; i < shape.mesh.indices.size(); ++i)
-        {
-            tinyobj::index_t index = shape.mesh.indices[i];
-            
-            MBEVertex vertex;
-            
-            vertex.position.x = attrib.vertices[index.vertex_index * 3];
-            vertex.position.y = attrib.vertices[index.vertex_index * 3 + 1];
-            vertex.position.z = attrib.vertices[index.vertex_index * 3 + 2];
-            vertex.position.w = 1.0;
-            
-            if (attrib.normals.size())
-            {
-                vertex.normal.x = attrib.normals[index.normal_index * 3];
-                vertex.normal.y = attrib.normals[index.normal_index * 3 + 1];
-                vertex.normal.z = attrib.normals[index.normal_index * 3 + 2];
-                vertex.normal.w = 0.0;
-            }
-            else
-            {
-                vertex.normal.xyzw = 0;
-            }
-            
-            xMin = std::min(xMin, vertex.position.x);
-            xMax = std::max(xMax, vertex.position.x);
-            yMin = std::min(yMin, vertex.position.y);
-            yMax = std::max(yMax, vertex.position.y);
-            zMin = std::min(zMin, vertex.position.z);
-            zMax = std::max(zMax, vertex.position.z);
-            
-            
-            size_t checkBackward = 100;
-            if (attrib.normals.size())
-            {
-                auto search = std::find((vertecis.size() < checkBackward ? vertecis.begin() : vertecis.end()-checkBackward), vertecis.end(), vertex);
-                if (search != std::end(vertecis))
-                {
-                    uint32_t indexExist = (uint32_t)(search - std::begin(vertecis));
-                    indices.push_back(indexExist);
-                }
-                else
-                {
-                    vertecis.push_back(vertex);
-                    indices.push_back(indexCurrent++);
-                }
-            }
-            else
-            {
-                vertecis.push_back(vertex);
-                indices.push_back(indexCurrent++);
-            }
-        }
-    }
+    NSMutableArray<NuoMesh*>* result = [[NSMutableArray<NuoMesh*> alloc] init];
     
-    if (!attrib.normals.size())
+    for (auto& model : models)
     {
-        size_t indexCount = indices.size();
-        for (size_t i = 0; i < indexCount; i += 3)
-        {
-            uint32_t i0 = indices[i];
-            uint32_t i1 = indices[i + 1];
-            uint32_t i2 = indices[i + 2];
-            
-            MBEVertex *v0 = &vertecis[i0];
-            MBEVertex *v1 = &vertecis[i1];
-            MBEVertex *v2 = &vertecis[i2];
-            
-            vector_float3 p0 = v0->position.xyz;
-            vector_float3 p1 = v1->position.xyz;
-            vector_float3 p2 = v2->position.xyz;
-            
-            vector_float3 cross = vector_cross((p1 - p0), (p2 - p0));
-            vector_float4 cross4 = { cross.x, cross.y, cross.z, 0 };
-            
-            v0->normal += cross4;
-            v1->normal += cross4;
-            v2->normal += cross4;
-        }
+        NuoBox boundingBox = model->GetBoundingBox();
         
-        for (size_t i = 0; i < vertecis.size(); ++i)
-        {
-            vertecis[i].normal = vector_normalize(vertecis[i].normal);
-        }
+        float xRadius = boundingBox._spanX / 2.0f;
+        float yRadius = boundingBox._spanY / 2.0f;
+        float zRadius = boundingBox._spanZ / 2.0f;
+        
+        xMin = std::min(xMin, boundingBox._centerX - xRadius);
+        xMax = std::max(xMax, boundingBox._centerX + xRadius);
+        yMin = std::min(yMin, boundingBox._centerY - yRadius);
+        yMax = std::max(yMax, boundingBox._centerY + yRadius);
+        zMin = std::min(zMin, boundingBox._centerZ - zRadius);
+        zMax = std::max(zMax, boundingBox._centerZ + zRadius);
+        
+        NuoMesh* mesh = [[NuoMesh alloc] initWithDevice:device
+                                     withVerticesBuffer:model->Ptr()
+                                             withLength:model->Length()
+                                            withIndices:model->IndicesPtr()
+                                             withLength:model->IndicesLength()];
+        
+        NuoMeshBox* meshBounding = [[NuoMeshBox alloc] init];
+        meshBounding.spanX = boundingBox._spanX;
+        meshBounding.spanY = boundingBox._spanY;
+        meshBounding.spanZ = boundingBox._spanZ;
+        meshBounding.centerX = boundingBox._centerX;
+        meshBounding.centerY = boundingBox._centerY;
+        meshBounding.centerZ = boundingBox._centerZ;
+        
+        mesh.boundingBox = meshBounding;
+        [result addObject:mesh];
     }
     
-    _boundingBox = [[BoundingBox alloc] init];
-    _boundingBox.centerX = (xMax + xMin) / 2.0;
-    _boundingBox.centerY = (yMax + yMin) / 2.0;
-    _boundingBox.centerZ = (zMax + zMin) / 2.0;
-    _boundingBox.spanX = (xMax - xMin);
-    _boundingBox.spanY = (yMax - yMin);
-    _boundingBox.spanZ = (zMax - zMin);
-    
-    _vertexBuffer = [device newBufferWithBytes:vertecis.data()
-                                        length:vertecis.size() * sizeof(MBEVertex)
-                                       options:MTLResourceOptionCPUCacheModeDefault];
-    
-    _indexBuffer = [device newBufferWithBytes:indices.data()
-                                       length:indices.size() * sizeof(uint32)
-                                      options:MTLResourceOptionCPUCacheModeDefault];
+    return result;
 }
 
 @end

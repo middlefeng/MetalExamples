@@ -4,9 +4,13 @@
 #include "MBETypes.h"
 #include "tiny_obj_loader.h"
 
+// Test
+#include "NuoModelLoader.h"
+#include "NuoModelBase.h"
 
 
-@implementation BoundingBox
+
+@implementation NuoMeshBox
 
 @end
 
@@ -27,6 +31,11 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
             a.normal.z == b.normal.z;
 }
 
+// Test
+typedef std::vector<tinyobj::shape_t> ShapeVector;
+typedef std::shared_ptr<ShapeVector> PShapeVector;
+PShapeVector GetShapeVector(ShapeVector& shape, std::vector<tinyobj::material_t> &materials);
+
 @synthesize boundingBox = _boundingBox;
 
 - (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device
@@ -42,6 +51,12 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         base = [base stringByAppendingString:@"/"];
 
         tinyobj::LoadObj(&attrib, &shapes, &materials, &err, path.UTF8String, base.UTF8String);
+        
+        // Test
+        NuoModelLoader* loader = [NuoModelLoader new];
+        [loader loadModelObjects:path
+                        withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
+                      withDevice:device];
         
         std::vector<MBEVertex> vertecis;
         std::vector<uint32> indices;
@@ -138,7 +153,7 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
             }
         }
 
-        _boundingBox = [[BoundingBox alloc] init];
+        _boundingBox = [[NuoMeshBox alloc] init];
         _boundingBox.centerX = (xMax + xMin) / 2.0;
         _boundingBox.centerY = (yMax + yMin) / 2.0;
         _boundingBox.centerZ = (zMax + zMin) / 2.0;
@@ -157,5 +172,26 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
     
     return self;
 }
+
+
+- (instancetype)initWithDevice:(id<MTLDevice>)device
+            withVerticesBuffer:(void*)buffer withLength:(size_t)length
+                   withIndices:(void*)indices withLength:(size_t)indicesLength
+{
+    if ((self = [super init]))
+    {
+        _vertexBuffer = [device newBufferWithBytes:buffer
+                                            length:length
+                                           options:MTLResourceOptionCPUCacheModeDefault];
+        
+        _indexBuffer = [device newBufferWithBytes:indices
+                                           length:indicesLength
+                                          options:MTLResourceOptionCPUCacheModeDefault];
+    }
+    
+    return self;
+
+}
+
 
 @end

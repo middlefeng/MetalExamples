@@ -14,6 +14,8 @@
 
 @interface NuoModelLoader : NSObject
 
--(NSArray<NuoMesh*>*) loadModelObjects:(NSString*)objPath withType:(NSString*)type;
+-(NSArray<NuoMesh*>*) loadModelObjects:(NSString*)objPath
+                              withType:(NSString*)type
+                            withDevice:(id<MTLDevice>)device;
 
 @end
