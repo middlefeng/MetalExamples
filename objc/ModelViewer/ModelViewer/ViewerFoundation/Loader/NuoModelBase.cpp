@@ -31,6 +31,13 @@ void* NuoModelBase::IndicesPtr()
 
 
 
+size_t NuoModelBase::IndicesLength()
+{
+    return _indices.size() * sizeof(uint32_t);
+}
+
+
+
 NuoBox NuoModelBase::GetBoundingBox()
 {
     float xMin = 1e9f, xMax = -1e9f;
@@ -49,7 +56,7 @@ NuoBox NuoModelBase::GetBoundingBox()
         zMax = std::max(zMax, position.z);
     }
     
-    return NuoBox { (xMax - xMin) / 2.0f, (yMax - yMin) / 2.0f, (zMax - zMin) / 2.0f,
+    return NuoBox { (xMax + xMin) / 2.0f, (yMax + yMin) / 2.0f, (zMax + zMin) / 2.0f,
                     xMax - xMin, yMax - yMin, zMax - zMin };
 }
 
@@ -67,8 +74,8 @@ bool NuoModelSimple::Item::operator == (const Item& i2)
         (_position.x == i2._position.x) &&
         (_position.y == i2._position.y) &&
         (_position.z == i2._position.z) &&
-        (_normal.x == i2._normal.x);
-        (_normal.y == i2._normal.y);
+        (_normal.x == i2._normal.x) &&
+        (_normal.y == i2._normal.y) &&
         (_normal.z == i2._normal.z);
 }
 
@@ -86,7 +93,7 @@ void NuoModelSimple::GenerateIndices()
     {
         const Item& item = _buffer[i];
         
-        if (item._normal.x != 0.0f && item._normal.y != 0.0f && item._normal.z != 0.0f)
+        if (item._normal.x != 0.0f || item._normal.y != 0.0f || item._normal.z != 0.0f)
         {
             auto search = std::find((compactBuffer.size() < checkBackward ? compactBuffer.begin() : compactBuffer.end() - checkBackward),
                                     compactBuffer.end(), item);
@@ -113,6 +120,39 @@ void NuoModelSimple::GenerateIndices()
 
 
 
+void NuoModelSimple::GenerateNormals()
+{
+    size_t indexCount = _indices.size();
+    for (size_t i = 0; i < indexCount; i += 3)
+    {
+        uint32_t i0 = _indices[i];
+        uint32_t i1 = _indices[i + 1];
+        uint32_t i2 = _indices[i + 2];
+        
+        Item *v0 = &_buffer[i0];
+        Item *v1 = &_buffer[i1];
+        Item *v2 = &_buffer[i2];
+        
+        vector_float3 p0 = v0->_position.xyz;
+        vector_float3 p1 = v1->_position.xyz;
+        vector_float3 p2 = v2->_position.xyz;
+        
+        vector_float3 cross = vector_cross((p1 - p0), (p2 - p0));
+        vector_float4 cross4 = { cross.x, cross.y, cross.z, 0 };
+        
+        v0->_normal += cross4;
+        v1->_normal += cross4;
+        v2->_normal += cross4;
+    }
+    
+    for (size_t i = 0; i < _buffer.size(); ++i)
+    {
+        _buffer[i]._normal = vector_normalize(_buffer[i]._normal);
+    }
+}
+
+
+
 void NuoModelSimple::AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer)
 {
     size_t sourceOffset = sourceIndex * 3;
@@ -131,7 +171,7 @@ void NuoModelSimple::AddPosition(size_t sourceIndex, const std::vector<float>& p
 void NuoModelSimple::AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer)
 {
     size_t sourceOffset = sourceIndex * 3;
-    size_t targetOffset = _buffer.size();
+    size_t targetOffset = _buffer.size() - 1;
     
     _buffer[targetOffset]._normal.x = normalBuffer[sourceOffset];
     _buffer[targetOffset]._normal.y = normalBuffer[sourceOffset + 1];
@@ -158,4 +198,10 @@ vector_float4 NuoModelSimple::GetPosition(size_t index)
 void* NuoModelSimple::Ptr()
 {
     return (void*)_buffer.data();
+}
+
+
+size_t NuoModelSimple::Length()
+{
+    return _buffer.size() * sizeof(Item);
 }
