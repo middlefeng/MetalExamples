@@ -10,7 +10,7 @@
 #include "NuoModelBase.h"
 #include "NuoModelLoader.h"
 
-static const NSInteger MBEInFlightBufferCount = 3;
+static const NSInteger InFlightBufferCount = 3;
 
 @interface ModelRenderer ()
 @property (strong) id<MTLDevice> device;
@@ -31,7 +31,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     if ((self = [super init]))
     {
         _device = MTLCreateSystemDefaultDevice();
-        _displaySemaphore = dispatch_semaphore_create(MBEInFlightBufferCount);
+        _displaySemaphore = dispatch_semaphore_create(InFlightBufferCount);
         _commandQueue = [self.device newCommandQueue];
         [self makeResources];
     }
@@ -48,8 +48,8 @@ static const NSInteger MBEInFlightBufferCount = 3;
                             withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
                           withDevice:_device];
     
-    id<MTLBuffer> buffers[MBEInFlightBufferCount];
-    for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
+    id<MTLBuffer> buffers[InFlightBufferCount];
+    for (size_t i = 0; i < InFlightBufferCount; ++i)
     {
         id<MTLBuffer> uniformBuffer = [self.device newBufferWithLength:sizeof(ModelUniforms)
                                                                options:MTLResourceOptionCPUCacheModeDefault];
@@ -125,7 +125,6 @@ static const NSInteger MBEInFlightBufferCount = 3;
     id<MTLCommandBuffer> commandBuffer = [self.commandQueue commandBuffer];
 
     MTLRenderPassDescriptor *passDescriptor = [view currentRenderPassDescriptor];
-
     id<MTLRenderCommandEncoder> renderPass = [commandBuffer renderCommandEncoderWithDescriptor:passDescriptor];
     
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
@@ -137,7 +136,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
     [commandBuffer presentDrawable:view.currentDrawable];
     [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer) {
-        self.bufferIndex = (self.bufferIndex + 1) % MBEInFlightBufferCount;
+        self.bufferIndex = (self.bufferIndex + 1) % InFlightBufferCount;
         dispatch_semaphore_signal(self.displaySemaphore);
     }];
     
