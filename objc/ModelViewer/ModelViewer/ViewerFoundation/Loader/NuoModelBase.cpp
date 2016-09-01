@@ -68,6 +68,13 @@ NuoModelSimple::NuoModelSimple()
 
 
 
+NuoModelSimple::Item::Item() :
+    _position(0), _normal(0)
+{
+}
+
+
+
 bool NuoModelSimple::Item::operator == (const Item& i2)
 {
     return

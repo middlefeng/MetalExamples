@@ -73,6 +73,8 @@ protected:
         vector_float4 _normal;
         
         bool operator == (const Item& i2);
+        
+        Item();
     };
     
     std::vector<Item> _buffer;
