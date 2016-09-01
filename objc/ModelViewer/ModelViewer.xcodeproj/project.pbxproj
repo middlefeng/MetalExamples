@@ -16,17 +16,11 @@
 		2C5DDAD61D6591B000A9DC9A /* NuoMathUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD41D6591B000A9DC9A /* NuoMathUtilities.cpp */; };
 		2C5DDADA1D65949E00A9DC9A /* ModelViewerRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */; };
 		2C5DDADD1D6594FD00A9DC9A /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */; };
-		2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C5DDADE1D65951500A9DC9A /* teapot.obj */; };
-		2C7059C11D6A292200AC151D /* obj format.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C01D6A292200AC151D /* obj format.obj */; };
-		2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */; };
 		2C840D0E1D7001C2000D2956 /* NuoMetalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C840D0D1D7001C2000D2956 /* NuoMetalView.m */; };
 		2C9D9AAA1D658F0800283E46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AA91D658F0800283E46 /* AppDelegate.m */; };
 		2C9D9AAD1D658F0800283E46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAC1D658F0800283E46 /* main.m */; };
 		2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9D9AAE1D658F0800283E46 /* Assets.xcassets */; };
 		2CAF2E851D691AC90074E402 /* tiny_obj_loader.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */; };
-		2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E861D691D3E0074E402 /* basemeshobj.obj */; };
-		2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8C1D69886E0074E402 /* dragon.obj */; };
-		2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */ = {isa = PBXBuildFile; fileRef = 2CAF2E8E1D6990360074E402 /* macbook.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,9 +41,6 @@
 		2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ModelViewerRenderer.mm; sourceTree = "<group>"; };
 		2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		2C5DDADC1D6594FD00A9DC9A /* ModelUniforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelUniforms.h; sourceTree = "<group>"; };
-		2C5DDADE1D65951500A9DC9A /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
-		2C7059C01D6A292200AC151D /* obj format.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "obj format.obj"; sourceTree = "<group>"; };
-		2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Zenith_OBJ.obj; sourceTree = "<group>"; };
 		2C840D0C1D7001C2000D2956 /* NuoMetalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuoMetalView.h; sourceTree = "<group>"; };
 		2C840D0D1D7001C2000D2956 /* NuoMetalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuoMetalView.m; sourceTree = "<group>"; };
 		2C9D9AA51D658F0800283E46 /* ModelViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModelViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,9 +51,6 @@
 		2C9D9AB31D658F0800283E46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CAF2E831D691AC90074E402 /* tiny_obj_loader.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tiny_obj_loader.cc; sourceTree = "<group>"; };
 		2CAF2E841D691AC90074E402 /* tiny_obj_loader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tiny_obj_loader.h; sourceTree = "<group>"; };
-		2CAF2E861D691D3E0074E402 /* basemeshobj.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = basemeshobj.obj; sourceTree = "<group>"; };
-		2CAF2E8C1D69886E0074E402 /* dragon.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dragon.obj; sourceTree = "<group>"; };
-		2CAF2E8E1D6990360074E402 /* macbook.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = macbook.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,12 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				2C840D0B1D7001A5000D2956 /* ViewerFoundation */,
-				2C7059C21D6A2A3C00AC151D /* Zenith_OBJ.obj */,
-				2CAF2E8E1D6990360074E402 /* macbook.obj */,
-				2CAF2E8C1D69886E0074E402 /* dragon.obj */,
-				2CAF2E861D691D3E0074E402 /* basemeshobj.obj */,
-				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
-				2C7059C01D6A292200AC151D /* obj format.obj */,
 				2C5B92B21D7157A600722936 /* MainMenu.xib */,
 				2C5DDAC51D65901400A9DC9A /* User Interface */,
 				2C65E57A1D77F30000FE77C5 /* Renderer */,
@@ -246,13 +228,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C7059C11D6A292200AC151D /* obj format.obj in Resources */,
-				2CAF2E8D1D69886E0074E402 /* dragon.obj in Resources */,
 				2C9D9AAF1D658F0800283E46 /* Assets.xcassets in Resources */,
-				2C7059C31D6A2A3C00AC151D /* Zenith_OBJ.obj in Resources */,
-				2CAF2E8F1D6990360074E402 /* macbook.obj in Resources */,
-				2C5DDADF1D65951500A9DC9A /* teapot.obj in Resources */,
-				2CAF2E871D691D3E0074E402 /* basemeshobj.obj in Resources */,
 				2C5B92B41D7157A600722936 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
