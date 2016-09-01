@@ -1,7 +1,6 @@
 
 #import "NuoMesh.h"
 
-#include "ModelUniforms.h"
 #include "tiny_obj_loader.h"
 
 // Test

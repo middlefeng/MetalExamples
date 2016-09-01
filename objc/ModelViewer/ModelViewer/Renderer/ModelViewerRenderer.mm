@@ -1,5 +1,4 @@
 #import "ModelViewerRenderer.h"
-#import "MBEMathUtilities.h"
 #import "ModelUniforms.h"
 
 #import <Metal/Metal.h>
@@ -7,6 +6,7 @@
 #import <simd/simd.h>
 
 #include "NuoMesh.h"
+#include "NuoMathUtilities.h"
 #include "NuoModelBase.h"
 #include "NuoModelLoader.h"
 
