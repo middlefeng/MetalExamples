@@ -27,9 +27,9 @@ struct Material
 };
 
 constant Material material = {
-    .ambientColor = { 0.9, 0.1, 0 },
-    .diffuseColor = { 0.9, 0.1, 0 },
-    .specularColor = { 1, 1, 1 },
+    .ambientColor = { 0.7, 0.7, 0.7 },
+    .diffuseColor = { 0.9, 0.9, 0.9 },
+    .specularColor = { 0.3, 0.3, 0.3 },
     .specularPower = 100
 };
 
