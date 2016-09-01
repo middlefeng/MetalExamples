@@ -2,7 +2,7 @@
 
 
 
-@interface BoundingBox : NSObject
+@interface NuoMeshBox : NSObject
 
 @property (nonatomic, assign) float centerX;
 @property (nonatomic, assign) float centerY;
@@ -21,8 +21,12 @@
 @property (nonatomic, readonly) id<MTLBuffer> vertexBuffer;
 @property (nonatomic, readonly) id<MTLBuffer> indexBuffer;
 
-@property (nonatomic, readonly) BoundingBox* boundingBox;
+@property (nonatomic, strong) NuoMeshBox* boundingBox;
 
-- (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device;
+- (instancetype)initWithDevice:(id<MTLDevice>)device
+            withVerticesBuffer:(void*)buffer withLength:(size_t)length
+                   withIndices:(void*)indices withLength:(size_t)indicesLength;
+
+- (void)drawMesh:(id<MTLRenderCommandEncoder>)renderPass;
 
 @end

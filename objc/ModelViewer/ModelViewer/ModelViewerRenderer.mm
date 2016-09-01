@@ -7,6 +7,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import <simd/simd.h>
 
+#include "NuoMesh.h"
+#include "NuoModelBase.h"
+#include "NuoModelLoader.h"
+
 static const NSInteger MBEInFlightBufferCount = 3;
 
 @interface MBERenderer ()
@@ -68,7 +72,13 @@ static const NSInteger MBEInFlightBufferCount = 3;
 - (void)makeResources
 {
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
-    _mesh = [[NuoMesh alloc] initWithPath:modelURL.path device:_device];
+    
+    NuoModelLoader* loader = [NuoModelLoader new];
+    NSArray* array = [loader loadModelObjects:modelURL.path
+                                     withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
+                                   withDevice:_device];
+    
+    _mesh = array[0];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
@@ -153,14 +163,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
     [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
     [renderPass setCullMode:MTLCullModeBack];
 
-    [renderPass setVertexBuffer:self.mesh.vertexBuffer offset:0 atIndex:0];
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
 
-    [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-                           indexCount:[self.mesh.indexBuffer length] / sizeof(MBEIndex)
-                            indexType:MBEIndexType
-                          indexBuffer:self.mesh.indexBuffer
-                    indexBufferOffset:0];
+    [_mesh drawMesh:renderPass];
 
     [renderPass endEncoding];
 
