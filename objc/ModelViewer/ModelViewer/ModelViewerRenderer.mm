@@ -33,40 +33,11 @@ static const NSInteger MBEInFlightBufferCount = 3;
     {
         _device = MTLCreateSystemDefaultDevice();
         _displaySemaphore = dispatch_semaphore_create(MBEInFlightBufferCount);
-        [self makePipeline];
+        _commandQueue = [self.device newCommandQueue];
         [self makeResources];
     }
 
     return self;
-}
-
-- (void)makePipeline
-{
-    self.commandQueue = [self.device newCommandQueue];
-
-    id<MTLLibrary> library = [self.device newDefaultLibrary];
-
-    MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
-    pipelineDescriptor.vertexFunction = [library newFunctionWithName:@"vertex_project"];
-    pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light"];
-    pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
-    pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
-
-    MTLDepthStencilDescriptor *depthStencilDescriptor = [MTLDepthStencilDescriptor new];
-    depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;
-    depthStencilDescriptor.depthWriteEnabled = YES;
-    self.depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
-
-    NSError *error = nil;
-    self.renderPipelineState = [self.device newRenderPipelineStateWithDescriptor:pipelineDescriptor
-                                                                           error:&error];
-
-    if (!self.renderPipelineState)
-    {
-        NSLog(@"Error occurred when creating render pipeline state: %@", error);
-    }
-
-    self.commandQueue = [self.device newCommandQueue];
 }
 
 - (void)makeResources
@@ -158,11 +129,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     MTLRenderPassDescriptor *passDescriptor = [view currentRenderPassDescriptor];
 
     id<MTLRenderCommandEncoder> renderPass = [commandBuffer renderCommandEncoderWithDescriptor:passDescriptor];
-    [renderPass setRenderPipelineState:self.renderPipelineState];
-    [renderPass setDepthStencilState:self.depthStencilState];
-    [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
-    [renderPass setCullMode:MTLCullModeBack];
-
+    
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
 
     [_mesh drawMesh:renderPass];
@@ -170,7 +137,6 @@ static const NSInteger MBEInFlightBufferCount = 3;
     [renderPass endEncoding];
 
     [commandBuffer presentDrawable:view.currentDrawable];
-
     [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> commandBuffer) {
         self.bufferIndex = (self.bufferIndex + 1) % MBEInFlightBufferCount;
         dispatch_semaphore_signal(self.displaySemaphore);

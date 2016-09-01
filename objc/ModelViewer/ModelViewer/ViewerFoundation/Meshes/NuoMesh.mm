@@ -16,10 +16,27 @@
 
 
 
+
+@interface NuoMesh()
+
+@property (nonatomic, strong) id<MTLDevice> device;
+@property (nonatomic, strong) id<MTLRenderPipelineState> renderPipelineState;
+@property (nonatomic, strong) id<MTLDepthStencilState> depthStencilState;
+
+@end
+
+
+
+
 @implementation NuoMesh
+
+
+
 
 @synthesize indexBuffer = _indexBuffer;
 @synthesize vertexBuffer = _vertexBuffer;
+
+
 
 bool operator==(const MBEVertex& a, const MBEVertex& b)
 {
@@ -50,6 +67,9 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
         _indexBuffer = [device newBufferWithBytes:indices
                                            length:indicesLength
                                           options:MTLResourceOptionCPUCacheModeDefault];
+        _device = device;
+        
+        [self makePipelineState];
     }
     
     return self;
@@ -57,8 +77,36 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
 
 
 
-- (void)drawMesh:(id<MTLRenderCommandEncoder>)renderPass
+- (void)makePipelineState
 {
+    id<MTLLibrary> library = [self.device newDefaultLibrary];
+    
+    MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
+    pipelineDescriptor.vertexFunction = [library newFunctionWithName:@"vertex_project"];
+    pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light"];
+    pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
+    pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
+    
+    NSError *error = nil;
+    _renderPipelineState = [self.device newRenderPipelineStateWithDescriptor:pipelineDescriptor
+                                                                       error:&error];
+    
+    MTLDepthStencilDescriptor *depthStencilDescriptor = [MTLDepthStencilDescriptor new];
+    depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;
+    depthStencilDescriptor.depthWriteEnabled = YES;
+    _depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
+}
+
+
+
+- (void)drawMesh:(id<MTLRenderCommandEncoder>) renderPass
+{
+    [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
+    [renderPass setCullMode:MTLCullModeBack];
+
+    [renderPass setRenderPipelineState:_renderPipelineState];
+    [renderPass setDepthStencilState:_depthStencilState];
+    
     [renderPass setVertexBuffer:_vertexBuffer offset:0 atIndex:0];
     [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
                            indexCount:[_indexBuffer length] / sizeof(uint32_t)
