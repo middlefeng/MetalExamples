@@ -18,4 +18,7 @@
 @property (nonatomic, assign) float rotationY;
 @property (nonatomic, assign) float zoom;
 
+
+- (IBAction)openFile:(id)sender;
+
 @end

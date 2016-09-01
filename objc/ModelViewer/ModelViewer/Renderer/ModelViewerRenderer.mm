@@ -39,15 +39,16 @@ static const NSInteger InFlightBufferCount = 3;
     return self;
 }
 
-- (void)makeResources
+- (void)loadMesh:(NSString*)path
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
-    
     NuoModelLoader* loader = [NuoModelLoader new];
-    _mesh = [loader loadModelObjects:modelURL.path
+    _mesh = [loader loadModelObjects:path
                             withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
                           withDevice:_device];
-    
+}
+
+- (void)makeResources
+{
     id<MTLBuffer> buffers[InFlightBufferCount];
     for (size_t i = 0; i < InFlightBufferCount; ++i)
     {
