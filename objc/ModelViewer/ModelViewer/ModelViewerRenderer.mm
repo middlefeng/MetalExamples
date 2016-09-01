@@ -71,8 +71,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 
 - (void)makeResources
 {
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"macbook" withExtension:@"obj"];
-    //_mesh = [[NuoMesh alloc] initWithPath:modelURL.path device:_device];
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
     
     NuoModelLoader* loader = [NuoModelLoader new];
     NSArray* array = [loader loadModelObjects:modelURL.path

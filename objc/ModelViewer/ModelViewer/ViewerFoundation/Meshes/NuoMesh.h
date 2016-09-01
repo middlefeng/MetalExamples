@@ -23,8 +23,6 @@
 
 @property (nonatomic, strong) NuoMeshBox* boundingBox;
 
-- (instancetype)initWithPath:(NSString*)path device:(id<MTLDevice>)device;
-
 - (instancetype)initWithDevice:(id<MTLDevice>)device
             withVerticesBuffer:(void*)buffer withLength:(size_t)length
                    withIndices:(void*)indices withLength:(size_t)indicesLength;
