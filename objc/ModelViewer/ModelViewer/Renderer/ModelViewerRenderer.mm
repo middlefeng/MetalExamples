@@ -13,9 +13,9 @@
 
 static const NSInteger MBEInFlightBufferCount = 3;
 
-@interface MBERenderer ()
+@interface ModelRenderer ()
 @property (strong) id<MTLDevice> device;
-@property (strong) NuoMesh *mesh;
+@property (strong) NSArray<NuoMesh*>* mesh;
 @property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
 @property (strong) id<MTLCommandQueue> commandQueue;
 @property (strong) id<MTLRenderPipelineState> renderPipelineState;
@@ -25,7 +25,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
 @property (assign) float rotationX, rotationY;
 @end
 
-@implementation MBERenderer
+@implementation ModelRenderer
 
 - (instancetype)init
 {
@@ -45,11 +45,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Zenith_OBJ" withExtension:@"obj"];
     
     NuoModelLoader* loader = [NuoModelLoader new];
-    NSArray* array = [loader loadModelObjects:modelURL.path
-                                     withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
-                                   withDevice:_device];
-    
-    _mesh = array[0];
+    _mesh = [loader loadModelObjects:modelURL.path
+                            withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
+                          withDevice:_device];
     
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
@@ -80,17 +78,20 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
     const matrix_float4x4 rotationMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
 
+    NuoMeshBox* bounding = _mesh[0].boundingBox;
+    for (size_t i = 1; i < _mesh.count; ++i)
+        bounding = [bounding unionWith:_mesh[i].boundingBox];
     
     const vector_float3 translationToCenter =
     {
-        -_mesh.boundingBox.centerX,
-        -_mesh.boundingBox.centerY,
-        -_mesh.boundingBox.centerZ
+        - bounding.centerX,
+        - bounding.centerY,
+        - bounding.centerZ
     };
     const matrix_float4x4 modelCenteringMatrix = matrix_float4x4_translation(translationToCenter);
     const matrix_float4x4 modelMatrix = matrix_multiply(rotationMatrix, modelCenteringMatrix);
     
-    float modelSpanZ = _mesh.boundingBox.spanZ;
+    float modelSpanZ = bounding.spanZ;
     float modelNearest = - modelSpanZ / 2.0;
     
     const vector_float3 cameraTranslation =
@@ -132,7 +133,8 @@ static const NSInteger MBEInFlightBufferCount = 3;
     
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
 
-    [_mesh drawMesh:renderPass];
+    for (NuoMesh* mesh : _mesh)
+        [mesh drawMesh:renderPass];
 
     [renderPass endEncoding];
 

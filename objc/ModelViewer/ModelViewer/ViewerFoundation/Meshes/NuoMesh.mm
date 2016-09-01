@@ -12,6 +12,30 @@
 
 @implementation NuoMeshBox
 
+
+- (NuoMeshBox*)unionWith:(NuoMeshBox*)other
+{
+    NuoMeshBox* newBox = [NuoMeshBox new];
+    
+    float xMin = std::min(_centerX - _spanX / 2.0, other.centerX - other.spanX / 2.0);
+    float xMax = std::max(_centerX + _spanX / 2.0, other.centerX + other.spanX / 2.0);
+    float yMin = std::min(_centerY - _spanY / 2.0, other.centerY - other.spanY / 2.0);
+    float yMax = std::max(_centerY + _spanY / 2.0, other.centerY + other.spanY / 2.0);
+    float zMin = std::min(_centerZ - _spanZ / 2.0, other.centerZ - other.spanZ / 2.0);
+    float zMax = std::max(_centerZ + _spanZ / 2.0, other.centerZ + other.spanZ / 2.0);
+    
+    newBox.centerX = (xMax + xMin) / 2.0f;
+    newBox.centerY = (yMax + yMin) / 2.0f;
+    newBox.centerZ = (zMax + zMin) / 2.0f;
+    
+    newBox.spanX = xMax - xMin;
+    newBox.spanY = yMax - yMin;
+    newBox.spanZ = zMax - zMin;
+    
+    return newBox;
+}
+
+
 @end
 
 

@@ -1,5 +1,5 @@
 #import "ModelView.h"
 
-@interface MBERenderer : NSObject <NuoMetalViewDelegate>
+@interface ModelRenderer : NSObject <NuoMetalViewDelegate>
 
 @end

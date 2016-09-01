@@ -13,14 +13,14 @@
 
 @implementation ModelView
 {
-    MBERenderer* _render;
+    ModelRenderer* _render;
 }
 
 
 - (void)commonInit
 {
     [super commonInit];
-    _render = [MBERenderer new];
+    _render = [ModelRenderer new];
     self.delegate = _render;
 }
 

@@ -12,6 +12,8 @@
 @property (nonatomic, assign) float spanY;
 @property (nonatomic, assign) float spanZ;
 
+- (NuoMeshBox*)unionWith:(NuoMeshBox*)other;
+
 @end
 
 
