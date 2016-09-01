@@ -163,14 +163,9 @@ static const NSInteger MBEInFlightBufferCount = 3;
     [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
     [renderPass setCullMode:MTLCullModeBack];
 
-    [renderPass setVertexBuffer:self.mesh.vertexBuffer offset:0 atIndex:0];
     [renderPass setVertexBuffer:self.uniformBuffers[self.bufferIndex] offset:0 atIndex:1];
 
-    [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
-                           indexCount:[self.mesh.indexBuffer length] / sizeof(MBEIndex)
-                            indexType:MBEIndexType
-                          indexBuffer:self.mesh.indexBuffer
-                    indexBufferOffset:0];
+    [_mesh drawMesh:renderPass];
 
     [renderPass endEncoding];
 

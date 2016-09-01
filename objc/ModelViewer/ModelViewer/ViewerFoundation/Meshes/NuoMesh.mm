@@ -34,6 +34,9 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
 @synthesize boundingBox = _boundingBox;
 
 
+
+
+
 - (instancetype)initWithDevice:(id<MTLDevice>)device
             withVerticesBuffer:(void*)buffer withLength:(size_t)length
                    withIndices:(void*)indices withLength:(size_t)indicesLength
@@ -50,7 +53,18 @@ bool operator==(const MBEVertex& a, const MBEVertex& b)
     }
     
     return self;
+}
 
+
+
+- (void)drawMesh:(id<MTLRenderCommandEncoder>)renderPass
+{
+    [renderPass setVertexBuffer:_vertexBuffer offset:0 atIndex:0];
+    [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                           indexCount:[_indexBuffer length] / sizeof(uint32_t)
+                            indexType:MTLIndexTypeUInt32
+                          indexBuffer:_indexBuffer
+                    indexBufferOffset:0];
 }
 
 
