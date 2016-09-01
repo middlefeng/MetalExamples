@@ -122,6 +122,16 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		2C65E57A1D77F30000FE77C5 /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
+				2C5DDAD81D65949E00A9DC9A /* ModelViewerRenderer.h */,
+				2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */,
+			);
+			path = Renderer;
+			sourceTree = "<group>";
+		};
 		2C840D0B1D7001A5000D2956 /* ViewerFoundation */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,12 +169,10 @@
 				2CAF2E861D691D3E0074E402 /* basemeshobj.obj */,
 				2C5DDADE1D65951500A9DC9A /* teapot.obj */,
 				2C7059C01D6A292200AC151D /* obj format.obj */,
-				2C5DDADB1D6594FD00A9DC9A /* Shaders.metal */,
-				2C5DDAD81D65949E00A9DC9A /* ModelViewerRenderer.h */,
-				2C5DDAD91D65949E00A9DC9A /* ModelViewerRenderer.mm */,
 				2C5B92B21D7157A600722936 /* MainMenu.xib */,
 				2C5DDAD71D6591B800A9DC9A /* Utilities */,
 				2C5DDAC51D65901400A9DC9A /* User Interface */,
+				2C65E57A1D77F30000FE77C5 /* Renderer */,
 				2C9D9AAE1D658F0800283E46 /* Assets.xcassets */,
 				2C9D9AB31D658F0800283E46 /* Info.plist */,
 				2C9D9AAB1D658F0800283E46 /* Supporting Files */,
