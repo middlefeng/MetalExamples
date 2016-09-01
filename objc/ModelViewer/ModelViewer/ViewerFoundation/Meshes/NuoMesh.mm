@@ -1,7 +1,7 @@
 
 #import "NuoMesh.h"
 
-#include "MBETypes.h"
+#include "ModelUniforms.h"
 #include "tiny_obj_loader.h"
 
 // Test
@@ -59,19 +59,6 @@
 
 @synthesize indexBuffer = _indexBuffer;
 @synthesize vertexBuffer = _vertexBuffer;
-
-
-
-bool operator==(const MBEVertex& a, const MBEVertex& b)
-{
-    return a.position.x == b.position.x &&
-            a.position.y == b.position.y &&
-            a.position.z == b.position.z &&
-            a.normal.x == b.normal.x &&
-            a.normal.y == b.normal.y &&
-            a.normal.z == b.normal.z;
-}
-
 @synthesize boundingBox = _boundingBox;
 
 

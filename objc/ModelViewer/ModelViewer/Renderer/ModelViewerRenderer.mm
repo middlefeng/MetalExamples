@@ -1,7 +1,6 @@
 #import "ModelViewerRenderer.h"
 #import "MBEMathUtilities.h"
-#import "NuoMesh.h"
-#import "MBETypes.h"
+#import "ModelUniforms.h"
 
 #import <Metal/Metal.h>
 #import <QuartzCore/QuartzCore.h>
@@ -52,16 +51,14 @@ static const NSInteger MBEInFlightBufferCount = 3;
     id<MTLBuffer> buffers[MBEInFlightBufferCount];
     for (size_t i = 0; i < MBEInFlightBufferCount; ++i)
     {
-        id<MTLBuffer> uniformBuffer = [self.device newBufferWithLength:sizeof(MBEUniforms)
+        id<MTLBuffer> uniformBuffer = [self.device newBufferWithLength:sizeof(ModelUniforms)
                                                                options:MTLResourceOptionCPUCacheModeDefault];
         buffers[i] = uniformBuffer;
         
         NSString* label = [NSString stringWithFormat:@"Uniforms %lu", i];
         [uniformBuffer setLabel:label];
     }
-    _uniformBuffers = [[NSArray alloc] initWithObjects:buffers[0],
-                       buffers[1],
-                       buffers[2], nil];
+    _uniformBuffers = [[NSArray alloc] initWithObjects:buffers[0], buffers[1], buffers[2], nil];
 }
 
 - (void)updateUniformsForView:(NuoMetalView *)viewBase
@@ -109,7 +106,7 @@ static const NSInteger MBEInFlightBufferCount = 3;
     const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f - view.zoom * modelSpanZ / 20.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
-    MBEUniforms uniforms;
+    ModelUniforms uniforms;
     uniforms.modelViewMatrix = matrix_multiply(viewMatrix, modelMatrix);
     uniforms.modelViewProjectionMatrix = matrix_multiply(projectionMatrix, uniforms.modelViewMatrix);
     uniforms.normalMatrix = matrix_float4x4_extract_linear(uniforms.modelViewMatrix);
