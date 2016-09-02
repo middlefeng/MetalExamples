@@ -135,7 +135,7 @@
 		2C9D9A9C1D658F0800283E46 = {
 			isa = PBXGroup;
 			children = (
-				2C9D9AA71D658F0800283E46 /* Lighting */,
+				2C9D9AA71D658F0800283E46 /* ModelViewer */,
 				2C9D9AA61D658F0800283E46 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -148,7 +148,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2C9D9AA71D658F0800283E46 /* Lighting */ = {
+		2C9D9AA71D658F0800283E46 /* ModelViewer */ = {
 			isa = PBXGroup;
 			children = (
 				2C840D0B1D7001A5000D2956 /* ViewerFoundation */,
@@ -159,7 +159,6 @@
 				2C9D9AB31D658F0800283E46 /* Info.plist */,
 				2C9D9AAB1D658F0800283E46 /* Supporting Files */,
 			);
-			name = Lighting;
 			path = ModelViewer;
 			sourceTree = "<group>";
 		};
