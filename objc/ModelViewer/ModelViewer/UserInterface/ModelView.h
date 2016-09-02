@@ -13,12 +13,6 @@
 
 @interface ModelView : NuoMetalView
 
-//  TODO: move to delegate
-@property (nonatomic, assign) float rotationX;
-@property (nonatomic, assign) float rotationY;
-@property (nonatomic, assign) float zoom;
-
-
 - (IBAction)openFile:(id)sender;
 
 @end

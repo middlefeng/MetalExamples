@@ -27,15 +27,19 @@
 
 - (void)mouseDragged:(NSEvent *)theEvent
 {
-    _rotationX -= 0.01 * M_PI * theEvent.deltaY;
-    _rotationY -= 0.01 * M_PI * theEvent.deltaX;
+    ModelRenderer* renderer = (ModelRenderer*)_render;
+    
+    renderer.rotationX -= 0.01 * M_PI * theEvent.deltaY;
+    renderer.rotationY -= 0.01 * M_PI * theEvent.deltaX;
     [self render];
 }
 
 
 - (void)magnifyWithEvent:(NSEvent *)event
 {
-    _zoom += 0.01 * event.deltaZ;
+    ModelRenderer* renderer = (ModelRenderer*)_render;
+    
+    renderer.zoom += 0.01 * event.deltaZ;
     [self render];
 }
 

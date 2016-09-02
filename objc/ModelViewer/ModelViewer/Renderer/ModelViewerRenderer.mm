@@ -13,6 +13,7 @@
 static const NSInteger InFlightBufferCount = 3;
 
 @interface ModelRenderer ()
+
 @property (strong) id<MTLDevice> device;
 @property (strong) NSArray<NuoMesh*>* mesh;
 @property (strong) NSArray<id<MTLBuffer>>* uniformBuffers;
@@ -21,7 +22,7 @@ static const NSInteger InFlightBufferCount = 3;
 @property (strong) id<MTLDepthStencilState> depthStencilState;
 @property (strong) dispatch_semaphore_t displaySemaphore;
 @property (assign) NSInteger bufferIndex;
-@property (assign) float rotationX, rotationY;
+
 @end
 
 @implementation ModelRenderer
@@ -66,8 +67,6 @@ static const NSInteger InFlightBufferCount = 3;
 {
     ModelView* view = (ModelView*)viewBase;
     
-    self.rotationX = view.rotationX;
-    self.rotationY = view.rotationY;
     float scaleFactor = 1;
     const vector_float3 xAxis = { 1, 0, 0 };
     const vector_float3 yAxis = { 0, 1, 0 };
@@ -95,7 +94,7 @@ static const NSInteger InFlightBufferCount = 3;
     const vector_float3 cameraTranslation =
     {
         0, 0,
-        (modelNearest - modelSpanZ) + view.zoom * modelSpanZ / 20.0f
+        (modelNearest - modelSpanZ) + _zoom * modelSpanZ / 20.0f
     };
 
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
@@ -104,7 +103,7 @@ static const NSInteger InFlightBufferCount = 3;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
-    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f - view.zoom * modelSpanZ / 20.0f;
+    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f - _zoom * modelSpanZ / 20.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
     ModelUniforms uniforms;
