@@ -14,8 +14,8 @@ struct Light
 constant Light light = {
     .direction = { 0.13, 0.72, 0.68 },
     .ambientColor = { 0.05, 0.05, 0.05 },
-    .diffuseColor = { 0.9, 0.9, 0.9 },
-    .specularColor = { 1, 1, 1 }
+    .diffuseColor = { 1, 1, 1 },
+    .specularColor = { 0.5, 0.5, 0.5 }
 };
 
 struct Material
@@ -27,9 +27,9 @@ struct Material
 };
 
 constant Material material = {
-    .ambientColor = { 0.7, 0.7, 0.7 },
-    .diffuseColor = { 0.9, 0.9, 0.9 },
-    .specularColor = { 0.3, 0.3, 0.3 },
+    .ambientColor = { 0.6, 0.6, 0.6 },
+    .diffuseColor = { 0.6, 0.6, 0.6 },
+    .specularColor = { 1, 1, 1 },
     .specularPower = 100
 };
 

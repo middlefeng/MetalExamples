@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Lighting.xcodeproj">
+      location = "self:ModelViewer.xcodeproj">
    </FileRef>
 </Workspace>
