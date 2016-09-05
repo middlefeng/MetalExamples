@@ -188,6 +188,12 @@ void NuoModelSimple::AddNormal(size_t sourceIndex, const std::vector<float>& nor
 
 
 
+void NuoModelSimple::AddTextureCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer)
+{
+}
+
+
+
 size_t NuoModelSimple::GetVerticesNumber()
 {
     return _buffer.size();
