@@ -88,13 +88,15 @@ static const NSInteger InFlightBufferCount = 3;
     const matrix_float4x4 modelCenteringMatrix = matrix_float4x4_translation(translationToCenter);
     const matrix_float4x4 modelMatrix = matrix_multiply(rotationMatrix, modelCenteringMatrix);
     
-    float modelSpanZ = bounding.spanZ;
-    float modelNearest = - modelSpanZ / 2.0;
+    float modelSpan = std::max(bounding.spanZ, bounding.spanX);
+    modelSpan = std::max(bounding.spanY, modelSpan);
+    
+    float modelNearest = - modelSpan / 2.0;
     
     const vector_float3 cameraTranslation =
     {
         0, 0,
-        (modelNearest - modelSpanZ) + _zoom * modelSpanZ / 20.0f
+        (modelNearest - modelSpan) + _zoom * modelSpan / 20.0f
     };
 
     const matrix_float4x4 viewMatrix = matrix_float4x4_translation(cameraTranslation);
@@ -103,7 +105,7 @@ static const NSInteger InFlightBufferCount = 3;
     const float aspect = drawableSize.width / drawableSize.height;
     const float fov = (2 * M_PI) / 8;
     const float near = 0.1;
-    const float far = -(modelNearest - modelSpanZ) + modelSpanZ * 2.0f - _zoom * modelSpanZ / 20.0f;
+    const float far = -(modelNearest - modelSpan) + modelSpan * 2.0f - _zoom * modelSpan / 20.0f;
     const matrix_float4x4 projectionMatrix = matrix_float4x4_perspective(aspect, fov, near, far);
 
     ModelUniforms uniforms;
