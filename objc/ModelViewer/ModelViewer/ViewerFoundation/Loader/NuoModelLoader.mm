@@ -174,7 +174,10 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
     std::vector<tinyobj::material_t> materials;
     std::string err;
     
-    tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String);
+    NSString* basePath = [objPath stringByDeletingLastPathComponent];
+    basePath = [basePath stringByAppendingString:@"/"];
+    
+    tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String, basePath.UTF8String);
     
     PShapeVector shapeVector = GetShapeVector(shapes, materials);
     
@@ -192,6 +195,8 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
             modelBase->AddPosition(index.vertex_index, attrib.vertices);
             if (attrib.normals.size())
                 modelBase->AddNormal(index.normal_index, attrib.normals);
+            if (attrib.texcoords.size())
+                modelBase->AddTexCoord(index.texcoord_index, attrib.texcoords);
         }
         
         modelBase->GenerateIndices();
