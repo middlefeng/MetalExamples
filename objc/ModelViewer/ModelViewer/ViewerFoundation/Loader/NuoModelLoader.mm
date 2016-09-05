@@ -203,6 +203,17 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
         if (!attrib.normals.size())
             modelBase->GenerateNormals();
         
+        int materialID = shape.mesh.material_ids[0];
+        if (materialID >= 0)
+        {
+            tinyobj::material_t& material = materials[materialID];
+            
+            NSString* diffuseTexName = [NSString stringWithUTF8String:material.diffuse_texname.c_str()];
+            NSString* diffuseTexPath = [basePath stringByAppendingPathComponent:diffuseTexName];
+            
+            modelBase->SetTexturePath(diffuseTexPath.UTF8String);
+        }
+        
         models.push_back(modelBase);
     }
     

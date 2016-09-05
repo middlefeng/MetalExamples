@@ -3,9 +3,10 @@
 
 #include "tiny_obj_loader.h"
 
-// Test
-#include "NuoModelLoader.h"
 #include "NuoModelBase.h"
+#import <Cocoa/Cocoa.h>
+#import <CoreImage/CoreImage.h>
+
 
 
 
@@ -134,7 +135,7 @@
     if ((self = [super initWithDevice:device withVerticesBuffer:buffer withLength:length
                           withIndices:indices withLength:indicesLength]))
     {
-        [self makePipelineState];
+        [self makePipelineState:texPath];
     }
     
     return self;
@@ -142,7 +143,7 @@
 
 
 
-- (void)makePipelineState
+- (void)makePipelineState:(NSString*)texPath
 {
     id<MTLLibrary> library = [self.device newDefaultLibrary];
     
@@ -176,6 +177,70 @@
     depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;
     depthStencilDescriptor.depthWriteEnabled = YES;
     self.depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
+    
+    _diffuseTex = [self texture2DWithImageNamed:texPath mipmapped:NO];
+}
+
+
+
+- (uint8_t *)dataForImage:(CIImage *)image
+{
+    CIContext* ciContext = [CIContext contextWithOptions:nil];
+    CGImageRef imageRef = [ciContext createCGImage:image fromRect:image.extent];
+    
+    // Create a suitable bitmap context for extracting the bits of the image
+    const NSUInteger width = CGImageGetWidth(imageRef);
+    const NSUInteger height = CGImageGetHeight(imageRef);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    uint8_t *rawData = (uint8_t *)calloc(height * width * 4, sizeof(uint8_t));
+    const NSUInteger bytesPerPixel = 4;
+    const NSUInteger bytesPerRow = bytesPerPixel * width;
+    const NSUInteger bitsPerComponent = 8;
+    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
+                                                 bitsPerComponent, bytesPerRow, colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    
+    CGContextTranslateCTM(context, 0, height);
+    CGContextScaleCTM(context, 1, -1);
+    
+    CGRect imageRect = CGRectMake(0, 0, width, height);
+    CGContextDrawImage(context, imageRect, imageRef);
+    
+    CGContextRelease(context);
+    
+    return rawData;
+}
+
+
+
+- (id<MTLTexture>)texture2DWithImageNamed:(NSString *)imagePath
+                                mipmapped:(BOOL)mipmapped
+{
+    CIImage *image = [[CIImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:imagePath]];
+    
+    if (image == nil)
+    {
+        return nil;
+    }
+    
+    NSSize imageSize = image.extent.size;
+    const NSUInteger bytesPerPixel = 4;
+    const NSUInteger bytesPerRow = bytesPerPixel * imageSize.width;
+    uint8_t *imageData = [self dataForImage:image];
+    
+    MTLTextureDescriptor *textureDescriptor = [MTLTextureDescriptor texture2DDescriptorWithPixelFormat:MTLPixelFormatRGBA8Unorm
+                                                                                                 width:imageSize.width
+                                                                                                height:imageSize.height
+                                                                                             mipmapped:mipmapped];
+    id<MTLTexture> texture = [self.device newTextureWithDescriptor:textureDescriptor];
+    
+    MTLRegion region = MTLRegionMake2D(0, 0, imageSize.width, imageSize.height);
+    [texture replaceRegion:region mipmapLevel:0 withBytes:imageData bytesPerRow:bytesPerRow];
+    
+    free(imageData);
+    
+    return texture;
 }
 
 
