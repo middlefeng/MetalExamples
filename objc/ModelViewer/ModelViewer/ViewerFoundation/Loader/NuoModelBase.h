@@ -64,24 +64,13 @@ public:
 
 
 
-class NuoModelSimple : public NuoModelBase
+template <class ItemBase>
+class NuoModelCommon : public NuoModelBase
 {
 protected:
-    struct Item
-    {
-        vector_float4 _position;
-        vector_float4 _normal;
-        
-        bool operator == (const Item& i2);
-        
-        Item();
-    };
-    
-    std::vector<Item> _buffer;
-    
+    std::vector<ItemBase> _buffer;
+
 public:
-    NuoModelSimple();
-    
     virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) override;
     virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) override;
     virtual void GenerateIndices() override;
@@ -93,6 +82,168 @@ public:
     virtual void* Ptr() override;
     virtual size_t Length() override;
 };
+
+
+
+struct NuoItemSimple
+{
+    vector_float4 _position;
+    vector_float4 _normal;
+    
+    NuoItemSimple();
+    
+    bool operator == (const NuoItemSimple& other);
+};
+
+
+
+class NuoModelSimple : public NuoModelCommon<NuoItemSimple>
+{
+protected:
+    
+    
+public:
+    NuoModelSimple();
+    
+};
+
+
+
+
+
+template <class ItemBase>
+void NuoModelCommon<ItemBase>::GenerateIndices()
+{
+    std::vector<ItemBase> compactBuffer;
+    size_t checkBackward = 100;
+    uint32_t indexCurrent = 0;
+    
+    _indices.clear();
+    
+    for (size_t i = 0; i < _buffer.size(); ++i)
+    {
+        const ItemBase& item = _buffer[i];
+        
+        if (item._normal.x != 0.0f || item._normal.y != 0.0f || item._normal.z != 0.0f)
+        {
+            auto search = std::find((compactBuffer.size() < checkBackward ? compactBuffer.begin() : compactBuffer.end() - checkBackward),
+                                    compactBuffer.end(), item);
+            if (search != std::end(compactBuffer))
+            {
+                uint32_t indexExist = (uint32_t)(search - std::begin(compactBuffer));
+                _indices.push_back(indexExist);
+            }
+            else
+            {
+                compactBuffer.push_back(item);
+                _indices.push_back(indexCurrent++);
+            }
+        }
+        else
+        {
+            compactBuffer.push_back(item);
+            _indices.push_back(indexCurrent++);
+        }
+    }
+    
+    _buffer.swap(compactBuffer);
+}
+
+
+
+template <class ItemBase>
+void NuoModelCommon<ItemBase>::GenerateNormals()
+{
+    size_t indexCount = _indices.size();
+    for (size_t i = 0; i < indexCount; i += 3)
+    {
+        uint32_t i0 = _indices[i];
+        uint32_t i1 = _indices[i + 1];
+        uint32_t i2 = _indices[i + 2];
+        
+        ItemBase *v0 = &_buffer[i0];
+        ItemBase *v1 = &_buffer[i1];
+        ItemBase *v2 = &_buffer[i2];
+        
+        vector_float3 p0 = v0->_position.xyz;
+        vector_float3 p1 = v1->_position.xyz;
+        vector_float3 p2 = v2->_position.xyz;
+        
+        vector_float3 cross = vector_cross((p1 - p0), (p2 - p0));
+        vector_float4 cross4 = { cross.x, cross.y, cross.z, 0 };
+        
+        v0->_normal += cross4;
+        v1->_normal += cross4;
+        v2->_normal += cross4;
+    }
+    
+    for (size_t i = 0; i < _buffer.size(); ++i)
+    {
+        _buffer[i]._normal = vector_normalize(_buffer[i]._normal);
+    }
+}
+
+
+
+template <class ItemBase>
+void NuoModelCommon<ItemBase>::AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer)
+{
+    size_t sourceOffset = sourceIndex * 3;
+    
+    ItemBase newItem;
+    
+    newItem._position.x = positionsBuffer[sourceOffset];
+    newItem._position.y = positionsBuffer[sourceOffset + 1];
+    newItem._position.z = positionsBuffer[sourceOffset + 2];
+    newItem._position.w = 1.0f;
+    
+    _buffer.push_back(newItem);
+}
+
+
+
+template <class ItemBase>
+void NuoModelCommon<ItemBase>::AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer)
+{
+    size_t sourceOffset = sourceIndex * 3;
+    size_t targetOffset = _buffer.size() - 1;
+    
+    _buffer[targetOffset]._normal.x = normalBuffer[sourceOffset];
+    _buffer[targetOffset]._normal.y = normalBuffer[sourceOffset + 1];
+    _buffer[targetOffset]._normal.z = normalBuffer[sourceOffset + 2];
+    _buffer[targetOffset]._normal.w = 0.0f;
+}
+
+
+
+template <class ItemBase>
+size_t NuoModelCommon<ItemBase>::GetVerticesNumber()
+{
+    return _buffer.size();
+}
+
+
+
+template <class ItemBase>
+vector_float4 NuoModelCommon<ItemBase>::GetPosition(size_t index)
+{
+    return _buffer[index]._position;
+}
+
+
+
+template <class ItemBase>
+void* NuoModelCommon<ItemBase>::Ptr()
+{
+    return (void*)_buffer.data();
+}
+
+
+template <class ItemBase>
+size_t NuoModelCommon<ItemBase>::Length()
+{
+    return _buffer.size() * sizeof(ItemBase);
+}
 
 
 
