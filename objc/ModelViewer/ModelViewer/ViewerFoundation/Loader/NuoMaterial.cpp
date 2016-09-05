@@ -47,18 +47,18 @@ bool NuoMaterial::operator < (const NuoMaterial& other) const
         return false;
     
     return
-        (ambient_texname < other.ambient_texname             &&
-         diffuse_texname < other.diffuse_texname             &&
-         specular_texname < other.specular_texname           &&
-         specular_highlight_texname < other.specular_texname &&
-         bump_texname < other.bump_texname                   &&
-         displacement_texname < other.displacement_texname   &&
-         alpha_texname < other.alpha_texname                 &&
+        (ambient_texname < other.ambient_texname             ||
+         diffuse_texname < other.diffuse_texname             ||
+         specular_texname < other.specular_texname           ||
+         specular_highlight_texname < other.specular_texname ||
+         bump_texname < other.bump_texname                   ||
+         displacement_texname < other.displacement_texname   ||
+         alpha_texname < other.alpha_texname                 ||
     
          // PBR extension
-         roughness_texname < other.roughness_texname         &&
-         metallic_texname < other.metallic_texname           &&
-         sheen_texname < other.sheen_texname                 &&
-         emissive_texname < other.emissive_texname           &&
+         roughness_texname < other.roughness_texname         ||
+         metallic_texname < other.metallic_texname           ||
+         sheen_texname < other.sheen_texname                 ||
+         emissive_texname < other.emissive_texname           ||
          normal_texname < other.normal_texname);
 }
