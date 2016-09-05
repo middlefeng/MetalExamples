@@ -87,4 +87,10 @@ NuoModelSimple::NuoModelSimple()
 
 
 
+void NuoModelSimple::AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer)
+{    
+}
+
+
+
 

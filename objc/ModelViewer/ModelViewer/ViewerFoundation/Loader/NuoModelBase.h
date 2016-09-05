@@ -49,6 +49,8 @@ protected:
 public:
     virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) = 0;
     virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) = 0;
+    virtual void AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer) = 0;
+    
     virtual void GenerateIndices() = 0;
     virtual void GenerateNormals() = 0;
     
@@ -73,6 +75,7 @@ protected:
 public:
     virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) override;
     virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) override;
+    
     virtual void GenerateIndices() override;
     virtual void GenerateNormals() override;
     
@@ -105,6 +108,7 @@ protected:
 public:
     NuoModelSimple();
     
+    virtual void AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer) override;
 };
 
 
