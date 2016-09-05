@@ -40,16 +40,6 @@
 
 
 
-@interface NuoMesh()
-
-@property (nonatomic, strong) id<MTLDevice> device;
-@property (nonatomic, strong) id<MTLRenderPipelineState> renderPipelineState;
-@property (nonatomic, strong) id<MTLDepthStencilState> depthStencilState;
-
-@end
-
-
-
 
 @implementation NuoMesh
 
@@ -127,3 +117,99 @@
 
 
 @end
+
+
+
+
+
+@implementation NuoMeshTextured
+
+
+
+- (instancetype)initWithDevice:(id<MTLDevice>)device
+               withTexutrePath:(NSString*)texPath
+            withVerticesBuffer:(void*)buffer withLength:(size_t)length
+                   withIndices:(void*)indices withLength:(size_t)indicesLength
+{
+    if ((self = [super initWithDevice:device withVerticesBuffer:buffer withLength:length
+                          withIndices:indices withLength:indicesLength]))
+    {
+        [self makePipelineState];
+    }
+    
+    return self;
+}
+
+
+
+- (void)makePipelineState
+{
+    id<MTLLibrary> library = [self.device newDefaultLibrary];
+    
+    MTLRenderPipelineDescriptor *pipelineDescriptor = [MTLRenderPipelineDescriptor new];
+    pipelineDescriptor.vertexFunction = [library newFunctionWithName:@"vertex_project_textured"];
+    pipelineDescriptor.fragmentFunction = [library newFunctionWithName:@"fragment_light_textured"];
+    pipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
+    pipelineDescriptor.depthAttachmentPixelFormat = MTLPixelFormatDepth32Float;
+    
+    MTLVertexDescriptor* vertexDescriptor = [MTLVertexDescriptor new];
+    vertexDescriptor.attributes[0].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[0].offset = 0;
+    vertexDescriptor.attributes[0].bufferIndex = 0;
+    vertexDescriptor.attributes[0].format = MTLVertexFormatFloat4;
+    vertexDescriptor.attributes[0].offset = 16;
+    vertexDescriptor.attributes[0].bufferIndex = 0;
+    vertexDescriptor.attributes[0].format = MTLVertexFormatFloat2;
+    vertexDescriptor.attributes[0].offset = 32;
+    vertexDescriptor.attributes[0].bufferIndex = 0;
+    vertexDescriptor.layouts[0].stride = 48;
+    vertexDescriptor.layouts[0].stepRate = 1;
+    vertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
+    
+    NSError *error = nil;
+    self.renderPipelineState = [self.device newRenderPipelineStateWithDescriptor:pipelineDescriptor
+                                                                           error:&error];
+    
+    MTLDepthStencilDescriptor *depthStencilDescriptor = [MTLDepthStencilDescriptor new];
+    depthStencilDescriptor.depthCompareFunction = MTLCompareFunctionLess;
+    depthStencilDescriptor.depthWriteEnabled = YES;
+    self.depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
+}
+
+
+
+@end
+
+
+
+
+NuoMesh* CreateMesh(NSString* type,
+                    id<MTLDevice> device,
+                    const std::shared_ptr<NuoModelBase> model)
+{
+    std::string typeStr(type.UTF8String);
+    
+    if (typeStr == kNuoModelType_Simple)
+    {
+        return [[NuoMesh alloc] initWithDevice:device
+                            withVerticesBuffer:model->Ptr()
+                                    withLength:model->Length()
+                                   withIndices:model->IndicesPtr()
+                                    withLength:model->IndicesLength()];
+    }
+    else if (typeStr == kNuoModelType_Textured)
+    {
+        NSString* modelTexturePath = [NSString stringWithUTF8String:model->GetTexturePath().c_str()];
+        
+        return [[NuoMeshTextured alloc] initWithDevice:device
+                                       withTexutrePath:modelTexturePath
+                                    withVerticesBuffer:model->Ptr()
+                                            withLength:model->Length()
+                                           withIndices:model->IndicesPtr()
+                                            withLength:model->IndicesLength()];
+    }
+    
+    return nil;
+}
+
+

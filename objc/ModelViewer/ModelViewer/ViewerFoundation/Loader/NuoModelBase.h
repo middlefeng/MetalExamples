@@ -17,6 +17,7 @@
 
 
 const extern std::string kNuoModelType_Simple;
+const extern std::string kNuoModelType_Textured;
 
 
 
@@ -50,6 +51,9 @@ public:
     virtual void AddPosition(size_t sourceIndex, const std::vector<float>& positionsBuffer) = 0;
     virtual void AddNormal(size_t sourceIndex, const std::vector<float>& normalBuffer) = 0;
     virtual void AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer) = 0;
+    
+    virtual void SetTexturePath(const std::string texPath) = 0;
+    virtual std::string GetTexturePath() = 0;
     
     virtual void GenerateIndices() = 0;
     virtual void GenerateNormals() = 0;
@@ -109,6 +113,9 @@ public:
     NuoModelSimple();
     
     virtual void AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer) override;
+    
+    virtual void SetTexturePath(const std::string texPath) override;
+    virtual std::string GetTexturePath() override;
 };
 
 

@@ -227,11 +227,7 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
         zMin = std::min(zMin, boundingBox._centerZ - zRadius);
         zMax = std::max(zMax, boundingBox._centerZ + zRadius);
         
-        NuoMesh* mesh = [[NuoMesh alloc] initWithDevice:device
-                                     withVerticesBuffer:model->Ptr()
-                                             withLength:model->Length()
-                                            withIndices:model->IndicesPtr()
-                                             withLength:model->IndicesLength()];
+        NuoMesh* mesh = CreateMesh(type, device, model);
         
         NuoMeshBox* meshBounding = [[NuoMeshBox alloc] init];
         meshBounding.spanX = boundingBox._spanX;

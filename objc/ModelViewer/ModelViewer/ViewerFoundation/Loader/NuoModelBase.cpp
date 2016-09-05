@@ -7,10 +7,12 @@
 //
 
 #include "NuoModelBase.h"
+#include "NuoModelTextured.h"
 
 
 
 const std::string kNuoModelType_Simple = "model_simple";
+const std::string kNuoModelType_Textured = "model_textured";
 
 
 
@@ -18,6 +20,8 @@ std::shared_ptr<NuoModelBase> CreateModel(std::string type)
 {
     if (type == kNuoModelType_Simple)
         return std::make_shared<NuoModelSimple>();
+    else if (type == kNuoModelType_Textured)
+        return std::make_shared<NuoModelTextured>();
     else
         return std::shared_ptr<NuoModelBase>();
 }
@@ -89,6 +93,19 @@ NuoModelSimple::NuoModelSimple()
 
 void NuoModelSimple::AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer)
 {    
+}
+
+
+
+void NuoModelSimple::SetTexturePath(const std::string texPath)
+{
+}
+
+
+
+std::string NuoModelSimple::GetTexturePath()
+{
+    return std::string();
 }
 
 
