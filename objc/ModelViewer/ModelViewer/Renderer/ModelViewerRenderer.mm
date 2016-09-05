@@ -23,6 +23,8 @@ static const NSInteger InFlightBufferCount = 3;
 @property (strong) dispatch_semaphore_t displaySemaphore;
 @property (assign) NSInteger bufferIndex;
 
+@property (strong) NSString* modelFilePath;
+
 @end
 
 @implementation ModelRenderer
@@ -40,11 +42,21 @@ static const NSInteger InFlightBufferCount = 3;
     return self;
 }
 
-- (void)loadMesh:(NSString*)path
+- (void)loadMesh:(NSString*)path withType:(NSString*)type
 {
     NuoModelLoader* loader = [NuoModelLoader new];
     _mesh = [loader loadModelObjects:path
-                            withType:[NSString stringWithUTF8String:kNuoModelType_Textured.c_str()]
+                            withType:type
+                          withDevice:_device];
+    
+    _modelFilePath = path;
+}
+
+- (void)setType:(NSString *)type
+{
+    NuoModelLoader* loader = [NuoModelLoader new];
+    _mesh = [loader loadModelObjects:_modelFilePath
+                            withType:type
                           withDevice:_device];
 }
 

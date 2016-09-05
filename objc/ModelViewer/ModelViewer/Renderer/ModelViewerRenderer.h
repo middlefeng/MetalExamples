@@ -10,6 +10,7 @@
 @property (nonatomic, assign) float zoom;
 
 
-- (void)loadMesh:(NSString*)path;
+- (void)loadMesh:(NSString*)path withType:(NSString*)type;
+- (void)setType:(NSString*)type;
 
 @end

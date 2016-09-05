@@ -16,11 +16,6 @@
 
 
 
-const extern std::string kNuoModelType_Simple;
-const extern std::string kNuoModelType_Textured;
-
-
-
 class NuoModelBase;
 
 

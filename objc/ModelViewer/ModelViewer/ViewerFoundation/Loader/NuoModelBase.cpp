@@ -8,11 +8,8 @@
 
 #include "NuoModelBase.h"
 #include "NuoModelTextured.h"
+#include "NuoTypes.h"
 
-
-
-const std::string kNuoModelType_Simple = "model_simple";
-const std::string kNuoModelType_Textured = "model_textured";
 
 
 

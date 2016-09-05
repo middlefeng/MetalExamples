@@ -4,6 +4,8 @@
 #include "tiny_obj_loader.h"
 
 #include "NuoModelBase.h"
+#include "NuoTypes.h"
+
 #import <Cocoa/Cocoa.h>
 #import <CoreImage/CoreImage.h>
 
