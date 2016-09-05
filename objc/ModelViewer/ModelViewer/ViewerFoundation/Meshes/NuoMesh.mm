@@ -143,6 +143,28 @@
 
 
 
+- (void)drawMesh:(id<MTLRenderCommandEncoder>) renderPass
+{
+    [renderPass setFrontFacingWinding:MTLWindingCounterClockwise];
+    [renderPass setCullMode:MTLCullModeBack];
+    
+    [renderPass setRenderPipelineState:self.renderPipelineState];
+    [renderPass setDepthStencilState:self.depthStencilState];
+    
+    [renderPass setVertexBuffer:self.vertexBuffer offset:0 atIndex:0];
+    [renderPass setFragmentTexture:self.diffuseTex atIndex:0];
+    [renderPass setFragmentSamplerState:self.samplerState atIndex:0];
+    
+    [renderPass drawIndexedPrimitives:MTLPrimitiveTypeTriangle
+                           indexCount:[self.indexBuffer length] / sizeof(uint32_t)
+                            indexType:MTLIndexTypeUInt32
+                          indexBuffer:self.indexBuffer
+                    indexBufferOffset:0];
+}
+
+
+
+
 - (void)makePipelineState:(NSString*)texPath
 {
     id<MTLLibrary> library = [self.device newDefaultLibrary];
@@ -179,6 +201,15 @@
     self.depthStencilState = [self.device newDepthStencilStateWithDescriptor:depthStencilDescriptor];
     
     _diffuseTex = [self texture2DWithImageNamed:texPath mipmapped:NO];
+    
+    // create sampler state
+    MTLSamplerDescriptor *samplerDesc = [MTLSamplerDescriptor new];
+    samplerDesc.sAddressMode = MTLSamplerAddressModeClampToEdge;
+    samplerDesc.tAddressMode = MTLSamplerAddressModeClampToEdge;
+    samplerDesc.minFilter = MTLSamplerMinMagFilterNearest;
+    samplerDesc.magFilter = MTLSamplerMinMagFilterLinear;
+    samplerDesc.mipFilter = MTLSamplerMipFilterLinear;
+    _samplerState = [self.device newSamplerStateWithDescriptor:samplerDesc];
 }
 
 

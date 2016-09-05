@@ -51,6 +51,8 @@
 
 
 @property (nonatomic, readonly) id<MTLTexture> diffuseTex;
+@property (nonatomic, readonly) id<MTLSamplerState> samplerState;
+
 
 - (instancetype)initWithDevice:(id<MTLDevice>)device
                withTexutrePath:(NSString*)texPath

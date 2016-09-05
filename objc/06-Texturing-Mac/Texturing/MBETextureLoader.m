@@ -52,7 +52,7 @@
 
 - (uint8_t *)dataForImage:(CIImage *)image
 {
-    CIContext* ciContext = [[CIContext alloc] initWithOptions:nil];
+    CIContext* ciContext = [CIContext contextWithOptions:nil];
     CGImageRef imageRef = [ciContext createCGImage:image fromRect:image.extent];
     
     // Create a suitable bitmap context for extracting the bits of the image

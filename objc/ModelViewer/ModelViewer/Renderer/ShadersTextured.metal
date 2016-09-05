@@ -52,6 +52,7 @@ struct ProjectedVertex
     float4 position [[position]];
     float3 eye;
     float3 normal;
+    float2 texCoord;
 };
 
 vertex ProjectedVertex vertex_project_textured(device Vertex *vertices [[buffer(0)]],
@@ -62,18 +63,22 @@ vertex ProjectedVertex vertex_project_textured(device Vertex *vertices [[buffer(
     outVert.position = uniforms.modelViewProjectionMatrix * vertices[vid].position;
     outVert.eye =  -(uniforms.modelViewMatrix * vertices[vid].position).xyz;
     outVert.normal = uniforms.normalMatrix * vertices[vid].normal.xyz;
+    outVert.texCoord = vertices[vid].texCoord;
 
     return outVert;
 }
 
 fragment float4 fragment_light_textured(ProjectedVertex vert [[stage_in]],
-                                        constant Uniforms &uniforms [[buffer(0)]])
+                                        texture2d<float> diffuseTexture [[texture(0)]],
+                                        sampler samplr [[sampler(0)]])
 {
+    float3 diffuseColor = diffuseTexture.sample(samplr, vert.texCoord).rgb;
+    
     float3 ambientTerm = light.ambientColor * material.ambientColor;
     
     float3 normal = normalize(vert.normal);
     float diffuseIntensity = saturate(dot(normal, light.direction));
-    float3 diffuseTerm = light.diffuseColor * material.diffuseColor * diffuseIntensity;
+    float3 diffuseTerm = light.diffuseColor * diffuseColor * diffuseIntensity;
     
     float3 specularTerm(0);
     if (diffuseIntensity > 0)
