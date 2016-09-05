@@ -66,8 +66,8 @@ vertex ProjectedVertex vertex_project_textured(device Vertex *vertices [[buffer(
     return outVert;
 }
 
-fragment float4 fragment_light_texutre(ProjectedVertex vert [[stage_in]],
-                                       constant Uniforms &uniforms [[buffer(0)]])
+fragment float4 fragment_light_textured(ProjectedVertex vert [[stage_in]],
+                                        constant Uniforms &uniforms [[buffer(0)]])
 {
     float3 ambientTerm = light.ambientColor * material.ambientColor;
     

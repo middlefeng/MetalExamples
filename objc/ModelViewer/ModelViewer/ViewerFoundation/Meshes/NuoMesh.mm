@@ -166,6 +166,8 @@
     vertexDescriptor.layouts[0].stepRate = 1;
     vertexDescriptor.layouts[0].stepFunction = MTLVertexStepFunctionPerVertex;
     
+    pipelineDescriptor.vertexDescriptor = vertexDescriptor;
+    
     NSError *error = nil;
     self.renderPipelineState = [self.device newRenderPipelineStateWithDescriptor:pipelineDescriptor
                                                                            error:&error];

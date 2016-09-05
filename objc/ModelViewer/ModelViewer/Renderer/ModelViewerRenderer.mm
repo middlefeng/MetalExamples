@@ -44,7 +44,7 @@ static const NSInteger InFlightBufferCount = 3;
 {
     NuoModelLoader* loader = [NuoModelLoader new];
     _mesh = [loader loadModelObjects:path
-                            withType:[NSString stringWithUTF8String:kNuoModelType_Simple.c_str()]
+                            withType:[NSString stringWithUTF8String:kNuoModelType_Textured.c_str()]
                           withDevice:_device];
 }
 
