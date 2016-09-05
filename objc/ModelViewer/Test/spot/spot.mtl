@@ -1,0 +1,5 @@
+# Blender MTL File: 'Handgun_Game_Blender Gamer Engine.blend'
+# Material Count: 2
+
+newmtl default
+map_Kd spot_texture.png
