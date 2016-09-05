@@ -1,4 +1,7 @@
+
 #import <Metal/Metal.h>
+
+#include <memory>
 
 
 
@@ -20,6 +23,10 @@
 
 @interface NuoMesh : NSObject
 
+@property (nonatomic, strong) id<MTLDevice> device;
+@property (nonatomic, strong) id<MTLRenderPipelineState> renderPipelineState;
+@property (nonatomic, strong) id<MTLDepthStencilState> depthStencilState;
+
 
 @property (nonatomic, readonly) id<MTLBuffer> vertexBuffer;
 @property (nonatomic, readonly) id<MTLBuffer> indexBuffer;
@@ -36,3 +43,32 @@
 
 
 @end
+
+
+
+
+@interface NuoMeshTextured : NuoMesh
+
+
+@property (nonatomic, readonly) id<MTLTexture> diffuseTex;
+@property (nonatomic, readonly) id<MTLSamplerState> samplerState;
+
+
+- (instancetype)initWithDevice:(id<MTLDevice>)device
+               withTexutrePath:(NSString*)texPath
+            withVerticesBuffer:(void*)buffer withLength:(size_t)length
+                   withIndices:(void*)indices withLength:(size_t)indicesLength;
+
+
+@end
+
+
+
+
+class NuoModelBase;
+
+NuoMesh* CreateMesh(NSString* type,
+                    id<MTLDevice> device,
+                    const std::shared_ptr<NuoModelBase> model);
+
+

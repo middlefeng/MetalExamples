@@ -174,7 +174,10 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
     std::vector<tinyobj::material_t> materials;
     std::string err;
     
-    tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String);
+    NSString* basePath = [objPath stringByDeletingLastPathComponent];
+    basePath = [basePath stringByAppendingString:@"/"];
+    
+    tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String, basePath.UTF8String);
     
     PShapeVector shapeVector = GetShapeVector(shapes, materials);
     
@@ -192,18 +195,27 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
             modelBase->AddPosition(index.vertex_index, attrib.vertices);
             if (attrib.normals.size())
                 modelBase->AddNormal(index.normal_index, attrib.normals);
+            if (attrib.texcoords.size())
+                modelBase->AddTexCoord(index.texcoord_index, attrib.texcoords);
         }
         
         modelBase->GenerateIndices();
         if (!attrib.normals.size())
             modelBase->GenerateNormals();
         
+        int materialID = shape.mesh.material_ids[0];
+        if (materialID >= 0)
+        {
+            tinyobj::material_t& material = materials[materialID];
+            
+            NSString* diffuseTexName = [NSString stringWithUTF8String:material.diffuse_texname.c_str()];
+            NSString* diffuseTexPath = [basePath stringByAppendingPathComponent:diffuseTexName];
+            
+            modelBase->SetTexturePath(diffuseTexPath.UTF8String);
+        }
+        
         models.push_back(modelBase);
     }
-    
-    float xMin = 1e9f, xMax = -1e9f;
-    float yMin = 1e9f, yMax = -1e9f;
-    float zMin = 1e9f, zMax = -1e9f;
     
     NSMutableArray<NuoMesh*>* result = [[NSMutableArray<NuoMesh*> alloc] init];
     
@@ -211,22 +223,7 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
     {
         NuoBox boundingBox = model->GetBoundingBox();
         
-        float xRadius = boundingBox._spanX / 2.0f;
-        float yRadius = boundingBox._spanY / 2.0f;
-        float zRadius = boundingBox._spanZ / 2.0f;
-        
-        xMin = std::min(xMin, boundingBox._centerX - xRadius);
-        xMax = std::max(xMax, boundingBox._centerX + xRadius);
-        yMin = std::min(yMin, boundingBox._centerY - yRadius);
-        yMax = std::max(yMax, boundingBox._centerY + yRadius);
-        zMin = std::min(zMin, boundingBox._centerZ - zRadius);
-        zMax = std::max(zMax, boundingBox._centerZ + zRadius);
-        
-        NuoMesh* mesh = [[NuoMesh alloc] initWithDevice:device
-                                     withVerticesBuffer:model->Ptr()
-                                             withLength:model->Length()
-                                            withIndices:model->IndicesPtr()
-                                             withLength:model->IndicesLength()];
+        NuoMesh* mesh = CreateMesh(type, device, model);
         
         NuoMeshBox* meshBounding = [[NuoMeshBox alloc] init];
         meshBounding.spanX = boundingBox._spanX;

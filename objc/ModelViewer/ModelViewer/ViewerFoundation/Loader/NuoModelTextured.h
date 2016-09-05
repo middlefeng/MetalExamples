@@ -27,10 +27,55 @@ struct NuoItemTextured
 
 
 template <class ItemBase>
-class NuoModelTexture : public NuoModelCommon<NuoItemTextured>
+class NuoModelTextureBase : public NuoModelCommon<ItemBase>
 {
+protected:
+    std::string _texPath;
+    
 public:
+    
+    void AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer) override;
+    
+    virtual void SetTexturePath(const std::string texPath) override;
+    virtual std::string GetTexturePath() override;
+    
 };
+
+
+
+
+class NuoModelTextured : public NuoModelTextureBase<NuoItemTextured>
+{
+};
+
+
+
+template <class ItemBase>
+void NuoModelTextureBase<ItemBase>::AddTexCoord(size_t sourceIndex, const std::vector<float>& texCoordBuffer)
+{
+    size_t sourceOffset = sourceIndex * 2;
+    size_t targetOffset = NuoModelCommon<ItemBase>::_buffer.size() - 1;
+    
+    NuoModelCommon<ItemBase>::_buffer[targetOffset]._texCoord.x = texCoordBuffer[sourceOffset];
+    NuoModelCommon<ItemBase>::_buffer[targetOffset]._texCoord.y = texCoordBuffer[sourceOffset + 1];
+}
+
+
+template <class ItemBase>
+void NuoModelTextureBase<ItemBase>::SetTexturePath(const std::string texPath)
+{
+    _texPath = texPath;
+}
+
+
+
+template <class ItemBase>
+std::string NuoModelTextureBase<ItemBase>::GetTexturePath()
+{
+    return _texPath;
+}
+
+
 
 
 
