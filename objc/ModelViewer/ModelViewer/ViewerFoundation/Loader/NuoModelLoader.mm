@@ -217,26 +217,11 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
         models.push_back(modelBase);
     }
     
-    float xMin = 1e9f, xMax = -1e9f;
-    float yMin = 1e9f, yMax = -1e9f;
-    float zMin = 1e9f, zMax = -1e9f;
-    
     NSMutableArray<NuoMesh*>* result = [[NSMutableArray<NuoMesh*> alloc] init];
     
     for (auto& model : models)
     {
         NuoBox boundingBox = model->GetBoundingBox();
-        
-        float xRadius = boundingBox._spanX / 2.0f;
-        float yRadius = boundingBox._spanY / 2.0f;
-        float zRadius = boundingBox._spanZ / 2.0f;
-        
-        xMin = std::min(xMin, boundingBox._centerX - xRadius);
-        xMax = std::max(xMax, boundingBox._centerX + xRadius);
-        yMin = std::min(yMin, boundingBox._centerY - yRadius);
-        yMax = std::max(yMax, boundingBox._centerY + yRadius);
-        zMin = std::min(zMin, boundingBox._centerZ - zRadius);
-        zMax = std::max(zMax, boundingBox._centerZ + zRadius);
         
         NuoMesh* mesh = CreateMesh(type, device, model);
         
