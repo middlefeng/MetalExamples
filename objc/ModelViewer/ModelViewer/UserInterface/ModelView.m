@@ -73,8 +73,8 @@
 {
     ModelRenderer* renderer = (ModelRenderer*)_render;
     
-    renderer.rotationX -= 0.01 * M_PI * theEvent.deltaY;
-    renderer.rotationY -= 0.01 * M_PI * theEvent.deltaX;
+    renderer.rotationXDelta = -0.01 * M_PI * theEvent.deltaY;
+    renderer.rotationYDelta = -0.01 * M_PI * theEvent.deltaX;
     [self render];
 }
 

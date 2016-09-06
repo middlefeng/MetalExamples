@@ -5,9 +5,12 @@
 @interface ModelRenderer : NSObject <NuoMetalViewDelegate>
 
 
-@property (nonatomic, assign) float rotationX;
-@property (nonatomic, assign) float rotationY;
 @property (nonatomic, assign) float zoom;
+
+
+@property (nonatomic, assign) float rotationXDelta;
+@property (nonatomic, assign) float rotationYDelta;
+
 
 
 - (void)loadMesh:(NSString*)path withType:(NSString*)type;

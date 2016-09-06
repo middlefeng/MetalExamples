@@ -25,6 +25,8 @@ static const NSInteger InFlightBufferCount = 3;
 
 @property (strong) NSString* modelFilePath;
 
+@property (nonatomic, assign) matrix_float4x4 rotationMatrix;
+
 @end
 
 @implementation ModelRenderer
@@ -37,6 +39,8 @@ static const NSInteger InFlightBufferCount = 3;
         _displaySemaphore = dispatch_semaphore_create(InFlightBufferCount);
         _commandQueue = [self.device newCommandQueue];
         [self makeResources];
+        
+        _rotationMatrix = matrix_identity_float4x4;
     }
 
     return self;
@@ -79,14 +83,20 @@ static const NSInteger InFlightBufferCount = 3;
 {
     ModelView* view = (ModelView*)viewBase;
     
-    float scaleFactor = 1;
-    const vector_float3 xAxis = { 1, 0, 0 };
-    const vector_float3 yAxis = { 0, 1, 0 };
-    const matrix_float4x4 xRot = matrix_float4x4_rotation(xAxis, self.rotationX);
-    const matrix_float4x4 yRot = matrix_float4x4_rotation(yAxis, self.rotationY);
-    const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
-    const matrix_float4x4 rotationMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
-
+    {
+        float scaleFactor = 1;
+        const vector_float3 xAxis = { 1, 0, 0 };
+        const vector_float3 yAxis = { 0, 1, 0 };
+        const matrix_float4x4 xRot = matrix_float4x4_rotation(xAxis, self.rotationXDelta);
+        const matrix_float4x4 yRot = matrix_float4x4_rotation(yAxis, self.rotationYDelta);
+        const matrix_float4x4 scale = matrix_float4x4_uniform_scale(scaleFactor);
+        const matrix_float4x4 rotationMatrix = matrix_multiply(matrix_multiply(xRot, yRot), scale);
+        self.rotationMatrix = matrix_multiply(rotationMatrix, self.rotationMatrix);
+    }
+    
+    _rotationXDelta = 0;
+    _rotationYDelta = 0;
+    
     NuoMeshBox* bounding = _mesh[0].boundingBox;
     for (size_t i = 1; i < _mesh.count; ++i)
         bounding = [bounding unionWith:_mesh[i].boundingBox];
@@ -98,7 +108,7 @@ static const NSInteger InFlightBufferCount = 3;
         - bounding.centerZ
     };
     const matrix_float4x4 modelCenteringMatrix = matrix_float4x4_translation(translationToCenter);
-    const matrix_float4x4 modelMatrix = matrix_multiply(rotationMatrix, modelCenteringMatrix);
+    const matrix_float4x4 modelMatrix = matrix_multiply(self.rotationMatrix, modelCenteringMatrix);
     
     float modelSpan = std::max(bounding.spanZ, bounding.spanX);
     modelSpan = std::max(bounding.spanY, modelSpan);
