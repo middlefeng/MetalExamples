@@ -120,7 +120,7 @@
                 if (result == NSFileHandlingPanelOKButton)
                 {
                     NSString* path = openPanel.URL.path;
-                    [_render loadMesh:path withType:[NSString stringWithUTF8String:kNuoModelType_Textured]];
+                    [_render loadMesh:path withType:[NSString stringWithUTF8String:kNuoModelType_Simple]];
                     [self render];
                 }
             }];

@@ -50,27 +50,27 @@ static void DoSplitShapes(const PShapeVector result, const tinyobj::shape_t shap
             std::vector<tinyobj::index_t>& remainIndices = remainShape.mesh.indices;
             addedIndices.insert(addedIndices.begin(),
                                 mesh.indices.begin(),
-                                mesh.indices.begin() + i * numPerFace1);
+                                mesh.indices.begin() + (i + 1) * numPerFace1);
             remainIndices.insert(remainIndices.begin(),
-                                 mesh.indices.begin() + i * numPerFace1,
+                                 mesh.indices.begin() + (i + 1) * numPerFace1,
                                  mesh.indices.end());
             
             std::vector<unsigned char>& addedNumberPerFace = splitShape.mesh.num_face_vertices;
             std::vector<unsigned char>& remainNumberPerFace = remainShape.mesh.num_face_vertices;
             addedNumberPerFace.insert(addedNumberPerFace.begin(),
                                       mesh.num_face_vertices.begin(),
-                                      mesh.num_face_vertices.begin() + i);
+                                      mesh.num_face_vertices.begin() + i + 1);
             remainNumberPerFace.insert(remainNumberPerFace.begin(),
-                                       mesh.num_face_vertices.begin() + i,
+                                       mesh.num_face_vertices.begin() + i + 1,
                                        mesh.num_face_vertices.end());
             
             std::vector<int>& addedMaterial = splitShape.mesh.material_ids;
             std::vector<int>& remainMaterial = remainShape.mesh.material_ids;
             addedMaterial.insert(addedMaterial.begin(),
                                  mesh.material_ids.begin(),
-                                 mesh.material_ids.begin() + i);
+                                 mesh.material_ids.begin() + i + 1);
             remainMaterial.insert(remainMaterial.begin(),
-                                  mesh.material_ids.begin() + i,
+                                  mesh.material_ids.begin() + i + 1,
                                   mesh.material_ids.end());
             
             result->push_back(splitShape);
