@@ -62,3 +62,12 @@ bool NuoMaterial::operator < (const NuoMaterial& other) const
          emissive_texname < other.emissive_texname           ||
          normal_texname < other.normal_texname);
 }
+
+
+bool NuoMaterial::HasDiffuseTexture() const
+{
+    return !diffuse_texname.empty();
+}
+
+
+

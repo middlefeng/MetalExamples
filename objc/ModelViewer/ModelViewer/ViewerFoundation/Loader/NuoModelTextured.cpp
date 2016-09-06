@@ -7,6 +7,7 @@
 //
 
 #include "NuoModelTextured.h"
+#include "NuoTypes.h"
 
 
 
@@ -30,3 +31,9 @@ bool NuoItemTextured::operator == (const NuoItemTextured& i2)
         (_texCoord.y == i2._texCoord.y);
 }
 
+
+
+std::string NuoModelTextured::TypeName()
+{
+    return kNuoModelType_Textured;
+}

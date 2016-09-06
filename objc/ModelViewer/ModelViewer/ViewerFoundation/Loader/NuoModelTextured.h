@@ -46,6 +46,8 @@ public:
 
 class NuoModelTextured : public NuoModelTextureBase<NuoItemTextured>
 {
+public:
+    virtual std::string TypeName() override;
 };
 
 

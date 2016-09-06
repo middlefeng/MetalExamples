@@ -9,12 +9,16 @@
 #include "NuoModelBase.h"
 #include "NuoModelTextured.h"
 #include "NuoTypes.h"
+#include "NuoMaterial.h"
 
 
 
 
-std::shared_ptr<NuoModelBase> CreateModel(std::string type)
+std::shared_ptr<NuoModelBase> CreateModel(std::string type, const NuoMaterial& material)
 {
+    if (!material.HasDiffuseTexture())
+        type = kNuoModelType_Simple;
+    
     if (type == kNuoModelType_Simple)
         return std::make_shared<NuoModelSimple>();
     else if (type == kNuoModelType_Textured)
@@ -103,6 +107,13 @@ void NuoModelSimple::SetTexturePath(const std::string texPath)
 std::string NuoModelSimple::GetTexturePath()
 {
     return std::string();
+}
+
+
+
+std::string NuoModelSimple::TypeName()
+{
+    return kNuoModelType_Simple;
 }
 
 

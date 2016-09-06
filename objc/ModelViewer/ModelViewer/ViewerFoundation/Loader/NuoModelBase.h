@@ -17,6 +17,7 @@
 
 
 class NuoModelBase;
+class NuoMaterial;
 
 
 class NuoBox
@@ -33,7 +34,7 @@ public:
 
 
 
-std::shared_ptr<NuoModelBase> CreateModel(std::string type);
+std::shared_ptr<NuoModelBase> CreateModel(std::string type, const NuoMaterial& material);
 
 
 
@@ -61,6 +62,8 @@ public:
     virtual size_t Length() = 0;
     virtual void* IndicesPtr();
     virtual size_t IndicesLength();
+    
+    virtual std::string TypeName() = 0;
 };
 
 
@@ -111,6 +114,8 @@ public:
     
     virtual void SetTexturePath(const std::string texPath) override;
     virtual std::string GetTexturePath() override;
+    
+    virtual std::string TypeName() override;
 };
 
 

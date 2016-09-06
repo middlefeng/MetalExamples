@@ -193,8 +193,10 @@ static PShapeMapByMaterial GetShapeVectorByMaterial(ShapeVector& shapes, std::ve
     
     for (const auto& shapeItr : (*shapeMap))
     {
-        PNuoModelBase modelBase = CreateModel(type.UTF8String);
+        const NuoMaterial material(shapeItr.first);
         const tinyobj::shape_t& shape = shapeItr.second;
+        
+        PNuoModelBase modelBase = CreateModel(type.UTF8String, material);
         
         for (size_t i = 0; i < shape.mesh.indices.size(); ++i)
         {
@@ -203,7 +205,7 @@ static PShapeMapByMaterial GetShapeVectorByMaterial(ShapeVector& shapes, std::ve
             modelBase->AddPosition(index.vertex_index, attrib.vertices);
             if (attrib.normals.size())
                 modelBase->AddNormal(index.normal_index, attrib.normals);
-            if (attrib.texcoords.size())
+            if (material.HasDiffuseTexture())
                 modelBase->AddTexCoord(index.texcoord_index, attrib.texcoords);
         }
         
@@ -211,11 +213,8 @@ static PShapeMapByMaterial GetShapeVectorByMaterial(ShapeVector& shapes, std::ve
         if (!attrib.normals.size())
             modelBase->GenerateNormals();
         
-        int materialID = shape.mesh.material_ids[0];
-        if (materialID >= 0)
+        if (material.HasDiffuseTexture())
         {
-            tinyobj::material_t& material = materials[materialID];
-            
             NSString* diffuseTexName = [NSString stringWithUTF8String:material.diffuse_texname.c_str()];
             NSString* diffuseTexPath = [basePath stringByAppendingPathComponent:diffuseTexName];
             
@@ -231,7 +230,8 @@ static PShapeMapByMaterial GetShapeVectorByMaterial(ShapeVector& shapes, std::ve
     {
         NuoBox boundingBox = model->GetBoundingBox();
         
-        NuoMesh* mesh = CreateMesh(type, device, model);
+        NSString* modelType = [NSString stringWithUTF8String:model->TypeName().c_str()];
+        NuoMesh* mesh = CreateMesh(modelType, device, model);
         
         NuoMeshBox* meshBounding = [[NuoMeshBox alloc] init];
         meshBounding.spanX = boundingBox._spanX;

@@ -15,7 +15,7 @@
 
 class NuoMaterial
 {
-private:
+public:
     int id;
     
     std::string ambient_texname;             // map_Ka
@@ -46,7 +46,10 @@ public:
     NuoMaterial(const tinyobj::material_t& material);
     
     bool operator < (const NuoMaterial& other) const;
+    
+    bool HasDiffuseTexture() const;
 };
+
 
 
 #endif /* NuoMaterial_hpp */
