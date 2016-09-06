@@ -25,6 +25,9 @@ static const NSInteger InFlightBufferCount = 3;
 
 @property (strong) NSString* modelFilePath;
 
+@property (nonatomic, assign) float rotationX;
+@property (nonatomic, assign) float rotationY;
+
 @end
 
 @implementation ModelRenderer
@@ -78,6 +81,12 @@ static const NSInteger InFlightBufferCount = 3;
 - (void)updateUniformsForView:(NuoMetalView *)viewBase
 {
     ModelView* view = (ModelView*)viewBase;
+    
+    self.rotationX += self.rotationXDelta;
+    self.rotationY += self.rotationYDelta;
+    
+    _rotationXDelta = 0;
+    _rotationYDelta = 0;
     
     float scaleFactor = 1;
     const vector_float3 xAxis = { 1, 0, 0 };
