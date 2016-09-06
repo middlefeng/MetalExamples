@@ -18,6 +18,8 @@
 
 typedef std::vector<tinyobj::shape_t> ShapeVector;
 typedef std::shared_ptr<ShapeVector> PShapeVector;
+typedef std::map<NuoMaterial, tinyobj::shape_t> ShapeMapByMaterial;
+typedef std::shared_ptr<ShapeMapByMaterial> PShapeMapByMaterial;
 
 
 
@@ -27,7 +29,6 @@ static void DoSplitShapes(const PShapeVector result, const tinyobj::shape_t shap
     tinyobj::mesh_t mesh = shape.mesh;
     
     assert(mesh.num_face_vertices.size() == mesh.material_ids.size());
-    
     
     size_t faceAccount = mesh.num_face_vertices.size();
     size_t i = 0;
@@ -109,7 +110,7 @@ static tinyobj::shape_t DoMergeShapes(std::vector<tinyobj::shape_t> shapes)
 
 
 
-static void DoMergeShapesInVector(const PShapeVector result, std::vector<tinyobj::material_t>& materials)
+static PShapeMapByMaterial DoMergeShapesInVector(const PShapeVector result, std::vector<tinyobj::material_t>& materials)
 {
     typedef std::map<NuoMaterial, std::vector<tinyobj::shape_t>> ShapeMap;
     ShapeMap shapesMap;
@@ -135,25 +136,31 @@ static void DoMergeShapesInVector(const PShapeVector result, std::vector<tinyobj
     
     result->clear();
     
+    PShapeMapByMaterial shapeMapByMaterial = std::make_shared<ShapeMapByMaterial>();
+    
     for (auto itr = shapesMap.begin(); itr != shapesMap.end(); ++itr)
     {
+        const NuoMaterial& material = itr->first;
         std::vector<tinyobj::shape_t>& shapes = itr->second;
-        result->push_back(DoMergeShapes(shapes));
+        shapeMapByMaterial->insert(std::make_pair(material, DoMergeShapes(shapes)));
     }
+    
+    return shapeMapByMaterial;
 }
 
 
 
 
-static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::material_t> &materials)
+static PShapeMapByMaterial GetShapeVectorByMaterial(ShapeVector& shapes, std::vector<tinyobj::material_t> &materials)
 {
     PShapeVector result = std::make_shared<ShapeVector>();
     for (const auto& shape : shapes)
         DoSplitShapes(result, shape);
     
-    DoMergeShapesInVector(result, materials);
+    PShapeMapByMaterial shapeMap;
+    shapeMap = DoMergeShapesInVector(result, materials);
     
-    return result;
+    return shapeMap;
 }
 
 
@@ -179,14 +186,15 @@ static PShapeVector GetShapeVector(ShapeVector& shapes, std::vector<tinyobj::mat
     
     tinyobj::LoadObj(&attrib, &shapes, &materials, &err, objPath.UTF8String, basePath.UTF8String);
     
-    PShapeVector shapeVector = GetShapeVector(shapes, materials);
+    PShapeMapByMaterial shapeMap = GetShapeVectorByMaterial(shapes, materials);
     
     std::vector<PNuoModelBase> models;
     std::vector<uint32> indices;
     
-    for (const auto& shape : (*shapeVector))
+    for (const auto& shapeItr : (*shapeMap))
     {
         PNuoModelBase modelBase = CreateModel(type.UTF8String);
+        const tinyobj::shape_t& shape = shapeItr.second;
         
         for (size_t i = 0; i < shape.mesh.indices.size(); ++i)
         {
