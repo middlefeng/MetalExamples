@@ -206,8 +206,8 @@
     
     // create sampler state
     MTLSamplerDescriptor *samplerDesc = [MTLSamplerDescriptor new];
-    samplerDesc.sAddressMode = MTLSamplerAddressModeClampToEdge;
-    samplerDesc.tAddressMode = MTLSamplerAddressModeClampToEdge;
+    samplerDesc.sAddressMode = MTLSamplerAddressModeRepeat;
+    samplerDesc.tAddressMode = MTLSamplerAddressModeRepeat;
     samplerDesc.minFilter = MTLSamplerMinMagFilterNearest;
     samplerDesc.magFilter = MTLSamplerMinMagFilterLinear;
     samplerDesc.mipFilter = MTLSamplerMipFilterLinear;
